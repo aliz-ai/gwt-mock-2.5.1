@@ -272,12 +272,12 @@ public final class GWT {
    * Called via reflection in Development Mode; do not ever call this method in
    * Production Mode.
    */
-  static void setBridge(GWTBridge bridge) {
-    com.google.gwt.core.shared.GWT.setBridge(bridge);
-    if (bridge != null) {
-      setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler());
-    }
-  }
+//  static void setBridge(GWTBridge bridge) {
+//    com.google.gwt.core.shared.GWT.setBridge(bridge);
+//    if (bridge != null) {
+//      setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler());
+//    }
+//  }
 
   private static native String getVersion0() /*-{
     return $gwt_version;

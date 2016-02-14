@@ -17,5 +17,5 @@
 /**
  * DOM classes for HTML Audio and Video support.
  */
-@com.google.gwt.util.PreventSpuriousRebuilds
+ 
 package com.google.gwt.media.dom.client;

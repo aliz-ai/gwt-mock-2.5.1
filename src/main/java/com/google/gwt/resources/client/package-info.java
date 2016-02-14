@@ -22,5 +22,5 @@
  * decreases the number of requests sent to the server, improving application
  * performance and load time.    
  */
-@com.google.gwt.util.PreventSpuriousRebuilds
+ 
 package com.google.gwt.resources.client;

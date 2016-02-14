@@ -15,22 +15,19 @@
  */
 package com.google.gwt.resources.client;
 
-import com.google.gwt.resources.ext.ResourceGeneratorType;
-import com.google.gwt.resources.rg.DataResourceGenerator;
-import com.google.gwt.safehtml.shared.SafeUri;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.google.gwt.safehtml.shared.SafeUri;
+
 /**
  * A non-text resource. Use {@link MimeType} to provide MIME Types for embedded
  * resources which may not be determined automatically at compile time. Use
  * {@link DoNotEmbed} to prevent a resource from being embedded.
  */
-@ResourceGeneratorType(DataResourceGenerator.class)
 public interface DataResource extends ResourcePrototype {
   /**
    * Specifies that the resource or resources associated with the

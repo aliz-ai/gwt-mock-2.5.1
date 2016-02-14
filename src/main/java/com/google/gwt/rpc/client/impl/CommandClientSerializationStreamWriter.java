@@ -15,7 +15,10 @@
  */
 package com.google.gwt.rpc.client.impl;
 
-import com.google.gwt.core.client.UnsafeNativeLong;
+import java.io.Serializable;
+import java.util.IdentityHashMap;
+import java.util.Map;
+
 import com.google.gwt.rpc.client.ast.ArrayValueCommand;
 import com.google.gwt.rpc.client.ast.BooleanValueCommand;
 import com.google.gwt.rpc.client.ast.CharValueCommand;
@@ -33,10 +36,6 @@ import com.google.gwt.rpc.client.ast.ValueCommand;
 import com.google.gwt.rpc.client.impl.TypeOverrides.SerializeFunction;
 import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.client.rpc.SerializationException;
-
-import java.io.Serializable;
-import java.util.IdentityHashMap;
-import java.util.Map;
 
 /**
  * Provides a facade around serialization logic in client code.
@@ -189,7 +188,6 @@ public class CommandClientSerializationStreamWriter extends
     return x;
   }
 
-  @UnsafeNativeLong
   private native ValueCommand makeValue(Object value) /*-{
     var type;
     if (value) {

@@ -17,5 +17,5 @@
 /**
  * Classes for parsing and rendering text and safe HTML.
  */
-@com.google.gwt.util.PreventSpuriousRebuilds
+ 
 package com.google.gwt.text.shared;

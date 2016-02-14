@@ -17,5 +17,5 @@
 /**
  * Classes used to implement RPC.
  */
-@com.google.gwt.util.PreventSpuriousRebuilds
+ 
 package com.google.gwt.rpc.linker;

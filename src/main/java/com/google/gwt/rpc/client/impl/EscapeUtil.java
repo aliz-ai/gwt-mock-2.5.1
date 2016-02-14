@@ -16,7 +16,6 @@
 package com.google.gwt.rpc.client.impl;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.impl.ClientSerializationStreamWriter;
 import com.google.gwt.user.server.rpc.impl.ServerSerializationStreamWriter;
 
 /**
@@ -25,7 +24,8 @@ import com.google.gwt.user.server.rpc.impl.ServerSerializationStreamWriter;
 public class EscapeUtil {
   public static String escape(String payload) {
     if (GWT.isClient()) {
-      return ClientSerializationStreamWriter.quoteString(payload);
+//      return ClientSerializationStreamWriter.quoteString(payload);
+    	return payload;
     } else {
       String quoted = ServerSerializationStreamWriter.escapeString(payload);
       return quoted.substring(1, quoted.length() - 1);

@@ -76,7 +76,7 @@ public final class SafeHtmlUtils {
    *           {@code html} violates the second constraint
    */
   public static SafeHtml fromSafeConstant(String s) {
-    SafeHtmlHostedModeUtils.maybeCheckCompleteHtml(s);
+//    SafeHtmlHostedModeUtils.maybeCheckCompleteHtml(s);
     return new SafeHtmlString(s);
   }
 

@@ -15,16 +15,16 @@
  */
 package com.google.gwt.user.client.rpc.impl;
 
-import com.google.gwt.core.shared.GWT;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayString;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.client.rpc.SerializationStreamReader;
 import com.google.gwt.user.client.rpc.SerializationStreamWriter;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Maps class literals to type signatures and type signatures to serialization
@@ -157,9 +157,9 @@ public abstract class SerializerBase implements Serializer {
     
     if (typeHandler == null) {
       try {
-        Class<?> klass = ReflectionHelper.loadClass(typeHandlerClass);
-        typeHandler = (TypeHandler) ReflectionHelper.newInstance(klass);
-        handlerCache.put(typeHandlerClass, typeHandler);
+//        Class<?> klass = ReflectionHelper.loadClass(typeHandlerClass);
+//        typeHandler = (TypeHandler) ReflectionHelper.newInstance(klass);
+//        handlerCache.put(typeHandlerClass, typeHandler);
       } catch (Exception e) {
         throw new SerializationException(e);
       }

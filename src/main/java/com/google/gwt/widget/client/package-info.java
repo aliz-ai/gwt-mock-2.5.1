@@ -17,6 +17,6 @@
 /**
  * Modern widgets, usually backed by Cells.
  */
-@com.google.gwt.util.PreventSpuriousRebuilds
+ 
 package com.google.gwt.widget.client;
 

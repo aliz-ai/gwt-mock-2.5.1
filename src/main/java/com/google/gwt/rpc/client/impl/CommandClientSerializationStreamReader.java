@@ -18,7 +18,6 @@ package com.google.gwt.rpc.client.impl;
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
-import com.google.gwt.core.client.UnsafeNativeLong;
 import com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException;
 import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.client.rpc.SerializationStreamReader;
@@ -63,7 +62,6 @@ public class CommandClientSerializationStreamReader implements
     return obj[idx];
   }-*/;
 
-  @UnsafeNativeLong
   private static native long readLong0(JavaScriptObject obj, int idx) /*-{
     return obj[idx];
   }-*/;

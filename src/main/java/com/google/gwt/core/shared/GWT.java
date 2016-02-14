@@ -26,7 +26,7 @@ public final class GWT {
    * Always <code>null</code> in Production Mode; in Development Mode provides
    * the implementation for certain methods.
    */
-  private static GWTBridge sGWTBridge = null;
+//  private static GWTBridge sGWTBridge = null;
 
   /**
    * Instantiates a class via deferred binding.
@@ -43,19 +43,20 @@ public final class GWT {
    * @return the new instance, which must be cast to the requested class
    */
   public static <T> T create(Class<?> classLiteral) {
-    if (sGWTBridge == null) {
-      /*
-       * In Production Mode, the compiler directly replaces calls to this method
-       * with a new Object() type expression of the correct rebound type.
-       */
-      throw new UnsupportedOperationException(
-          "ERROR: GWT.create() is only usable in client code!  It cannot be called, "
-              + "for example, from server code.  If you are running a unit test, "
-              + "check that your test case extends GWTTestCase and that GWT.create() "
-              + "is not called from within an initializer or constructor.");
-    } else {
-      return sGWTBridge.<T> create(classLiteral);
-    }
+//    if (sGWTBridge == null) {
+//      /*
+//       * In Production Mode, the compiler directly replaces calls to this method
+//       * with a new Object() type expression of the correct rebound type.
+//       */
+//      throw new UnsupportedOperationException(
+//          "ERROR: GWT.create() is only usable in client code!  It cannot be called, "
+//              + "for example, from server code.  If you are running a unit test, "
+//              + "check that your test case extends GWTTestCase and that GWT.create() "
+//              + "is not called from within an initializer or constructor.");
+//    } else {
+//      return sGWTBridge.<T> create(classLiteral);
+//    }
+	  return null;
   }
 
   /**
@@ -69,9 +70,9 @@ public final class GWT {
    * gwt-dev.
    */
   public static String getUniqueThreadId() {
-    if (sGWTBridge != null) {
-      return sGWTBridge.getThreadUniqueID();
-    }
+//    if (sGWTBridge != null) {
+//      return sGWTBridge.getThreadUniqueID();
+//    }
     return "";
   }
 
@@ -82,7 +83,8 @@ public final class GWT {
    * @return a human-readable version number, such as {@code "2.5"}
    */
   public static String getVersion() {
-    return sGWTBridge == null ? null : sGWTBridge.getVersion();
+//    return sGWTBridge == null ? null : sGWTBridge.getVersion();
+	  return "xx";
   }
 
   /**
@@ -94,7 +96,8 @@ public final class GWT {
    */
   public static boolean isClient() {
     // Replaced with "true" by GWT compiler.
-    return sGWTBridge != null && sGWTBridge.isClient();
+//    return sGWTBridge != null && sGWTBridge.isClient();
+	  return false;
   }
 
   /**
@@ -128,16 +131,18 @@ public final class GWT {
    * are optimized out in Production Mode.
    */
   public static void log(String message, Throwable e) {
-    if (sGWTBridge != null) {
-      sGWTBridge.log(message, e);
-    }
+//    if (sGWTBridge != null) {
+//      sGWTBridge.log(message, e);
+//    }
+	  System.out.println(message);
+	  e.printStackTrace();
   }
 
   /**
    * Called via reflection in Development Mode; do not ever call this method in
    * Production Mode.  May be called in server code to initialize server bridge.
    */
-  public static void setBridge(GWTBridge bridge) {
-    sGWTBridge = bridge;
-  }
+//  public static void setBridge(GWTBridge bridge) {
+//    sGWTBridge = bridge;
+//  }
 }

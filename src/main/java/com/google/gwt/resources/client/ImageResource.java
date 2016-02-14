@@ -15,22 +15,17 @@
  */
 package com.google.gwt.resources.client;
 
-import com.google.gwt.resources.ext.DefaultExtensions;
-import com.google.gwt.resources.ext.ResourceGeneratorType;
-import com.google.gwt.resources.rg.ImageResourceGenerator;
-import com.google.gwt.safehtml.shared.SafeUri;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.google.gwt.safehtml.shared.SafeUri;
+
 /**
  * Provides access to image resources at runtime.
  */
-@DefaultExtensions(value = {".png", ".jpg", ".gif", ".bmp"})
-@ResourceGeneratorType(ImageResourceGenerator.class)
 public interface ImageResource extends ResourcePrototype {
 
   /**

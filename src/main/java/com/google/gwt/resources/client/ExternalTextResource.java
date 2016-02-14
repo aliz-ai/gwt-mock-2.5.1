@@ -15,17 +15,11 @@
  */
 package com.google.gwt.resources.client;
 
-import com.google.gwt.resources.ext.DefaultExtensions;
-import com.google.gwt.resources.ext.ResourceGeneratorType;
-import com.google.gwt.resources.rg.ExternalTextResourceGenerator;
-
 /**
  * Identical to {@link TextResource}, except the contents of the resource are
  * not inlined into the compiled output. This is suitable for resources that are
  * not required as part of program initialization.
  */
-@DefaultExtensions(value = {".txt"})
-@ResourceGeneratorType(ExternalTextResourceGenerator.class)
 public interface ExternalTextResource extends ResourcePrototype {
 
   /**

@@ -17,5 +17,5 @@
 /**
  * Utility classes for server-side code.
  */
-@com.google.gwt.util.PreventSpuriousRebuilds
+ 
 package com.google.gwt.user.server;

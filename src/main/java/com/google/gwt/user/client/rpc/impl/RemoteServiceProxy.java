@@ -254,10 +254,11 @@ public abstract class RemoteServiceProxy implements SerializationStreamFactory,
    */
   public SerializationStreamReader createStreamReader(String encoded)
       throws SerializationException {
-    ClientSerializationStreamReader clientSerializationStreamReader = new ClientSerializationStreamReader(
-        serializer);
-    clientSerializationStreamReader.prepareToRead(getEncodedInstance(encoded));
-    return clientSerializationStreamReader;
+//    ClientSerializationStreamReader clientSerializationStreamReader = new ClientSerializationStreamReader(
+//        serializer);
+//    clientSerializationStreamReader.prepareToRead(getEncodedInstance(encoded));
+//    return clientSerializationStreamReader;
+	  return null;
   }
 
   /**
@@ -274,10 +275,11 @@ public abstract class RemoteServiceProxy implements SerializationStreamFactory,
    *         interface written as well
    */
   public SerializationStreamWriter createStreamWriter() {
-    ClientSerializationStreamWriter clientSerializationStreamWriter = new ClientSerializationStreamWriter(
-        serializer, moduleBaseURL, serializationPolicyName);
-    clientSerializationStreamWriter.prepareToWrite();
-    return clientSerializationStreamWriter;
+//    ClientSerializationStreamWriter clientSerializationStreamWriter = new ClientSerializationStreamWriter(
+//        serializer, moduleBaseURL, serializationPolicyName);
+//    clientSerializationStreamWriter.prepareToWrite();
+//    return clientSerializationStreamWriter;
+	  return null;
   }
 
   /**

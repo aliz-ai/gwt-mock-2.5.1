@@ -15,11 +15,11 @@
  */
 package com.google.gwt.safecss.shared;
 
-import com.google.gwt.core.shared.GWT;
-import com.google.gwt.thirdparty.guava.common.base.Preconditions;
-
 import java.util.HashMap;
 import java.util.Stack;
+
+import com.google.common.base.Preconditions;
+import com.google.gwt.core.shared.GWT;
 
 /**
  * SafeStyles utilities whose implementation differs between Development and

@@ -15,9 +15,6 @@
  */
 package com.google.gwt.resources.client;
 
-import com.google.gwt.resources.ext.ResourceGeneratorType;
-import com.google.gwt.resources.rg.BundleResourceGenerator;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -32,7 +29,6 @@ import java.lang.annotation.Target;
  * the functions will return an object that can be used to access the data in
  * the original resource.
  */
-@ResourceGeneratorType(BundleResourceGenerator.class)
 public interface ClientBundle {
   /**
    * Specifies the classpath location of the resource or resources associated

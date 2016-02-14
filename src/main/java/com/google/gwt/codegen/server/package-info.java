@@ -18,5 +18,5 @@
  * Classes used by code generation, either on the server or from a GWT
  * generator.
  */
-@com.google.gwt.util.PreventSpuriousRebuilds
+ 
 package com.google.gwt.codegen.server;

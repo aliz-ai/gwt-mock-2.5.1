@@ -211,7 +211,7 @@ public final class SafeHtmlBuilder {
    *           html} violates the second constraint
    */
   public SafeHtmlBuilder appendHtmlConstant(String html) {
-    SafeHtmlHostedModeUtils.maybeCheckCompleteHtml(html);
+//    SafeHtmlHostedModeUtils.maybeCheckCompleteHtml(html);
     sb.append(html);
     return this;
   }

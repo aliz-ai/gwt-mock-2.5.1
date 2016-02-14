@@ -17,5 +17,5 @@
 /**
  * Classes for parsing and rendering numbers, dates, and times.
  */
-@com.google.gwt.util.PreventSpuriousRebuilds
+ 
 package com.google.gwt.text.client;

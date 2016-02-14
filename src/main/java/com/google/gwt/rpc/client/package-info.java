@@ -17,5 +17,5 @@
 /**
  * Contains the client-side APIs for deRPC.
  */
-@com.google.gwt.util.PreventSpuriousRebuilds
+ 
 package com.google.gwt.rpc.client;

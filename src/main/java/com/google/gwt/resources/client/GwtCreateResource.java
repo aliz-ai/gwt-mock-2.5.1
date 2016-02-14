@@ -15,9 +15,6 @@
  */
 package com.google.gwt.resources.client;
 
-import com.google.gwt.resources.ext.ResourceGeneratorType;
-import com.google.gwt.resources.rg.GwtCreateResourceGenerator;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -36,7 +33,6 @@ import java.lang.annotation.Target;
  * @param <T> The type that should be returned from the
  *          <code>GWT.create()</code> call
  */
-@ResourceGeneratorType(GwtCreateResourceGenerator.class)
 public interface GwtCreateResource<T> extends ResourcePrototype {
   /**
    * This annotation can be applied to the resource getter method in order to

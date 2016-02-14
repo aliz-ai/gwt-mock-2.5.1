@@ -170,7 +170,7 @@ public final class UriUtils {
    * @return a SafeUri instance
    */
   public static SafeUri fromSafeConstant(String s) {
-    SafeUriHostedModeUtils.maybeCheckValidUri(s);
+//    SafeUriHostedModeUtils.maybeCheckValidUri(s);
     return new SafeUriString(s);
   }
 
@@ -196,7 +196,7 @@ public final class UriUtils {
    * @return a SafeUri instance
    */
   public static SafeUri fromTrustedString(String s) {
-    SafeUriHostedModeUtils.maybeCheckValidUri(s);
+//    SafeUriHostedModeUtils.maybeCheckValidUri(s);
     return new SafeUriString(s);
   }
 

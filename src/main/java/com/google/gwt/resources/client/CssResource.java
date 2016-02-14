@@ -15,10 +15,6 @@
  */
 package com.google.gwt.resources.client;
 
-import com.google.gwt.resources.ext.DefaultExtensions;
-import com.google.gwt.resources.ext.ResourceGeneratorType;
-import com.google.gwt.resources.rg.CssResourceGenerator;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -146,8 +142,6 @@ import java.lang.annotation.Target;
  * @see <a href="http://code.google.com/p/google-web-toolkit/wiki/CssResource"
  *      >CssResource design doc</a>
  */
-@DefaultExtensions(value = {".css"})
-@ResourceGeneratorType(CssResourceGenerator.class)
 public interface CssResource extends CssResourceBase {
   /**
    * The original CSS class name specified in the resource. This allows CSS

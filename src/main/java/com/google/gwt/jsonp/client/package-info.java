@@ -22,5 +22,5 @@
  * servers on different domains than the host page.
  * server.  
  */
-@com.google.gwt.util.PreventSpuriousRebuilds
+ 
 package com.google.gwt.jsonp.client;
