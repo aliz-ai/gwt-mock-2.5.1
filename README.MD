@@ -1,0 +1,1 @@
+mock classes for in-JVM gwt testing
