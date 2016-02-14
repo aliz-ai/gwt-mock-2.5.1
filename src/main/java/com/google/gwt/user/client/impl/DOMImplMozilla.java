@@ -15,18 +15,18 @@
  */
 package com.google.gwt.user.client.impl;
 
-import com.google.gwt.user.client.Element;
+import com.google.gwt.dom.client.Element;
 
 /**
  * Mozilla implementation of StandardBrowser.
  */
 class DOMImplMozilla extends DOMImplStandard {
 
-  @Override
-  public void sinkEvents(Element elem, int bits) {
-    super.sinkEvents(elem, bits);
-    sinkEventsMozilla(elem, bits);
-  }
+//  @Override
+//  public void sinkEvents(Element elem, int bits) {
+//    super.sinkEvents(elem, bits);
+//    sinkEventsMozilla(elem, bits);
+//  }
 
   public native void sinkEventsMozilla(Element elem, int bits) /*-{
     if (bits & 0x20000) {

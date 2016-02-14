@@ -15,22 +15,21 @@
  */
 package com.google.gwt.dom.client;
 
-import com.google.gwt.core.client.GWT;
+import com.google.common.base.MoreObjects;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.event.dom.client.ClickEvent;
 
-abstract class DOMImpl {
+public class DOMImpl {
 
-  static final DOMImpl impl = GWT.create(DOMImpl.class);
+  static final DOMImpl impl = new DOMImpl();
 
-  public native void buttonClick(ButtonElement button) /*-{
-    button.click();
-  }-*/;
+  public void buttonClick(ButtonElement button) {
+	  button.fireEvent(ClickEvent.getType());
+  }
 
-  public native ButtonElement createButtonElement(Document doc, String type) /*-{
-    var e = doc.createElement("BUTTON");
-    e.type = type;
-    return e;
-  }-*/;
+  public ButtonElement createButtonElement(Document doc, String type) {
+	  return (ButtonElement) ((com.doctusoft.gwtmock.Document)doc).createMockElement(ButtonElement.TAG); 
+  }
 
   public native InputElement createCheckInputElement(Document doc) /*-{
     var e = doc.createElement("INPUT");
@@ -39,12 +38,14 @@ abstract class DOMImpl {
     return e;
   }-*/;
 
-  public native Element createElement(Document doc, String tag) /*-{
-    return doc.createElement(tag);
-  }-*/;
+  public Element createElement(Document doc, String tag) {
+	  return ((com.doctusoft.gwtmock.Document)doc).createMockElement(tag); 
+  }
 
-  public abstract NativeEvent createHtmlEvent(Document doc, String type,
-      boolean canBubble, boolean cancelable);
+  public NativeEvent createHtmlEvent(Document doc, String type,
+      boolean canBubble, boolean cancelable) {
+	  return null;
+  }
 
   public native InputElement createInputElement(Document doc, String type) /*-{
     var e = doc.createElement("INPUT");
@@ -52,25 +53,35 @@ abstract class DOMImpl {
     return e;
   }-*/;
 
-  public abstract InputElement createInputRadioElement(Document doc, String name);
+  public InputElement createInputRadioElement(Document doc, String name) {
+	  return null;
+  }
 
-  public abstract NativeEvent createKeyCodeEvent(Document document,
+  public NativeEvent createKeyCodeEvent(Document document,
       String type, boolean ctrlKey, boolean altKey, boolean shiftKey,
-      boolean metaKey, int keyCode);
+      boolean metaKey, int keyCode) {
+	  return null;
+  }
 
   @Deprecated
-  public abstract NativeEvent createKeyEvent(Document doc, String type,
+  public NativeEvent createKeyEvent(Document doc, String type,
       boolean canBubble, boolean cancelable, boolean ctrlKey, boolean altKey,
-      boolean shiftKey, boolean metaKey, int keyCode, int charCode);
+      boolean shiftKey, boolean metaKey, int keyCode, int charCode) {
+	return null;  
+  }
 
-  public abstract NativeEvent createKeyPressEvent(Document document,
+  public NativeEvent createKeyPressEvent(Document document,
       boolean ctrlKey, boolean altKey, boolean shiftKey, boolean metaKey,
-      int charCode);
+      int charCode) {
+	  return null;
+  }
 
-  public abstract NativeEvent createMouseEvent(Document doc, String type,
+  public NativeEvent createMouseEvent(Document doc, String type,
       boolean canBubble, boolean cancelable, int detail, int screenX,
       int screenY, int clientX, int clientY, boolean ctrlKey, boolean altKey,
-      boolean shiftKey, boolean metaKey, int button, Element relatedTarget);
+      boolean shiftKey, boolean metaKey, int button, Element relatedTarget) {
+	  return null;
+  }
 
   public ScriptElement createScriptElement(Document doc, String source) {
     ScriptElement elem = (ScriptElement) createElement(doc, "script");
@@ -98,7 +109,8 @@ abstract class DOMImpl {
     style.opacity = value;
   }-*/;
 
-  public abstract void dispatchEvent(Element target, NativeEvent evt);
+  public void dispatchEvent(Element target, NativeEvent evt) {
+  }
 
   public native boolean eventGetAltKey(NativeEvent evt) /*-{
     return !!evt.altKey;
@@ -108,7 +120,9 @@ abstract class DOMImpl {
     return evt.button || 0;
   }-*/;
 
-  public abstract int eventGetCharCode(NativeEvent evt);
+  public int eventGetCharCode(NativeEvent evt) {
+	  return 0;
+  }
 
   public native int eventGetClientX(NativeEvent evt) /*-{
     return evt.clientX || 0;
@@ -134,9 +148,13 @@ abstract class DOMImpl {
     return !!evt.metaKey;
   }-*/;
 
-  public abstract int eventGetMouseWheelVelocityY(NativeEvent evt);
+  public int eventGetMouseWheelVelocityY(NativeEvent evt) {
+	  return 0;
+  }
 
-  public abstract EventTarget eventGetRelatedTarget(NativeEvent nativeEvent);
+  public EventTarget eventGetRelatedTarget(NativeEvent nativeEvent) {
+	  return null;
+  }
 
   public native double eventGetRotation(NativeEvent evt) /*-{
     return evt.rotation;
@@ -158,13 +176,16 @@ abstract class DOMImpl {
     return !!evt.shiftKey;
   }-*/;
 
-  public abstract EventTarget eventGetTarget(NativeEvent evt);
+  public EventTarget eventGetTarget(NativeEvent evt) {
+	  return null;
+  }
 
-  public final native String eventGetType(NativeEvent evt) /*-{
+  public final String eventGetType(NativeEvent evt) {
     return evt.type;
-  }-*/;
+  };
 
-  public abstract void eventPreventDefault(NativeEvent evt);
+  public void eventPreventDefault(NativeEvent evt) {
+  }
 
   public native void eventSetKeyCode(NativeEvent evt, char key) /*-{
     evt.keyCode = key;
@@ -174,7 +195,9 @@ abstract class DOMImpl {
     evt.stopPropagation();
   }-*/;
 
-  public abstract String eventToString(NativeEvent evt);
+  public String eventToString(NativeEvent evt) {
+	  return "";
+  }
 
   public native int getAbsoluteLeft(Element elem) /*-{
     var left = 0;
@@ -206,9 +229,9 @@ abstract class DOMImpl {
     return top;
   }-*/;
 
-  public native String getAttribute(Element elem, String name) /*-{
-    return elem.getAttribute(name) || '';
-  }-*/;
+  public String getAttribute(Element elem, String name) {
+    return MoreObjects.firstNonNull(elem.getAttribute(name), "");
+  }
 
   public native int getBodyOffsetLeft(Document doc) /*-{
     return 0;
@@ -299,9 +322,9 @@ abstract class DOMImpl {
     return style[name];
   }-*/;
 
-  public native int getTabIndex(Element elem) /*-{
-    return elem.tabIndex;
-  }-*/;
+  public int getTabIndex(Element elem) {
+	  return Integer.valueOf((String) MoreObjects.firstNonNull(elem.getAttribute("tabindex"), "0"));
+  }
 
   public native String getTagName(Element elem) /*-{
     return elem.tagName;
@@ -327,7 +350,9 @@ abstract class DOMImpl {
     img.src = src;
   }-*/;
 
-  public abstract boolean isOrHasChild(Node parent, Node child);
+  public boolean isOrHasChild(Node parent, Node child) {
+	  return false;
+  }
 
   public native void scrollIntoView(Element elem) /*-{
     var left = elem.offsetLeft, top = elem.offsetTop;

@@ -15,6 +15,11 @@
  */
 package com.google.gwt.user.client.ui;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import com.google.gwt.dom.client.BodyElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -25,11 +30,6 @@ import com.google.gwt.i18n.client.HasDirection;
 import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.Window;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * The panel to which all other widgets must ultimately be added. RootPanels are
@@ -217,9 +217,9 @@ public class RootPanel extends AbsolutePanel {
    * 
    * @return the document's body element
    */
-  public static native com.google.gwt.user.client.Element getBodyElement() /*-{
-    return $doc.body;
-  }-*/;
+  public static com.google.gwt.dom.client.Element getBodyElement() {
+	  return com.doctusoft.gwtmock.Document.Instance.getBody();
+  }
 
   /**
    * Determines whether the given widget is in the detach list.
@@ -289,7 +289,7 @@ public class RootPanel extends AbsolutePanel {
   }
 
   private RootPanel(Element elem) {
-    super(elem.<com.google.gwt.user.client.Element> cast());
+    super(elem.<com.google.gwt.dom.client.Element> cast());
     onAttach();
   }
 }

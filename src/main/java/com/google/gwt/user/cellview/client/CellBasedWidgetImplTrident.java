@@ -73,7 +73,7 @@ class CellBasedWidgetImplTrident extends CellBasedWidgetImpl {
    * @param event the event to fire, or null not to fire an event
    */
   private static void dispatchCellEvent(Widget widget,
-      com.google.gwt.user.client.Element target, int eventBits, Event event) {
+      com.google.gwt.dom.client.Element target, int eventBits, Event event) {
     // Make sure that the target is still a child of the widget. We defer the
     // firing of some events, so its possible that the DOM structure has
     // changed before we fire the event.
@@ -97,7 +97,7 @@ class CellBasedWidgetImplTrident extends CellBasedWidgetImpl {
    */
   private static native void dispatchEvent(Event evt, Element elem,
       EventListener listener) /*-{
-    @com.google.gwt.user.client.DOM::dispatchEvent(Lcom/google/gwt/user/client/Event;Lcom/google/gwt/user/client/Element;Lcom/google/gwt/user/client/EventListener;)(evt, elem, listener);
+    @com.google.gwt.dom.client.DOM::dispatchEvent(Lcom/google/gwt/user/client/Event;Lcom/google/gwt/user/client/Element;Lcom/google/gwt/user/client/EventListener;)(evt, elem, listener);
   }-*/;
 
   /**
@@ -137,10 +137,10 @@ class CellBasedWidgetImplTrident extends CellBasedWidgetImpl {
     if (!Element.is(eventTarget)) {
       return;
     }
-    final com.google.gwt.user.client.Element target = eventTarget.cast();
+    final com.google.gwt.dom.client.Element target = eventTarget.cast();
 
     // Get the event listener.
-    com.google.gwt.user.client.Element curElem = target;
+    com.google.gwt.dom.client.Element curElem = target;
     EventListener listener = DOM.getEventListener(curElem);
     while (curElem != null && listener == null) {
       curElem = curElem.getParentElement().cast();
@@ -216,7 +216,7 @@ class CellBasedWidgetImplTrident extends CellBasedWidgetImpl {
       focusedInputValue = newValue;
 
       // Fire a synthetic event to the input element.
-      com.google.gwt.user.client.Element target = focusedInput.cast();
+      com.google.gwt.dom.client.Element target = focusedInput.cast();
       Event changeEvent = Document.get().createChangeEvent().cast();
       dispatchCellEvent(widget, target, Event.ONCHANGE, changeEvent);
     }
@@ -261,7 +261,7 @@ class CellBasedWidgetImplTrident extends CellBasedWidgetImpl {
     if (BrowserEvents.FOCUS.equals(type) || BrowserEvents.BLUR.equals(type) || BrowserEvents.CHANGE.equals(type)) {
       EventTarget eventTarget = event.getEventTarget();
       if (Element.is(eventTarget)) {
-        com.google.gwt.user.client.Element target = eventTarget.cast();
+        com.google.gwt.dom.client.Element target = eventTarget.cast();
         if (target != widget.getElement()) {
           DOM.setEventListener(target, null);
         }

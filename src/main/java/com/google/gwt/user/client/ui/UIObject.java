@@ -136,7 +136,7 @@ public abstract class UIObject implements HasVisibility {
    * WARNING: For historical reasons, there are two Element classes being used
    * in this code. The dom.Element (com.google.gwt.dom.client.Element) class is
    * explicitly imported, while user.Element
-   * (com.google.gwt.user.client.Element) is fully-qualified in the code.
+   * (com.google.gwt.dom.client.Element) is fully-qualified in the code.
    * 
    * All new methods should use dom.Element, because user.Element extends it but
    * adds no methods.
@@ -271,8 +271,7 @@ public abstract class UIObject implements HasVisibility {
    * @return the objects's space-separated style names
    */
   protected static String getStyleName(Element elem) {
-    return DOM.getElementProperty(
-        elem.<com.google.gwt.user.client.Element> cast(), "className");
+    return DOM.getElementProperty(elem, "className");
   }
 
   /**
@@ -301,7 +300,7 @@ public abstract class UIObject implements HasVisibility {
    * @param styleName the new style name
    */
   protected static void setStyleName(Element elem, String styleName) {
-    DOM.setElementProperty(elem.<com.google.gwt.user.client.Element> cast(),
+    DOM.setElementProperty(elem,
         "className", styleName);
   }
 
@@ -548,13 +547,13 @@ public abstract class UIObject implements HasVisibility {
    * legacy code that depends upon overriding it. If it is overridden, the
    * subclass implementation must not return a different element than was
    * previously set using
-   * {@link #setElement(com.google.gwt.user.client.Element)}.
+   * {@link #setElement(com.google.gwt.dom.client.Element)}.
    * 
    * @return the object's browser element
    */
-  public com.google.gwt.user.client.Element getElement() {
+  public Element getElement() {
     assert (element != null) : MISSING_ELEMENT_ERROR;
-    return (com.google.gwt.user.client.Element) element;
+    return element;
   }
 
   /**
@@ -778,7 +777,7 @@ public abstract class UIObject implements HasVisibility {
    * them.
    * 
    * @param eventTypeName name of the event to sink on this element
-   * @see com.google.gwt.user.client.Event
+   * @see com.google.gwt.dom.client.Event
    */
   public void sinkBitlessEvent(String eventTypeName) {
     DOM.sinkBitlessEvent(getElement(), eventTypeName);
@@ -791,7 +790,7 @@ public abstract class UIObject implements HasVisibility {
    * 
    * @param eventBitsToAdd a bitfield representing the set of events to be added
    *          to this element's event set
-   * @see com.google.gwt.user.client.Event
+   * @see com.google.gwt.dom.client.Event
    */
   public void sinkEvents(int eventBitsToAdd) {
     DOM.sinkEvents(getElement(), eventBitsToAdd
@@ -818,7 +817,7 @@ public abstract class UIObject implements HasVisibility {
    * @param eventBitsToRemove a bitfield representing the set of events to be
    *          removed from this element's event set
    * @see #sinkEvents
-   * @see com.google.gwt.user.client.Event
+   * @see com.google.gwt.dom.client.Event
    */
   public void unsinkEvents(int eventBitsToRemove) {
     DOM.sinkEvents(getElement(), DOM.getEventsSunk(getElement())
@@ -832,7 +831,7 @@ public abstract class UIObject implements HasVisibility {
    * 
    * @return the element to which style names will be applied
    */
-  protected com.google.gwt.user.client.Element getStyleElement() {
+  protected Element getStyleElement() {
     return getElement();
   }
 
@@ -894,25 +893,14 @@ public abstract class UIObject implements HasVisibility {
    * method before attempting to call any other methods, and it may only be
    * called once.
    * 
-   * @param elem the object's element
-   */
-  protected final void setElement(Element elem) {
-    setElement((com.google.gwt.user.client.Element) elem);
-  }
-
-  /**
-   * Sets this object's browser element. UIObject subclasses must call this
-   * method before attempting to call any other methods, and it may only be
-   * called once.
-   * 
    * This method exists for backwards compatibility with pre-1.5 code. As of GWT
    * 1.5, {@link #setElement(Element)} is the preferred method.
    * 
    * @param elem the object's element
    */
-  protected void setElement(com.google.gwt.user.client.Element elem) {
+  protected void setElement(com.google.gwt.dom.client.Element elem) {
     assert (element == null || PotentialElement.isPotential(element)) : SETELEMENT_TWICE_ERROR;
-    this.element = elem;
+    this.element = (Element) elem;
   }
 
   /**

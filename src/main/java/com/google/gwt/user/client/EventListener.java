@@ -18,7 +18,7 @@ package com.google.gwt.user.client;
 /**
  * Receives low-level browser events. The implementer registers for DOM events
  * using
- * {@link com.google.gwt.user.client.DOM#setEventListener(Element, EventListener)}.
+ * {@link com.google.gwt.dom.client.DOM#setEventListener(Element, EventListener)}.
  * 
  * <p>
  * Only subclasses of {@link com.google.gwt.user.client.ui.Widget} should

@@ -16,6 +16,8 @@
 
 package com.google.gwt.user.client.ui;
 
+import java.util.EventListener;
+
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
@@ -77,12 +79,10 @@ import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.EventHandler;
-import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.GwtEvent.Type;
+import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.BaseListenerWrapper;
 import com.google.gwt.user.client.Event;
-
-import java.util.EventListener;
 
 /**
  * Legacy listener support hierarchy for

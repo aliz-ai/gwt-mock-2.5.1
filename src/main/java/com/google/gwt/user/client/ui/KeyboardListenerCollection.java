@@ -15,10 +15,10 @@
  */
 package com.google.gwt.user.client.ui;
 
+import java.util.ArrayList;
+
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
-
-import java.util.ArrayList;
 
 /**
  * A helper class for implementers of the SourcesKeyboardEvents interface. This

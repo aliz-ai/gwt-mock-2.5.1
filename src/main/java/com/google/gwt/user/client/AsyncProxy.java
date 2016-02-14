@@ -15,11 +15,11 @@
  */
 package com.google.gwt.user.client;
 
-import com.google.gwt.core.client.GWT;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
+
+import com.google.gwt.core.client.GWT;
 
 /**
  * The AsyncProxy type is used to provide a reachability barrier between classes

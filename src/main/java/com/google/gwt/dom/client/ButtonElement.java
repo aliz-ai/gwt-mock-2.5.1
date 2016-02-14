@@ -34,7 +34,7 @@ public class ButtonElement extends Element {
     return (ButtonElement) elem;
   }
 
-  protected ButtonElement() {
+  public ButtonElement() {
   }
 
   /**

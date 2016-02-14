@@ -35,6 +35,6 @@ public class BodyElement extends Element {
     return (BodyElement) elem;
   }
 
-  protected BodyElement() {
+  public BodyElement() {
   }
 }

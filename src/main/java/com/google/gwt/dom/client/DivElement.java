@@ -34,6 +34,6 @@ public class DivElement extends Element {
     return (DivElement) elem;
   }
 
-  protected DivElement() {
+  public DivElement() {
   }
 }

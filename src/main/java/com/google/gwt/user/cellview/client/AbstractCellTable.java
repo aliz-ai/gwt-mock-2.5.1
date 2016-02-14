@@ -449,7 +449,7 @@ public abstract class AbstractCellTable<T> extends AbstractHasData<T> {
    */
   private static class Impl {
 
-    private final com.google.gwt.user.client.Element tmpElem = Document.get().createDivElement()
+    private final com.google.gwt.dom.client.Element tmpElem = Document.get().createDivElement()
         .cast();
 
     /**

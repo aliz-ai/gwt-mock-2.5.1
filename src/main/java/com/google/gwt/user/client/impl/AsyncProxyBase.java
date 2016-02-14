@@ -15,11 +15,11 @@
  */
 package com.google.gwt.user.client.impl;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.AsyncProxy;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.AsyncProxy;
 
 /**
  * The base implementation for AsyncProxy instances.

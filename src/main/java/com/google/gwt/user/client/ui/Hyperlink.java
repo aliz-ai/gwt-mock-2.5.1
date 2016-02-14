@@ -25,7 +25,7 @@ import com.google.gwt.i18n.shared.DirectionEstimator;
 import com.google.gwt.i18n.shared.HasDirectionEstimator;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.ui.impl.HyperlinkImpl;
@@ -33,7 +33,7 @@ import com.google.gwt.user.client.ui.impl.HyperlinkImpl;
 /**
  * A widget that serves as an "internal" hyperlink. That is, it is a link to
  * another state of the running application. When clicked, it will create a new
- * history frame using {@link com.google.gwt.user.client.History#newItem}, but
+ * history frame using {@link com.google.gwt.dom.client.History#newItem}, but
  * without reloading the page.
  * 
  * <p>

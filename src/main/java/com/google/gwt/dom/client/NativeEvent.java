@@ -22,6 +22,8 @@ import com.google.gwt.core.client.JsArray;
  * The native dom event.
  */
 public class NativeEvent extends JavaScriptObject {
+	
+	public String type;
 
   /**
    * The left mouse button.

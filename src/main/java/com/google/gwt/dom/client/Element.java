@@ -15,14 +15,36 @@
  */
 package com.google.gwt.dom.client;
 
+import java.util.Map;
+
+import com.doctusoft.gwtmock.Document;
+import com.google.common.collect.Maps;
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.event.dom.client.DomEvent.Type;
 import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.EventListener;
 
 /**
  * All HTML element interfaces derive from this class.
  */
 public class Element extends Node {
 
+	protected Map<String, String> attributes = Maps.newHashMap();
+	
+	protected Document document;
+	
+	public EventListener __listener = null;
+	public int __eventBits = 0;
+	
+	public void fireEvent(Type<?> eventType) {
+		if ((__eventBits & Event.getTypeInt(eventType.getName())) != 0) {
+			__listener.onBrowserEvent(new Event(eventType.getName()));
+		}
+	}
+	
+	public String innerText = "";
+	
   /**
    * Constant returned from {@link #getDraggable()}.
    */
@@ -77,7 +99,7 @@ public class Element extends Node {
     return (node != null) && (node.getNodeType() == Node.ELEMENT_NODE);
   }
 
-  protected Element() {
+  public Element() {
   }
 
   /**
@@ -184,7 +206,7 @@ public class Element extends Node {
    *         does not have a specified or default value
    */
   public final String getAttribute(String name) {
-    return DOMImpl.impl.getAttribute(this, name);
+	  return attributes.get(name);
   }
 
   /**
@@ -265,9 +287,9 @@ public class Element extends Node {
    *      href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-id">W3C
    *      HTML Specification</a>
    */
-  public final native String getId() /*-{
-     return this.id;
-   }-*/;
+  public final String getId() {
+	  return getAttribute("id");
+  }
 
   /**
    * All of the markup and content within a given element.
@@ -280,7 +302,7 @@ public class Element extends Node {
    * The text between the start and end tags of the object.
    */
   public final String getInnerText() {
-    return DOMImpl.impl.getInnerText(this);
+	  return innerText;
   }
 
   /**
@@ -400,9 +422,10 @@ public class Element extends Node {
    * @param name the name of the property to be retrieved
    * @return the property value
    */
-  public final native String getPropertyString(String name) /*-{
-     return (this[name] == null) ? null : String(this[name]);
-   }-*/;
+  public final String getPropertyString(String name) {
+	  // TODO getproperty
+	  return "";
+  }
 
   /**
    * The height of the scroll view of an element.
@@ -613,9 +636,9 @@ public class Element extends Node {
    * @param name The name of the attribute to create or alter
    * @param value Value to set in string form
    */
-  public final native void setAttribute(String name, String value) /*-{
-     this.setAttribute(name, value);
-   }-*/;
+  public final void setAttribute(String name, String value) {
+	  attributes.put(name, value);
+  }
 
   /**
    * The class attribute of the element. This attribute has been renamed due to
@@ -654,16 +677,16 @@ public class Element extends Node {
    *      href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-id">W3C
    *      HTML Specification</a>
    */
-  public final native void setId(String id) /*-{
-     this.id = id;
-   }-*/;
+  public final void setId(String id) {
+	  setAttribute("id", id);
+  }
 
   /**
    * All of the markup and content within a given element.
    */
-  public final native void setInnerHTML(String html) /*-{
-     this.innerHTML = html || '';
-   }-*/;
+  public final void setInnerHTML(String html) {
+	  // TODO setInnerHTML
+  }
 
   /**
    * All of the markup and content within a given element.
@@ -676,7 +699,7 @@ public class Element extends Node {
    * The text between the start and end tags of the object.
    */
   public final void setInnerText(String text) {
-    DOMImpl.impl.setInnerText(this, text);
+	  innerText = text;
   }
 
   /**
@@ -742,9 +765,9 @@ public class Element extends Node {
    * @param name the name of the property to be set
    * @param value the new property value
    */
-  public final native void setPropertyString(String name, String value) /*-{
-     this[name] = value;
-   }-*/;
+  public final void setPropertyString(String name, String value) {
+	  // TODO setproperty
+  }
 
   /**
    * The number of pixels that an element's content is scrolled to the left.
@@ -777,4 +800,12 @@ public class Element extends Node {
      // on some browsers.
      this.title = title || '';
    }-*/;
+  
+  public Document getDocument() {
+	return document;
+  }
+  
+  public void setDocument(Document document) {
+	this.document = document;
+  }
 }

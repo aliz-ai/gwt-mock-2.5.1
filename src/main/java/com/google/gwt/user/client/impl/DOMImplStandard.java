@@ -17,7 +17,7 @@ package com.google.gwt.user.client.impl;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.BrowserEvents;
-import com.google.gwt.user.client.Element;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Event;
 
 /**
@@ -141,16 +141,16 @@ abstract class DOMImplStandard extends DOMImpl {
     sinkBitlessEventImpl(elem, eventTypeName);
   }
   
-  @Override
-  public void sinkEvents(Element elem, int bits) {
-    maybeInitializeEventSystem();
-    sinkEventsImpl(elem, bits);
-  }
+//  @Override
+//  public void sinkEvents(Element elem, int bits) {
+//    maybeInitializeEventSystem();
+//    sinkEventsImpl(elem, bits);
+//  }
 
   @Override
   protected native void initEventSystem() /*-{
     @com.google.gwt.user.client.impl.DOMImplStandard::dispatchCapturedEvent = $entry(function(evt) {
-      if (!@com.google.gwt.user.client.DOM::previewEvent(Lcom/google/gwt/user/client/Event;)(evt)) {
+      if (!@com.google.gwt.dom.client.DOM::previewEvent(Lcom/google/gwt/user/client/Event;)(evt)) {
         evt.stopPropagation();
         evt.preventDefault();
         return false;
@@ -168,7 +168,7 @@ abstract class DOMImplStandard extends DOMImpl {
       }
       if (listener) {
         if (@com.google.gwt.user.client.impl.DOMImpl::isMyListener(Ljava/lang/Object;)(listener)) {
-          @com.google.gwt.user.client.DOM::dispatchEvent(Lcom/google/gwt/user/client/Event;Lcom/google/gwt/user/client/Element;Lcom/google/gwt/user/client/EventListener;)(evt, curElem, listener);
+          @com.google.gwt.dom.client.DOM::dispatchEvent(Lcom/google/gwt/user/client/Event;Lcom/google/gwt/user/client/Element;Lcom/google/gwt/user/client/EventListener;)(evt, curElem, listener);
         }
       }
     });
@@ -190,7 +190,7 @@ abstract class DOMImplStandard extends DOMImpl {
         var cap = @com.google.gwt.user.client.impl.DOMImplStandard::captureElem;
         if (cap && cap.__listener) {
           if (@com.google.gwt.user.client.impl.DOMImpl::isMyListener(Ljava/lang/Object;)(cap.__listener)) {
-            @com.google.gwt.user.client.DOM::dispatchEvent(Lcom/google/gwt/user/client/Event;Lcom/google/gwt/user/client/Element;Lcom/google/gwt/user/client/EventListener;)(evt, cap, cap.__listener);
+            @com.google.gwt.dom.client.DOM::dispatchEvent(Lcom/google/gwt/user/client/Event;Lcom/google/gwt/user/client/Element;Lcom/google/gwt/user/client/EventListener;)(evt, cap, cap.__listener);
             evt.stopPropagation();
           }
         }

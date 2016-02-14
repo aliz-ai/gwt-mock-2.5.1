@@ -16,9 +16,10 @@
 package com.google.gwt.user.client.ui;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.builder.shared.HtmlElementBuilder;
 import com.google.gwt.dom.builder.shared.HtmlBuilderFactory;
+import com.google.gwt.dom.builder.shared.HtmlElementBuilder;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.DOM;
 
 /**
  * EXPERIMENTAL and subject to change. Do not use this in production code.
@@ -109,7 +110,7 @@ public class PotentialElement extends Element {
    * is an error.
    */
   public static Element resolve(Element maybePotential) {
-    return maybePotential.<PotentialElement>cast().resolve();
+    return maybePotential;
   }
 
   private static native JavaScriptObject buildResolveCallback(UIObject resolver) /*-{
@@ -123,7 +124,7 @@ public class PotentialElement extends Element {
     throw "A PotentialElement cannot be resolved twice.";
   }-*/;
 
-  private static final native void declareShim() /*-{
+  private static final void declareShim() {} /*-{
     var shim = function() {};
     shim.prototype = {
       className: '',

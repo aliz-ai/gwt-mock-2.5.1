@@ -48,9 +48,9 @@ public class Document extends Node {
     return doc;
   }
 
-  private static native Document nativeGet() /*-{
-    return $doc;
-  }-*/;
+  private static Document nativeGet() {
+	  return com.doctusoft.gwtmock.Document.Instance;
+  }
 
   protected Document() {
   }
@@ -1252,9 +1252,9 @@ public class Document extends Node {
    * 
    * @return the document's body
    */
-  public final native BodyElement getBody() /*-{
-    return this.body;
-  }-*/;
+  public BodyElement getBody() {
+	  return null;
+  }
 
   /**
    * Returns the left offset between the absolute coordinate system and the
@@ -1354,9 +1354,9 @@ public class Document extends Node {
    * @param elementId the unique id value for an element
    * @return the matching element
    */
-  public final native Element getElementById(String elementId) /*-{
-    return this.getElementById(elementId);
-  }-*/;
+  public Element getElementById(String elementId) {
+	  return null;
+  }
 
   /**
    * Returns a {@link NodeList} of all the {@link Element Elements} with a given

@@ -15,6 +15,9 @@
  */
 package com.google.gwt.core.shared;
 
+import com.google.gwt.i18n.client.impl.CldrImpl;
+import com.google.gwt.i18n.client.impl.LocaleInfoImpl;
+
 /**
  * Supports core functionality that in some cases requires direct support from
  * the compiler and runtime systems such as runtime type information and
@@ -56,6 +59,12 @@ public final class GWT {
 //    } else {
 //      return sGWTBridge.<T> create(classLiteral);
 //    }
+	  if (LocaleInfoImpl.class.equals(classLiteral)) {
+		  return (T) new LocaleInfoImpl();
+	  }
+	  if (CldrImpl.class.equals(classLiteral)) {
+		  return (T) new CldrImpl();
+	  }
 	  return null;
   }
 

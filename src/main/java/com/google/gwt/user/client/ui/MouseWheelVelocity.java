@@ -23,7 +23,7 @@ import com.google.gwt.user.client.Event;
  * combinations of browser and user input devices can generate all combinations
  * of direction or range of velocity information.
  *
- * @see com.google.gwt.user.client.DOM#eventGetMouseWheelVelocityY An
+ * @see com.google.gwt.dom.client.DOM#eventGetMouseWheelVelocityY An
  *      explanation of the units used for mouse wheel velocity.
  * @deprecated use
  *             {@link com.google.gwt.event.dom.client.MouseWheelEvent#getDeltaY()}

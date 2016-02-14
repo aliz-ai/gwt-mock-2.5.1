@@ -16,12 +16,12 @@
 package com.google.gwt.user.client.impl;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.user.client.Element;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 
 /**
- * Native implementation associated with {@link com.google.gwt.user.client.DOM}.
+ * Native implementation associated with {@link com.google.gwt.dom.client.DOM}.
  */
 public abstract class DOMImpl {
 
@@ -58,11 +58,11 @@ public abstract class DOMImpl {
  
   public abstract Element eventGetToElement(Event evt);
 
-  public final int eventGetTypeInt(Event evt) {
+  public final static int eventGetTypeInt(Event evt) {
     return eventGetTypeInt(evt.getType());
   }
   
-  public native int eventGetTypeInt(String eventType) /*-{
+  public static int eventGetTypeInt(String eventType) {
     switch (eventType) {
     case "blur": return 0x01000;
     case "change": return 0x00400;
@@ -94,7 +94,7 @@ public abstract class DOMImpl {
     case "gestureend": return 0x4000000;
     default: return -1;
     }
-  }-*/; 
+  };
   
   public native void eventSetKeyCode(Event evt, char key) /*-{
     evt.keyCode = key;
@@ -106,13 +106,13 @@ public abstract class DOMImpl {
 
   public abstract int getChildIndex(Element parent, Element child);
 
-  public native EventListener getEventListener(Element elem) /*-{
+  public static EventListener getEventListener(Element elem) {
     return elem.__listener;
-  }-*/;
+  }
 
-  public native int getEventsSunk(Element elem) /*-{
-    return elem.__eventBits || 0;
-  }-*/;
+  public static int getEventsSunk(Element elem) {
+    return elem.__eventBits;
+  }
 
   public abstract void insertChild(Element parent, Element child, int index);
 
@@ -127,13 +127,15 @@ public abstract class DOMImpl {
 
   public abstract void setCapture(Element elem);
 
-  public native void setEventListener(Element elem, EventListener listener) /*-{
+  public static void setEventListener(Element elem, EventListener listener) {
     elem.__listener = listener;
-  }-*/;
+  }
 
   public abstract void sinkBitlessEvent(Element elem, String eventTypeName);
 
-  public abstract void sinkEvents(Element elem, int eventBits);
+  public static void sinkEvents(Element elem, int eventBits) {
+	  elem.__eventBits |= eventBits;
+  }
 
   /**
    * Initializes the event dispatch system.

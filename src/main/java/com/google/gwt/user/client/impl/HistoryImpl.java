@@ -24,7 +24,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
 
 /**
  * Native implementation associated with
- * {@link com.google.gwt.user.client.History}. User classes should not use this
+ * {@link com.google.gwt.dom.client.History}. User classes should not use this
  * class directly.
  * 
  * <p>

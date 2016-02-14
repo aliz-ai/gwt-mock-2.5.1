@@ -15,13 +15,13 @@
  */
 package com.google.gwt.user.client.ui;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.safehtml.shared.SafeHtml;
-
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * A panel that contains HTML, and which can attach child widgets to identified
@@ -175,30 +175,17 @@ public class HTMLPanel extends ComplexPanel {
    * @param elem the element within which it will be contained
    */
   public void add(Widget widget, Element elem) {
-    com.google.gwt.user.client.Element clientElem = elem.cast();
+    com.google.gwt.dom.client.Element clientElem = elem.cast();
     super.add(widget, clientElem);
   }
 
-  /**
-   * Adds a child widget to the panel, replacing the HTML element.
-   *
-   * @param widget the widget to be added
-   * @param toReplace the element to be replaced by the widget
-   */
-  public final void addAndReplaceElement(Widget widget, Element toReplace) {
-    com.google.gwt.user.client.Element clientElem = toReplace.cast();
-    addAndReplaceElement(widget, clientElem);
-  }
-
-  /**
-   * Adds a child widget to the panel, replacing the HTML element.
+  /*
    *
    * @param widget the widget to be added
    * @param toReplace the element to be replaced by the widget
    * @deprecated use {@link #addAndReplaceElement(Widget, Element)}
    */
-  @Deprecated
-  public void addAndReplaceElement(Widget widget, com.google.gwt.user.client.Element toReplace) {
+  public void addAndReplaceElement(Widget widget, Element toReplace) {
     /*
      * Early exit if the element to replace and the replacement are the same. If
      * we remove the new widget, we would also remove the element to replace.
@@ -256,19 +243,6 @@ public class HTMLPanel extends ComplexPanel {
    * Overloaded version for IsWidget.
    *
    * @see #addAndReplaceElement(Widget,Element)
-   *
-   * @deprecated use {@link #addAndReplaceElement(IsWidget, Element)}
-   */
-  @Deprecated
-  public void addAndReplaceElement(IsWidget widget,
-      com.google.gwt.user.client.Element toReplace) {
-    this.addAndReplaceElement(widget.asWidget(), toReplace);
-  }
-
-  /**
-   * Overloaded version for IsWidget.
-   *
-   * @see #addAndReplaceElement(Widget,Element)
    */
   public void addAndReplaceElement(IsWidget widget, Element toReplace) {
     this.addAndReplaceElement(widget.asWidget(), toReplace);
@@ -310,7 +284,7 @@ public class HTMLPanel extends ComplexPanel {
    * @param id the id of the element to be found
    * @return the element with the given id, or <code>null</code> if none is found
    */
-  public com.google.gwt.user.client.Element getElementById(String id) {
+  public com.google.gwt.dom.client.Element getElementById(String id) {
     Element elem = isAttached() ? Document.get().getElementById(id) : attachToDomAndGetElement(id);
     return elem.cast();
   }

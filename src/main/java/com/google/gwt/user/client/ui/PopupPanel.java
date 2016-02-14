@@ -1038,7 +1038,7 @@ public class PopupPanel extends SimplePanel implements SourcesPopupEvents,
   }
 
   @Override
-  protected com.google.gwt.user.client.Element getContainerElement() {
+  protected com.google.gwt.dom.client.Element getContainerElement() {
     return impl.getContainerElement(getPopupImplElement()).cast();
   }
 
@@ -1053,7 +1053,7 @@ public class PopupPanel extends SimplePanel implements SourcesPopupEvents,
   }
 
   @Override
-  protected com.google.gwt.user.client.Element getStyleElement() {
+  protected com.google.gwt.dom.client.Element getStyleElement() {
     return impl.getStyleElement(getPopupImplElement()).cast();
   }
 
@@ -1179,7 +1179,7 @@ public class PopupPanel extends SimplePanel implements SourcesPopupEvents,
    *
    * @return the Element that {@link PopupImpl} creates and expects
    */
-  private com.google.gwt.user.client.Element getPopupImplElement() {
+  private com.google.gwt.dom.client.Element getPopupImplElement() {
     return DOM.getFirstChild(super.getContainerElement());
   }
 

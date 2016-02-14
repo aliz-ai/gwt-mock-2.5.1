@@ -209,7 +209,7 @@ public class Cookies {
           name = crumbs[i].substring(0, eqIdx);
           value = crumbs[i].substring(eqIdx + 1);
         }
-        if (@com.google.gwt.user.client.Cookies::uriEncoding) {
+        if (@com.google.gwt.dom.client.Cookies::uriEncoding) {
           try {
             name = decodeURIComponent(name);
           } catch (e) {
@@ -274,8 +274,8 @@ public class Cookies {
     var docCookie = $doc.cookie;
         
     // Check to see if cached cookies need to be invalidated.
-    if (docCookie != @com.google.gwt.user.client.Cookies::rawCookies) {  
-      @com.google.gwt.user.client.Cookies::rawCookies = docCookie;
+    if (docCookie != @com.google.gwt.dom.client.Cookies::rawCookies) {  
+      @com.google.gwt.dom.client.Cookies::rawCookies = docCookie;
       return true;
     } else {
       return false;

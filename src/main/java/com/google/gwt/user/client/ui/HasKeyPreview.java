@@ -21,7 +21,7 @@ package com.google.gwt.user.client.ui;
  * 
  * @see com.google.gwt.event.dom.client.KeyCodeEvent
  * @deprecated This interface is no longer implemented by any GWT library. Use
- *             {@link com.google.gwt.user.client.Event#addNativePreviewHandler}
+ *             {@link com.google.gwt.dom.client.Event#addNativePreviewHandler}
  *             instead.
  */
 @Deprecated

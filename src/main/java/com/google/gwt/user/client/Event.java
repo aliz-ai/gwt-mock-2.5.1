@@ -22,6 +22,7 @@ import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.impl.DOMImpl;
 
 /**
  * <p>
@@ -30,7 +31,7 @@ import com.google.gwt.event.shared.HandlerRegistration;
  * native DOM event from JSNI methods. An <code>Event</code> passed back into
  * JSNI becomes the original DOM event the <code>Event</code> was created from,
  * and can be accessed in JavaScript code as expected. This is typically done by
- * calling methods in the {@link com.google.gwt.user.client.DOM} class.
+ * calling methods in the {@link com.google.gwt.dom.client.DOM} class.
  * </p>
  */
 public class Event extends NativeEvent {
@@ -509,7 +510,7 @@ public class Event extends NativeEvent {
   public static EventListener getEventListener(Element elem) {
     // This cast is always valid because both Element types are JSOs and have
     // no new fields are added in the subclass.
-    return DOM.getEventListener((com.google.gwt.user.client.Element) elem);
+    return DOM.getEventListener((com.google.gwt.dom.client.Element) elem);
   }
 
   /**
@@ -522,7 +523,7 @@ public class Event extends NativeEvent {
   public static int getEventsSunk(Element elem) {
     // This cast is always valid because both Element types are JSOs and have
     // no new fields are added in the subclass.
-    return DOM.getEventsSunk((com.google.gwt.user.client.Element) elem);
+    return DOM.getEventsSunk((com.google.gwt.dom.client.Element) elem);
   }
 
   /**
@@ -532,7 +533,7 @@ public class Event extends NativeEvent {
    * @return the event's enumerated type, or -1 if not defined
    */
   public static int getTypeInt(String typeName) {
-    return DOM.impl.eventGetTypeInt(typeName);
+    return DOMImpl.eventGetTypeInt(typeName);
   }
 
   /**
@@ -543,7 +544,7 @@ public class Event extends NativeEvent {
    * @see #setCapture(Element)
    */
   public static void releaseCapture(Element elem) {
-    DOM.releaseCapture(elem.<com.google.gwt.user.client.Element> cast());
+    DOM.releaseCapture(elem.<com.google.gwt.dom.client.Element> cast());
   }
 
   /**
@@ -566,7 +567,7 @@ public class Event extends NativeEvent {
    * @param elem the element on which to set mouse capture
    */
   public static void setCapture(Element elem) {
-    DOM.setCapture(elem.<com.google.gwt.user.client.Element> cast());
+    DOM.setCapture(elem.<com.google.gwt.dom.client.Element> cast());
   }
 
   /**
@@ -579,7 +580,7 @@ public class Event extends NativeEvent {
   public static void setEventListener(Element elem, EventListener listener) {
     // This cast is always valid because both Element types are JSOs and have
     // no new fields are added in the subclass.
-    DOM.setEventListener((com.google.gwt.user.client.Element) elem, listener);
+    DOM.setEventListener((com.google.gwt.dom.client.Element) elem, listener);
   }
 
   /**
@@ -594,16 +595,17 @@ public class Event extends NativeEvent {
   public static void sinkEvents(Element elem, int eventBits) {
     // This cast is always valid because both Element types are JSOs and have
     // no new fields are added in the subclass.
-    DOM.sinkEvents((com.google.gwt.user.client.Element) elem, eventBits);
+    DOM.sinkEvents((com.google.gwt.dom.client.Element) elem, eventBits);
   }
 
   /**
    * Not directly instantiable. Subclasses should also define a protected no-arg
    * constructor to prevent client code from directly instantiating the class.
    */
-  protected Event() {
+  public Event(String type) {
+	  this.type = type;
   }
-
+  
   /**
    * Cancels bubbling for the given event. This will stop the event from being
    * propagated to parent elements.

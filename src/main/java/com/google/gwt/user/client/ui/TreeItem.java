@@ -23,7 +23,7 @@ import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.safehtml.client.HasSafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
+import com.google.gwt.dom.client.Element;
 
 import java.util.ArrayList;
 import java.util.List;

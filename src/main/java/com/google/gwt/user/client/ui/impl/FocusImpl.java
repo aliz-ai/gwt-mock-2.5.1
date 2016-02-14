@@ -15,9 +15,8 @@
  */
 package com.google.gwt.user.client.ui.impl;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
-import com.google.gwt.user.client.Element;
+import com.google.gwt.dom.client.Element;
 
 /**
  * Implementation interface for creating and manipulating focusable elements
@@ -25,7 +24,7 @@ import com.google.gwt.user.client.Element;
  */
 public class FocusImpl {
 
-  private static FocusImpl implPanel = GWT.create(FocusImpl.class);
+  private static FocusImpl implPanel = new FocusImpl();
 
   /**
    * This instance may not be a {@link FocusImplStandard}, because that special

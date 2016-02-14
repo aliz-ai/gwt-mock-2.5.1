@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 
 /**
  * Monitors {@link PlaceChangeEvent}s and
- * {@link com.google.gwt.user.client.History} events and keep them in sync.
+ * {@link com.google.gwt.dom.client.History} events and keep them in sync.
  */
 public class PlaceHistoryHandler {
   private static final Logger log = Logger.getLogger(PlaceHistoryHandler.class.getName());

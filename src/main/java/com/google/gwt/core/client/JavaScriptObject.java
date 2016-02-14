@@ -15,8 +15,6 @@
  */
 package com.google.gwt.core.client;
 
-import com.google.gwt.core.client.impl.Impl;
-
 /**
  * An opaque handle to a native JavaScript object. A
  * <code>JavaScriptObject</code> cannot be created directly.
@@ -113,7 +111,7 @@ public class JavaScriptObject {
    * @return this object as a different type
    */
   @SuppressWarnings("unchecked")
-  public final <T extends JavaScriptObject> T cast() {
+  public final <T> T cast() {
     return (T) this;
   }
 
@@ -124,20 +122,6 @@ public class JavaScriptObject {
   @Override
   public final boolean equals(Object other) {
     return super.equals(other);
-  }
-
-  /**
-   * Uses a monotonically increasing counter to assign a hash code to the
-   * underlying JavaScript object. Do not call this method on non-modifiable
-   * JavaScript objects.
-   *
-   * TODO: if the underlying object defines a 'hashCode' method maybe use that?
-   *
-   * @return the hash code of the object
-   */
-  @Override
-  public final int hashCode() {
-    return Impl.getHashCode(this);
   }
 
   /**

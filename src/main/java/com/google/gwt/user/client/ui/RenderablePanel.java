@@ -95,40 +95,15 @@ public class RenderablePanel extends ComplexPanel implements IsRenderable {
    *
    * @param widget the widget to be added
    * @param toReplace the element to be replaced by the widget
-   */
-  public final void addAndReplaceElement(Widget widget, Element toReplace) {
-    com.google.gwt.user.client.Element clientElem = toReplace.cast();
-    addAndReplaceElement(widget, clientElem);
-  }
-
-  /**
-   * Adds a child widget to the panel, replacing the HTML element.
-   *
-   * @param widget the widget to be added
-   * @param toReplace the element to be replaced by the widget
    * @deprecated use {@link #addAndReplaceElement(Widget, Element)}
    */
-  @Deprecated
   public void addAndReplaceElement(Widget widget,
-      com.google.gwt.user.client.Element toReplace) {
+      com.google.gwt.dom.client.Element toReplace) {
     // Logic pulled from super.add(), replacing the element rather than adding.
     widget.removeFromParent();
     getChildren().add(widget);
     toReplace.getParentNode().replaceChild(widget.getElement(), toReplace);
     adopt(widget);
-  }
-
-  /**
-   * Overloaded version for IsWidget.
-   *
-   * @see #addAndReplaceElement(Widget,Element)
-   *
-   * @deprecated use {@link #addAndReplaceElement(IsWidget, Element)}
-   */
-  @Deprecated
-  public void addAndReplaceElement(IsWidget widget,
-      com.google.gwt.user.client.Element toReplace) {
-    this.addAndReplaceElement(widget.asWidget(), toReplace);
   }
 
   /**

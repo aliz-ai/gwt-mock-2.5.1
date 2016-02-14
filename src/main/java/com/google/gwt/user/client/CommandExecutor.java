@@ -15,13 +15,13 @@
  */
 package com.google.gwt.user.client;
 
-import com.google.gwt.core.client.Duration;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import com.google.gwt.core.client.Duration;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
 
 /**
  * Class which executes {@link Command}s and {@link IncrementalCommand}s after

@@ -15,10 +15,10 @@
  */
 package com.google.gwt.user.client;
 
+import java.util.ArrayList;
+
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
-
-import java.util.ArrayList;
 
 /**
  * A simplified, browser-safe timer class. This class serves the same purpose as
@@ -59,13 +59,13 @@ public abstract class Timer {
 
   private static native int createInterval(Timer timer, int period) /*-{
     return $wnd.setInterval(
-      $entry(function() { timer.@com.google.gwt.user.client.Timer::fire()(); }),
+      $entry(function() { timer.@com.google.gwt.dom.client.Timer::fire()(); }),
       period);
   }-*/;
 
   private static native int createTimeout(Timer timer, int delay) /*-{
     return $wnd.setTimeout(
-      $entry(function() { timer.@com.google.gwt.user.client.Timer::fire()(); }),
+      $entry(function() { timer.@com.google.gwt.dom.client.Timer::fire()(); }),
       delay);
   }-*/;
 

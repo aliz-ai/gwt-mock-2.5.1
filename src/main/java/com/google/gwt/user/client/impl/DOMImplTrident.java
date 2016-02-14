@@ -16,7 +16,7 @@
 package com.google.gwt.user.client.impl;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.user.client.Element;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Event;
 
 /**
@@ -100,7 +100,7 @@ public abstract class DOMImplTrident extends DOMImpl {
       $wnd.__gwt_globalEventArray = new Array();
     }
     $wnd.__gwt_globalEventArray[$wnd.__gwt_globalEventArray.length] = $entry(function() {
-      return @com.google.gwt.user.client.DOM::previewEvent(Lcom/google/gwt/user/client/Event;)($wnd.event);
+      return @com.google.gwt.dom.client.DOM::previewEvent(Lcom/google/gwt/user/client/Event;)($wnd.event);
     });
 
     var dispatchEvent = $entry(function() {
@@ -129,7 +129,7 @@ public abstract class DOMImplTrident extends DOMImpl {
 
       if (listener) {
         if (@com.google.gwt.user.client.impl.DOMImpl::isMyListener(Ljava/lang/Object;)(listener)) {
-          @com.google.gwt.user.client.DOM::dispatchEvent(Lcom/google/gwt/user/client/Event;Lcom/google/gwt/user/client/Element;Lcom/google/gwt/user/client/EventListener;)($wnd.event, curElem, listener);
+          @com.google.gwt.dom.client.DOM::dispatchEvent(Lcom/google/gwt/user/client/Event;Lcom/google/gwt/user/client/Element;Lcom/google/gwt/user/client/EventListener;)($wnd.event, curElem, listener);
         }
       }
 
@@ -223,11 +223,11 @@ public abstract class DOMImplTrident extends DOMImpl {
     // not supported
   }
 
-  @Override
-  public void sinkEvents(Element elem, int bits) {
-    maybeInitializeEventSystem();
-    sinkEventsImpl(elem, bits);
-  }
+//  @Override
+//  public void sinkEvents(Element elem, int bits) {
+//    maybeInitializeEventSystem();
+//    sinkEventsImpl(elem, bits);
+//  }
 
   private native void releaseCaptureImpl(Element elem) /*-{
     elem.releaseCapture();

@@ -696,7 +696,7 @@ class CellTreeNodeView<T> extends UIObject {
   /**
    * The temporary element used to render child items.
    */
-  private static com.google.gwt.user.client.Element tmpElem;
+  private static com.google.gwt.dom.client.Element tmpElem;
 
   /**
    * Returns the element that parents the cell contents of the node.
@@ -731,7 +731,7 @@ class CellTreeNodeView<T> extends UIObject {
   /**
    * Return the temporary element used to create elements.
    */
-  private static com.google.gwt.user.client.Element getTmpElem() {
+  private static com.google.gwt.dom.client.Element getTmpElem() {
     if (tmpElem == null) {
       tmpElem = Document.get().createDivElement().cast();
     }
@@ -1295,7 +1295,7 @@ class CellTreeNodeView<T> extends UIObject {
       cellParent.removeAttribute("accessKey");
     } else {
       FocusImpl focusImpl = FocusImpl.getFocusImplForWidget();
-      com.google.gwt.user.client.Element cellElem = cellParent.cast();
+      com.google.gwt.dom.client.Element cellElem = cellParent.cast();
       focusImpl.setTabIndex(cellElem, tree.getTabIndex());
       char accessKey = tree.getAccessKey();
       if (accessKey != 0) {

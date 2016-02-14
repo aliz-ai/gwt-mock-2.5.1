@@ -17,6 +17,7 @@ package com.google.gwt.user.client;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.dom.client.OptionElement;
 import com.google.gwt.dom.client.SelectElement;
@@ -26,8 +27,8 @@ import com.google.gwt.user.client.ui.PotentialElement;
 /**
  * This class provides a set of static methods that allow you to manipulate the
  * browser's Document Object Model (DOM). It contains methods for manipulating
- * both {@link com.google.gwt.user.client.Element elements} and
- * {@link com.google.gwt.user.client.Event events}.
+ * both {@link com.google.gwt.dom.client.Element elements} and
+ * {@link com.google.gwt.dom.client.Event events}.
  */
 public class DOM {
   // The current event being fired
@@ -599,7 +600,7 @@ public class DOM {
    * @return the event's enumerated type, or -1 if not defined
    */
   public static int eventGetType(Event evt) {
-    return impl.eventGetTypeInt(evt);
+    return DOMImpl.eventGetTypeInt(evt);
   }
 
   /**
@@ -812,7 +813,7 @@ public class DOM {
    *         values are described in {@link Event})
    */
   public static int getEventsSunk(Element elem) {
-    return impl.getEventsSunk(elem);
+    return DOMImpl.getEventsSunk(elem);
   }
 
   /**
@@ -1158,7 +1159,7 @@ public class DOM {
    * @param listener the listener to receive {@link Event events}
    */
   public static void setEventListener(Element elem, EventListener listener) {
-    impl.setEventListener(elem, listener);
+    DOMImpl.setEventListener(elem, listener);
   }
 
   /**
@@ -1261,7 +1262,7 @@ public class DOM {
    *          possible values are described in {@link Event})
    */
   public static void sinkEvents(Element elem, int eventBits) {
-    impl.sinkEvents(elem, eventBits);
+    DOMImpl.sinkEvents(elem, eventBits);
   }
 
   /**

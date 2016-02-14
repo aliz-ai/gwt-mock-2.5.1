@@ -15,6 +15,9 @@
  */
 package com.google.gwt.dom.client;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -24,7 +27,9 @@ import com.google.gwt.core.client.JavaScriptObject;
  * all objects implementing the Node interface may have children.
  */
 public class Node extends JavaScriptObject {
-
+	
+	protected List<Node> childNodes = Lists.newArrayList();
+	
   /**
    * The node is an {@link Element}.
    */
@@ -74,9 +79,10 @@ public class Node extends JavaScriptObject {
    * @param newChild The node to add
    * @return The node added
    */
-  public final native <T extends Node> T appendChild(T newChild) /*-{
-    return this.appendChild(newChild);
-  }-*/;
+  public final <T extends Node> T appendChild(T newChild) {
+	  childNodes.add(newChild);
+	  return newChild;
+  }
 
   /**
    * Returns a duplicate of this node, i.e., serves as a generic copy

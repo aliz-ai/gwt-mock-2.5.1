@@ -17,7 +17,7 @@ package com.google.gwt.user.client.impl;
 
 /**
  * Native implementation associated with
- * {@link com.google.gwt.user.client.Window}.
+ * {@link com.google.gwt.dom.client.Window}.
  */
 public class WindowImpl {
 
@@ -40,7 +40,7 @@ public class WindowImpl {
     $wnd.onbeforeunload = function(evt) {
       var ret, oldRet;
       try {
-        ret = $entry(@com.google.gwt.user.client.Window::onClosing())();
+        ret = $entry(@com.google.gwt.dom.client.Window::onClosing())();
       } finally {
         oldRet = oldOnBeforeUnload && oldOnBeforeUnload(evt);
       }
@@ -57,7 +57,7 @@ public class WindowImpl {
     
     $wnd.onunload = $entry(function(evt) {
       try {
-        @com.google.gwt.user.client.Window::onClosed()();
+        @com.google.gwt.dom.client.Window::onClosed()();
       } finally {
         oldOnUnload && oldOnUnload(evt);
         $wnd.onresize = null;
@@ -72,7 +72,7 @@ public class WindowImpl {
     var oldOnResize = $wnd.onresize;
     $wnd.onresize = $entry(function(evt) {
       try {
-        @com.google.gwt.user.client.Window::onResize()();
+        @com.google.gwt.dom.client.Window::onResize()();
       } finally {
         oldOnResize && oldOnResize(evt);
       }
@@ -83,7 +83,7 @@ public class WindowImpl {
     var oldOnScroll = $wnd.onscroll;
     $wnd.onscroll = $entry(function(evt) {
       try {
-        @com.google.gwt.user.client.Window::onScroll()();
+        @com.google.gwt.dom.client.Window::onScroll()();
       } finally {
         oldOnScroll && oldOnScroll(evt);
       }
