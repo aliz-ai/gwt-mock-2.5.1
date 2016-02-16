@@ -16,9 +16,13 @@
 package com.google.gwt.user.client;
 
 import java.util.ArrayList;
+import java.util.Map;
 
+import com.google.common.collect.Maps;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
+
+import edu.emory.mathcs.backport.java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * A simplified, browser-safe timer class. This class serves the same purpose as
@@ -43,31 +47,39 @@ import com.google.gwt.event.logical.shared.CloseHandler;
  */
 public abstract class Timer {
 
-  private static ArrayList<Timer> timers = new ArrayList<Timer>();
+  public static ArrayList<Timer> timers = new ArrayList<Timer>();
+  public static Map<Integer, Timer> timersById = Maps.newHashMap();
+  private static AtomicInteger timerIdCounter = new AtomicInteger(0);
 
   static {
     hookWindowClosing();
   }
 
-  private static native void clearInterval(int id) /*-{
-    $wnd.clearInterval(id);
-  }-*/;
+  private static void clearInterval(int id) {
+	  Timer timer = timersById.get(id);
+	  if (timer != null) {
+		  timer.cancel();
+	  }
+  }
 
-  private static native void clearTimeout(int id) /*-{
-    $wnd.clearTimeout(id);
-  }-*/;
+  private static void clearTimeout(int id) {
+	  Timer timer = timersById.get(id);
+	  if (timer != null) {
+		  timer.cancel();
+	  }
+  }
 
-  private static native int createInterval(Timer timer, int period) /*-{
-    return $wnd.setInterval(
-      $entry(function() { timer.@com.google.gwt.dom.client.Timer::fire()(); }),
-      period);
-  }-*/;
+  private static synchronized int createInterval(Timer timer, int period) {
+	  int id = timerIdCounter.incrementAndGet();
+	  timersById.put(id, timer);
+	  return id;
+  }
 
-  private static native int createTimeout(Timer timer, int delay) /*-{
-    return $wnd.setTimeout(
-      $entry(function() { timer.@com.google.gwt.dom.client.Timer::fire()(); }),
-      delay);
-  }-*/;
+  private static int createTimeout(Timer timer, int delay) {
+	  int id = timerIdCounter.incrementAndGet();
+	  timersById.put(id, timer);
+	  return id;
+  }
 
   private static void hookWindowClosing() {
     // Catch the window closing event.

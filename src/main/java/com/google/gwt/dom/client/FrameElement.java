@@ -34,7 +34,7 @@ public class FrameElement extends Element {
     return (FrameElement) elem;
   }
 
-  protected FrameElement() {
+  public FrameElement() {
   }
 
   /**

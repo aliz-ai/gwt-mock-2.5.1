@@ -15,7 +15,6 @@
  */
 package com.google.gwt.user.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.impl.HistoryImpl;
@@ -59,18 +58,18 @@ public class History {
   private static HistoryImpl impl;
 
   static {
-    impl = GWT.create(HistoryImpl.class);
-    if (!impl.init()) {
-      // Set impl to null as a flag to no-op future calls.
-      impl = null;
-
-      // Tell the user.
-      GWT.log("Unable to initialize the history subsystem; did you "
-          + "include the history frame in your host page? Try "
-          + "<iframe src=\"javascript:''\" id='__gwt_historyFrame' "
-          + "style='position:absolute;width:0;height:0;border:0'>"
-          + "</iframe>");
-    }
+//    impl = GWT.create(HistoryImpl.class);
+//    if (!impl.init()) {
+//      // Set impl to null as a flag to no-op future calls.
+//      impl = null;
+//
+//      // Tell the user.
+//      GWT.log("Unable to initialize the history subsystem; did you "
+//          + "include the history frame in your host page? Try "
+//          + "<iframe src=\"javascript:''\" id='__gwt_historyFrame' "
+//          + "style='position:absolute;width:0;height:0;border:0'>"
+//          + "</iframe>");
+//    }
   }
 
   /**
@@ -150,7 +149,7 @@ public class History {
    * @return the initial token, or the empty string if none is present.
    */
   public static String getToken() {
-    return impl != null ? HistoryImpl.getToken() : "";
+    return Window.Location.getHash();
   }
 
   /**

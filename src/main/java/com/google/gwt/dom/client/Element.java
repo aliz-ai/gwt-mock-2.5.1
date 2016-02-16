@@ -18,6 +18,7 @@ package com.google.gwt.dom.client;
 import java.util.Map;
 
 import com.doctusoft.gwtmock.Document;
+import com.google.appengine.labs.repackaged.com.google.common.base.MoreObjects;
 import com.google.common.collect.Maps;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.event.dom.client.DomEvent.Type;
@@ -135,9 +136,9 @@ public class Element extends Node {
   /**
    * Removes keyboard focus from this element.
    */
-  public final native void blur() /*-{
-    this.blur();
-  }-*/;
+  public final void blur() {
+	  // TODO blur?
+  }	  
 
   /**
    * Dispatched the given event with this element as its target. The event will
@@ -159,9 +160,9 @@ public class Element extends Node {
   /**
    * Gives keyboard focus to this element.
    */
-  public final native void focus() /*-{
-    this.focus();
-  }-*/;
+  public final void focus() {
+	  // TODO focus?
+  }	  
 
   /**
    * Gets an element's absolute bottom coordinate in the document's coordinate
@@ -176,7 +177,8 @@ public class Element extends Node {
    * system.
    */
   public final int getAbsoluteLeft() {
-    return DOMImpl.impl.getAbsoluteLeft(this);
+	  // TODO no emulated layouting yet
+    return 0;
   }
 
   /**
@@ -192,7 +194,8 @@ public class Element extends Node {
    * system.
    */
   public final int getAbsoluteTop() {
-    return DOMImpl.impl.getAbsoluteTop(this);
+	  // TODO no emulated layouting yet
+	  return 0;
   }
 
   /**
@@ -217,9 +220,9 @@ public class Element extends Node {
    *      href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-class">W3C
    *      HTML Specification</a>
    */
-  public final native String getClassName() /*-{
-     return this.className;
-   }-*/;
+  public final String getClassName() {
+	  return MoreObjects.firstNonNull(attributes.get("class"), "");
+  }
 
   /**
    * Returns the inner height of an element in pixels, including padding but not
@@ -227,9 +230,10 @@ public class Element extends Node {
    * 
    * @return the element's client height
    */
-  public final native int getClientHeight() /*-{
-    return this.clientHeight;
-  }-*/;
+  public final int getClientHeight() {
+	  // TODO no layouting yet
+	  return 0;
+  }
 
   /**
    * Returns the inner width of an element in pixels, including padding but not
@@ -237,17 +241,18 @@ public class Element extends Node {
    * 
    * @return the element's client width
    */
-  public final native int getClientWidth() /*-{
-    return this.clientWidth;
-  }-*/;
+  public final int getClientWidth() {
+	  // TODO no layouting yet
+	  return 0;
+  }
 
   /**
    * Specifies the base direction of directionally neutral text and the
    * directionality of tables.
    */
-  public final native String getDir() /*-{
-     return this.dir;
-   }-*/;
+  public final String getDir() {
+	  return attributes.get("dir");
+  }
 
   /**
    * Returns the draggable attribute of this element.
@@ -255,9 +260,9 @@ public class Element extends Node {
    * @return one of {@link #DRAGGABLE_AUTO}, {@link #DRAGGABLE_FALSE}, or
    *         {@link #DRAGGABLE_TRUE}
    */
-  public final native String getDraggable() /*-{
-    return this.draggable || null;
-  }-*/;
+  public final String getDraggable() {
+	  return attributes.get("draggable");
+  }
 
   /**
    * Returns a NodeList of all descendant Elements with a given tag name, in the
@@ -277,7 +282,12 @@ public class Element extends Node {
    * returns null.
    */
   public final Element getFirstChildElement() {
-    return DOMImpl.impl.getFirstChildElement(this);
+	  for (Node node : getChildNodes()) {
+		  if (node instanceof Element) {
+			  return (Element) node;
+		  }
+	  }
+	  return null;
   }
 
   /**
@@ -295,7 +305,8 @@ public class Element extends Node {
    * All of the markup and content within a given element.
    */
   public final String getInnerHTML() {
-    return DOMImpl.impl.getInnerHTML(this);
+	  // TODO not yet
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -308,9 +319,9 @@ public class Element extends Node {
   /**
    * Language code defined in RFC 1766.
    */
-  public final native String getLang() /*-{
-     return this.lang;
-   }-*/;
+  public final String getLang() {
+	  return attributes.get("lang");
+  }
 
   /**
    * The element immediately following this element. If there is no such
@@ -323,40 +334,44 @@ public class Element extends Node {
   /**
    * The height of an element relative to the layout.
    */
-  public final native int getOffsetHeight() /*-{
-     return this.offsetHeight || 0;
-   }-*/;
+  public final int getOffsetHeight() {
+	  // TODO no layouting yet
+	  return 0;
+  }
 
   /**
    * The number of pixels that the upper left corner of the current element is
    * offset to the left within the offsetParent node.
    */
-  public final native int getOffsetLeft() /*-{
-     return this.offsetLeft || 0;
-   }-*/;
+  public final int getOffsetLeft() {
+	  // TODO no layouting yet
+	  return 0;
+  }
 
   /**
    * Returns a reference to the object which is the closest (nearest in the
    * containment hierarchy) positioned containing element.
    */
-  public final native Element getOffsetParent() /*-{
-     return this.offsetParent;
-   }-*/;
+  public final Element getOffsetParent() {
+	  return getParentElement();
+  }
 
   /**
    * The number of pixels that the upper top corner of the current element is
    * offset to the top within the offsetParent node.
    */
-  public final native int getOffsetTop() /*-{
-     return this.offsetTop || 0;
-   }-*/;
+  public final int getOffsetTop() {
+	  // TODO no layouting yet
+	  return 0;
+  }
 
   /**
    * The width of an element relative to the layout.
    */
-  public final native int getOffsetWidth() /*-{
-     return this.offsetWidth || 0;
-   }-*/;
+  public final int getOffsetWidth() {
+	  // TODO no layouting yet
+	  return 0;
+  }
 
   /**
    * The element immediately preceeding this element. If there is no such
@@ -372,9 +387,9 @@ public class Element extends Node {
    * @param name the name of the property to be retrieved
    * @return the property value
    */
-  public final native boolean getPropertyBoolean(String name) /*-{
-     return !!this[name];
-   }-*/;
+  public final boolean getPropertyBoolean(String name) {
+	  return "true".equalsIgnoreCase(getPropertyString(name));
+  }
 
   /**
    * Gets a double property from this element.
@@ -382,9 +397,12 @@ public class Element extends Node {
    * @param name the name of the property to be retrieved
    * @return the property value
    */
-  public final native double getPropertyDouble(String name) /*-{
-     return parseFloat(this[name]) || 0.0;
-   }-*/;
+  public final double getPropertyDouble(String name) {
+	  String value = getPropertyString(name);
+	  if (value == null)
+		  return 0.0;
+	  return Double.valueOf(value);
+  }
 
   /**
    * Gets an integer property from this element.
@@ -392,9 +410,12 @@ public class Element extends Node {
    * @param name the name of the property to be retrieved
    * @return the property value
    */
-  public final native int getPropertyInt(String name) /*-{
-     return parseInt(this[name]) || 0;
-   }-*/;
+  public final int getPropertyInt(String name) {
+	  String value = getPropertyString(name);
+	  if (value == null)
+		  return 0;
+	  return Integer.valueOf(value);
+  }
 
   /**
    * Gets a JSO property from this element.
@@ -423,16 +444,17 @@ public class Element extends Node {
    * @return the property value
    */
   public final String getPropertyString(String name) {
-	  // TODO getproperty
-	  return "";
+	  // TODO implement getproperty for special properties
+	  return attributes.get(name);
   }
 
   /**
    * The height of the scroll view of an element.
    */
-  public final native int getScrollHeight() /*-{
-     return this.scrollHeight || 0;
-   }-*/;
+  public final int getScrollHeight() {
+	  // TODO no layouting yet
+	  return 0;
+  }
 
   /**
    * The number of pixels that an element's content is scrolled from the left.
@@ -443,22 +465,25 @@ public class Element extends Node {
    * </p>
    */
   public final int getScrollLeft() {
-    return DOMImpl.impl.getScrollLeft(this);
+	  // TODO no layouting yet
+	  return 0;
   }
 
   /**
    * The number of pixels that an element's content is scrolled from the top.
    */
-  public final native int getScrollTop() /*-{
-     return this.scrollTop || 0;
-   }-*/;
+  public final int getScrollTop() {
+	  // TODO no layouting yet
+	  return 0;
+  }
 
   /**
    * The width of the scroll view of an element.
    */
-  public final native int getScrollWidth() /*-{
-     return this.scrollWidth || 0;
-   }-*/;
+  public final int getScrollWidth() {
+	  // TODO no layouting yet
+	  return 0;
+  }
 
   /**
    * Gets a string representation of this element (as outer HTML).
@@ -469,15 +494,17 @@ public class Element extends Node {
    * @return the string representation of this element
    */
   public final String getString() {
-    return DOMImpl.impl.toString(this);
+	  String tagName = getTagName();
+    return "<" + tagName + ">" + getInnerText() + "</" + tagName + ">";
   }
 
   /**
    * Gets this element's {@link Style} object.
    */
-  public final native Style getStyle() /*-{
-     return this.style;
-   }-*/;
+  public final Style getStyle() {
+	  // TODO support styles
+	  return new Style();
+  }
 
   /**
    * The index that represents the element's position in the tabbing order.
@@ -485,7 +512,7 @@ public class Element extends Node {
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-tabindex">W3C HTML Specification</a>
    */
   public final int getTabIndex() {
-    return DOMImpl.impl.getTabIndex(this);
+	  return 0;
   }
 
   /**
@@ -495,7 +522,11 @@ public class Element extends Node {
    * @return the element's tag name
    */
   public final String getTagName() {
-    return DOMImpl.impl.getTagName(this);
+	  TagName tagName = getClass().getAnnotation(TagName.class);
+	  if (tagName == null) {
+		  throw new RuntimeException("no tagname for " + this.getClass());
+	  }
+	  return tagName.value()[0];
   }
 
   /**
@@ -648,9 +679,9 @@ public class Element extends Node {
    *      href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-class">W3C
    *      HTML Specification</a>
    */
-  public final native void setClassName(String className) /*-{
-     this.className = className;
-   }-*/;
+  public final void setClassName(String className) {
+	  attributes.put("class", className);
+  }
 
   /**
    * Specifies the base direction of directionally neutral text and the
@@ -686,6 +717,7 @@ public class Element extends Node {
    */
   public final void setInnerHTML(String html) {
 	  // TODO setInnerHTML
+	  setInnerText(html);
   }
 
   /**

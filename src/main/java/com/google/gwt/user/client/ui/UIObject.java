@@ -15,6 +15,7 @@
  */
 package com.google.gwt.user.client.ui;
 
+import com.google.common.base.Joiner;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.debug.client.DebugInfo;
@@ -359,27 +360,24 @@ public abstract class UIObject implements HasVisibility {
   /**
    * Replaces all instances of the primary style name with newPrimaryStyleName.
    */
-  private static native void updatePrimaryAndDependentStyleNames(Element elem,
-      String newPrimaryStyle) /*-{
-    var classes = elem.className.split(/\s+/);
-    if (!classes) {
-      return;
-    }
+  private static void updatePrimaryAndDependentStyleNames(Element elem,
+      String newPrimaryStyle) {
+    String [] classes = elem.getClassName().split("\\s+");
 
-    var oldPrimaryStyle = classes[0];
-    var oldPrimaryStyleLen = oldPrimaryStyle.length;
+    String oldPrimaryStyle = classes[0];
+    int oldPrimaryStyleLen = oldPrimaryStyle.length();
 
     classes[0] = newPrimaryStyle;
-    for (var i = 1, n = classes.length; i < n; i++) {
-      var name = classes[i];
-      if (name.length > oldPrimaryStyleLen
+    for (int i = 1, n = classes.length; i < n; i++) {
+      String name = classes[i];
+      if (name.length() > oldPrimaryStyleLen
           && name.charAt(oldPrimaryStyleLen) == '-'
           && name.indexOf(oldPrimaryStyle) == 0) {
         classes[i] = newPrimaryStyle + name.substring(oldPrimaryStyleLen);
       }
     }
-    elem.className = classes.join(" ");
-  }-*/;
+    elem.setClassName(Joiner.on(" ").join(classes));
+  }
 
   private Element element;
 

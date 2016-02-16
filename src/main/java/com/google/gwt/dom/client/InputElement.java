@@ -39,7 +39,7 @@ public class InputElement extends Element {
     return (InputElement) elem;
   }
 
-  protected InputElement() {
+  public InputElement() {
   }
 
   /**

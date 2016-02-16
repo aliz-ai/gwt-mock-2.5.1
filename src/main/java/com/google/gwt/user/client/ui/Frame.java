@@ -17,7 +17,6 @@ package com.google.gwt.user.client.ui;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.FrameElement;
 import com.google.gwt.dom.client.IFrameElement;
 import com.google.gwt.event.dom.client.HasLoadHandlers;
 import com.google.gwt.event.dom.client.LoadEvent;
@@ -135,7 +134,7 @@ public class Frame extends Widget implements HasLoadHandlers {
     setUrl(url.asString());
   }
 
-  private FrameElement getFrameElement() {
+  private IFrameElement getFrameElement() {
     return getElement().cast();
   }
 }

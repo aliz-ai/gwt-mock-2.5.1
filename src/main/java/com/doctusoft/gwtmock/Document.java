@@ -1,5 +1,6 @@
 package com.doctusoft.gwtmock;
 
+import java.io.PrintWriter;
 import java.util.Set;
 
 import com.google.common.base.Preconditions;
@@ -8,6 +9,11 @@ import com.google.gwt.dom.client.BodyElement;
 import com.google.gwt.dom.client.ButtonElement;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.FrameElement;
+import com.google.gwt.dom.client.IFrameElement;
+import com.google.gwt.dom.client.InputElement;
+import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.SpanElement;
 
 public class Document extends com.google.gwt.dom.client.Document {
 	
@@ -28,8 +34,20 @@ public class Document extends com.google.gwt.dom.client.Document {
 		if (BodyElement.TAG.equals(tag)) {
 			element = new BodyElement();
 		}
+		if (SpanElement.TAG.equals(tag)) {
+			element = new SpanElement();
+		}
+		if (InputElement.TAG.equals(tag)) {
+			element = new InputElement();
+		}
+		if (FrameElement.TAG.equals(tag)) {
+			element = new FrameElement();
+		}
+		if (IFrameElement.TAG.equals(tag)) {
+			element = new IFrameElement();
+		}
 		if (element == null) {
-			throw new UnsupportedOperationException("not yet supported" + tag);
+			throw new UnsupportedOperationException("not yet supported " + tag);
 		}
 		element.setDocument(this);
 		elements.add(element);
@@ -51,8 +69,24 @@ public class Document extends com.google.gwt.dom.client.Document {
 	public BodyElement getBody() {
 		if (body == null) {
 			body = new BodyElement();
+			elements.add(body);
 		}
 		return body;
 	}
 	
+	public void printFormatted(PrintWriter pw) {
+		printFormatted(body, "", pw);
+		pw.flush();
+	}
+	
+	public void printFormatted(Element element, String indent, PrintWriter pw) {
+		String tagName = element.getTagName();
+		pw.println(indent + "<" + tagName + ">");
+		for (Node node : element.getChildNodes()) {
+			if (node instanceof Element) {
+				printFormatted((Element) node, indent + "  ", pw);
+			}
+		}
+		pw.println(indent + "</" + tagName + ">");
+	}
 }

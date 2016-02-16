@@ -15,6 +15,9 @@
  */
 package com.google.gwt.core.shared;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
 import com.google.gwt.i18n.client.impl.CldrImpl;
 import com.google.gwt.i18n.client.impl.LocaleInfoImpl;
 
@@ -24,6 +27,19 @@ import com.google.gwt.i18n.client.impl.LocaleInfoImpl;
  * deferred binding.
  */
 public final class GWT {
+	
+	public interface CustomGWTCreateSupplier {
+		/**
+		 * return the desired mock object if applies
+		 */
+		public Object create(Class<?> classLiteral);
+	}
+	
+	private static List<CustomGWTCreateSupplier> customSuppliers = Lists.newArrayList();
+	
+	public static void addCustomSupplier(CustomGWTCreateSupplier customSupplier) {
+		customSuppliers.add(customSupplier);
+	}
 
   /**
    * Always <code>null</code> in Production Mode; in Development Mode provides
@@ -59,6 +75,12 @@ public final class GWT {
 //    } else {
 //      return sGWTBridge.<T> create(classLiteral);
 //    }
+	  Object result = null;
+	  for (CustomGWTCreateSupplier supplier : customSuppliers) {
+		  result = supplier.create(classLiteral);
+		  if (result != null)
+			  return (T) result;
+	  }
 	  if (LocaleInfoImpl.class.equals(classLiteral)) {
 		  return (T) new LocaleInfoImpl();
 	  }

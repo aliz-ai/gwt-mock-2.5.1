@@ -34,6 +34,6 @@ public class SpanElement extends Element {
     return (SpanElement) elem;
   }
 
-  protected SpanElement() {
+  public SpanElement() {
   }
 }

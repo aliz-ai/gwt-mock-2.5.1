@@ -28,7 +28,9 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public class Node extends JavaScriptObject {
 	
-	protected List<Node> childNodes = Lists.newArrayList();
+	private List<Node> childNodes = Lists.newArrayList();
+	
+	private Node parentNode; 
 	
   /**
    * The node is an {@link Element}.
@@ -80,6 +82,7 @@ public class Node extends JavaScriptObject {
    * @return The node added
    */
   public final <T extends Node> T appendChild(T newChild) {
+	  newChild.setParentNode(this);
 	  childNodes.add(newChild);
 	  return newChild;
   }
@@ -131,9 +134,9 @@ public class Node extends JavaScriptObject {
    * A NodeList that contains all children of this node. If there are no
    * children, this is a NodeList containing no nodes.
    */
-  public final native NodeList<Node> getChildNodes() /*-{
-    return this.childNodes;
-  }-*/;
+  public final NodeList<Node> getChildNodes() {
+	  return new NodeList(childNodes);
+  }
 
   /**
    * The first child of this node. If there is no such node, this returns null.
@@ -193,7 +196,10 @@ public class Node extends JavaScriptObject {
    * @return this node's parent element, or <code>null</code> if none exists
    */
   public final Element getParentElement() {
-    return DOMImpl.impl.getParentElement(this);
+	  if (parentNode instanceof Element) {
+		  return (Element) parentNode;
+	  }
+	  return null;
   }
 
   /**
@@ -201,9 +207,9 @@ public class Node extends JavaScriptObject {
    * However, if a node has just been created and not yet added to the tree, or
    * if it has been removed from the tree, this is null.
    */
-  public final native Node getParentNode() /*-{
-    return this.parentNode;
-  }-*/;
+  public final Node getParentNode() {
+	  return parentNode;
+  }
 
   /**
    * The node immediately preceding this node. If there is no such node, this
@@ -326,4 +332,8 @@ public class Node extends JavaScriptObject {
   public final native void setNodeValue(String nodeValue) /*-{
     this.nodeValue = nodeValue;
   }-*/;
+  
+  public void setParentNode(Node parentNode) {
+	this.parentNode = parentNode;
+  }
 }

@@ -170,7 +170,7 @@ public class Window {
      * @return the string to the right of the URL's hash.
      */
     public static String getHash() {
-      return impl.getHash();
+      return "";
     }
 
     /**
@@ -178,9 +178,9 @@ public class Window {
      * 
      * @return the host and port name
      */
-    public static native String getHost() /*-{
-      return $wnd.location.host;
-    }-*/;
+    public static String getHost() {
+    	return "localhost";
+    }
 
     /**
      * Gets the URL's host name.
@@ -236,27 +236,27 @@ public class Window {
      * 
      * @return the path to the URL.
      */
-    public static native String getPath() /*-{
-      return $wnd.location.pathname;
-    }-*/;
+    public static String getPath() {
+    	return "/";
+    }
 
     /**
      * Gets the URL's port.
      * 
      * @return the URL's port
      */
-    public static native String getPort() /*-{
-      return $wnd.location.port;
-    }-*/;
+    public static String getPort() {
+    	return "80";
+    }
 
     /**
      * Gets the URL's protocol.
      * 
      * @return the URL's protocol.
      */
-    public static native String getProtocol() /*-{
-      return $wnd.location.protocol;
-    }-*/;
+    public static String getProtocol() {
+    	return "http";
+    }
 
     /**
      * Gets the URL's query string.
@@ -264,7 +264,7 @@ public class Window {
      * @return the URL's query string
      */
     public static String getQueryString() {
-      return impl.getQueryString();
+      return "";
     }
 
     /**
@@ -343,45 +343,45 @@ public class Window {
      *
      * @return the window's navigator.appCodeName.
      */
-    public static native String getAppCodeName() /*-{
-      return $wnd.navigator.appCodeName;
-    }-*/;
+    public static String getAppCodeName() {
+    	return "Mozilla";
+    }
 
     /**
      * Gets the navigator.appName.
      *
      * @return the window's navigator.appName.
      */
-    public static native String getAppName() /*-{
-      return $wnd.navigator.appName;
-    }-*/;
+    public static String getAppName() {
+    	return "Netscape";
+    }
 
     /**
      * Gets the navigator.appVersion.
      *
      * @return the window's navigator.appVersion.
      */
-    public static native String getAppVersion() /*-{
-      return $wnd.navigator.appVersion;
-    }-*/;
+    public static String getAppVersion() {
+    	return "5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2645.3 Safari/537.36";
+    }
 
     /**
      * Gets the navigator.platform.
      *
      * @return the window's navigator.platform.
      */
-    public static native String getPlatform() /*-{
-      return $wnd.navigator.platform;
-    }-*/;
+    public static String getPlatform() {
+    	return "Win32";
+    }
 
     /**
      * Gets the navigator.userAgent.
      *
      * @return the window's navigator.userAgent.
      */
-    public static native String getUserAgent() /*-{
-      return $wnd.navigator.userAgent;
-    }-*/;
+    public static String getUserAgent() {
+    	return "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2645.3 Safari/537.36";
+    }
 
     /**
      * Checks whether or not cookies are enabled or disabled.
@@ -397,9 +397,9 @@ public class Window {
      *
      * @return the window's navigator.javaEnabled.
      */
-    public static native boolean isJavaEnabled() /*-{
-      return $wnd.navigator.javaEnabled();
-    }-*/;
+    public static boolean isJavaEnabled() {
+    	return false;	// well this is awkard as we are actually in a JVM :)
+    }
 
     private Navigator() {
     }
@@ -591,9 +591,9 @@ public class Window {
    * 
    * @param msg the message to be displayed.
    */
-  public static native void alert(String msg) /*-{
-    $wnd.alert(msg);
-  }-*/;
+  public static void alert(String msg) {
+	  // mockable no-op;
+  }
 
   /**
    * Displays a message in a modal dialog box, along with the standard 'OK' and
@@ -603,9 +603,10 @@ public class Window {
    * @return <code>true</code> if 'OK' is clicked, <code>false</code> if
    *         'Cancel' is clicked.
    */
-  public static native boolean confirm(String msg) /*-{
-    return $wnd.confirm(msg);
-  }-*/;
+  public static boolean confirm(String msg) {
+	  // mockable no-op
+	  return false;
+  }
 
   /**
    * Use this method to explicitly disable the window's scrollbars. Applications

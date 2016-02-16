@@ -89,18 +89,7 @@ public class Cookies {
    * @return true if a cookie can be set, false if not
    */
   public static boolean isCookieEnabled() {
-    if (!isCookieChecked) {
-      // The only way to know for sure that cookies are enabled is to set and
-      // retrieve one. Checking navigator.cookieEnabled may return the wrong
-      // value if the browser has security software installed. In IE, it alerts
-      // the user of an unspecified security risk when the app is embedded in an
-      // iframe.
-      isCookieChecked = true;
-      Cookies.setCookie("__gwtCookieCheck", "isEnabled");
-      isCookieEnabled = "isEnabled".equals(Cookies.getCookie("__gwtCookieCheck"));
-      Cookies.removeCookie("__gwtCookieCheck");
-    }
-    return isCookieEnabled;
+	  return true;
   }
 
   /**

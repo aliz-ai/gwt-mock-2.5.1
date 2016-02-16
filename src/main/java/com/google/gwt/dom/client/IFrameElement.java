@@ -34,7 +34,7 @@ public class IFrameElement extends Element {
     return (IFrameElement) elem;
   }
 
-  protected IFrameElement() {
+  public IFrameElement() {
   }
 
   /**
@@ -168,7 +168,7 @@ public class IFrameElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-src-FRAME">W3C HTML Specification</a>
    */
-  public final native void setSrc(String src) /*-{
-     this.src = src;
-   }-*/;
+  public final void setSrc(String src) {
+	  setAttribute("src", src);
+  }
 }

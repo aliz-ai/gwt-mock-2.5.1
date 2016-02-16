@@ -46,6 +46,6 @@ public class BidiPolicy {
    * Returns true if bidi is enabled, false if disabled.
    */
   public static boolean isBidiEnabled() {
-    return impl.isBidiEnabled();
+    return false;
   }
 }

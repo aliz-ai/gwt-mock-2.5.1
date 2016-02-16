@@ -47,11 +47,9 @@ public class DOMImpl {
 	  return null;
   }
 
-  public native InputElement createInputElement(Document doc, String type) /*-{
-    var e = doc.createElement("INPUT");
-    e.type = type;
-    return e;
-  }-*/;
+  public InputElement createInputElement(Document doc, String type) {
+	  return (InputElement) ((com.doctusoft.gwtmock.Document)doc).createMockElement("input"); 
+  }
 
   public InputElement createInputRadioElement(Document doc, String name) {
 	  return null;

@@ -15,6 +15,9 @@
  */
 package com.google.gwt.dom.client;
 
+import java.util.Iterator;
+import java.util.List;
+
 import com.google.gwt.core.client.JavaScriptObject;
 
 /**
@@ -25,30 +28,40 @@ import com.google.gwt.core.client.JavaScriptObject;
  * The items in the NodeList are accessible via an integral index, starting from
  * 0.
  * 
- * @param <T> the type of contained node
+ * @param <T>
+ *            the type of contained node
  */
-public class NodeList<T extends Node> extends JavaScriptObject {
+public class NodeList<T extends Node> extends JavaScriptObject implements Iterable<T> {
 
-  protected NodeList() {
-  }
+	private List<T> list;
 
-  /**
-   * Returns the indexth item in the collection. If index is greater than or
-   * equal to the number of nodes in the list, this returns null.
-   * 
-   * @param index Index into the collection
-   * @return the node at the indexth position in the NodeList, or null if that
-   *         is not a valid index.
-   */
-  public final native T getItem(int index) /*-{
-    return this[index];
-  }-*/;
+	public NodeList(List<T> list) {
+		this.list = list;
+	}
 
-  /**
-   * The number of nodes in the list. The range of valid child node indices is 0
-   * to length-1 inclusive.
-   */
-  public final native int getLength() /*-{
-    return this.length;
-  }-*/;
+	/**
+	 * Returns the indexth item in the collection. If index is greater than or
+	 * equal to the number of nodes in the list, this returns null.
+	 * 
+	 * @param index
+	 *            Index into the collection
+	 * @return the node at the indexth position in the NodeList, or null if that
+	 *         is not a valid index.
+	 */
+	public final T getItem(int index) {
+		return list.get(index);
+	}
+
+	/**
+	 * The number of nodes in the list. The range of valid child node indices is
+	 * 0 to length-1 inclusive.
+	 */
+	public final int getLength() {
+		return list.size();
+	}
+
+	@Override
+	public Iterator<T> iterator() {
+		return list.iterator();
+	}
 }
