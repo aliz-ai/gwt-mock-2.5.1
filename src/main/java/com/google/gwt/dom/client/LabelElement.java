@@ -34,7 +34,7 @@ public class LabelElement extends Element {
     return (LabelElement) elem;
   }
 
-  protected LabelElement() {
+  public LabelElement() {
   }
 
   /**
@@ -77,7 +77,10 @@ public class LabelElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-for">W3C HTML Specification</a>
    */
-  public final native void setHtmlFor(String htmlFor) /*-{
+  public final void setHtmlFor(String htmlFor) {
+	  setAttribute("htmlFor", htmlFor);
+  }
+  /*-{
     this.htmlFor = htmlFor;
   }-*/;
 }

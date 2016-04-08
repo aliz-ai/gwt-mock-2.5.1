@@ -15,11 +15,18 @@
  */
 package com.google.gwt.user.client.ui;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import com.google.gwt.aria.client.ExpandedValue;
 import com.google.gwt.aria.client.Id;
 import com.google.gwt.aria.client.Roles;
 import com.google.gwt.aria.client.SelectedValue;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.BlurHandler;
 import com.google.gwt.event.dom.client.FocusEvent;
@@ -61,15 +68,8 @@ import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbstractImagePrototype.ImagePrototypeElement;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 /**
  * A standard hierarchical tree widget. The tree contains a hierarchy of
@@ -169,7 +169,15 @@ public class Tree extends Widget implements HasTreeItems.ForIsWidget, HasWidgets
   private static final int OTHER_KEY_RIGHT = 63235;
   private static final int OTHER_KEY_UP = 63232;
 
-  static native boolean shouldTreeDelegateFocusToElement(Element elem) /*-{
+  static boolean shouldTreeDelegateFocusToElement(Element elem) {
+	  String tagName = elem.getTagName();
+	  return "SELECT".equals(tagName)
+			  || "TEXTAREA".equals(tagName)
+			  || "OPTION".equals(tagName)
+			  || "BUTTON".equals(tagName)
+			  || "LABEL".equals(tagName);
+  }
+  /*-{
     var name = elem.nodeName;
     return ((name == "SELECT") ||
         (name == "INPUT")  ||
@@ -1383,7 +1391,7 @@ public class Tree extends Widget implements HasTreeItems.ForIsWidget, HasWidgets
     if (child == null) {
       // If no image element has been created yet, create one from the
       // prototype.
-      DOM.appendChild(holder, proto.createElement().<Element> cast());
+//      DOM.appendChild(holder, proto.createElement().<Element> cast());
     } else {
       // Otherwise, simply apply the prototype to the existing element.
       proto.applyTo(child.<ImagePrototypeElement> cast());

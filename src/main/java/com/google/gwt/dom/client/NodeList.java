@@ -64,4 +64,8 @@ public class NodeList<T extends Node> extends JavaScriptObject implements Iterab
 	public Iterator<T> iterator() {
 		return list.iterator();
 	}
+	
+	public List<T> getList() {
+		return list;
+	}
 }

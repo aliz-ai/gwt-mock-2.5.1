@@ -39,7 +39,7 @@ public class FileUpload extends Widget implements HasName, HasChangeHandlers, Ha
   /**
    * Implementation class for {@link FileUpload}.
    */
-  private static class FileUploadImpl {
+  public static class FileUploadImpl {
     /**
      * Initialize the impl class.
      * 

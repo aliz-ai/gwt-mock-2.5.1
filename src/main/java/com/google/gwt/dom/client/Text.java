@@ -20,7 +20,9 @@ package com.google.gwt.dom.client;
  */
 public class Text extends Node {
 
-  /**
+  private String data;
+
+/**
    * Assert that the given {@link Node} is of type {@link Node#TEXT_NODE} and
    * automatically typecast it.
    */
@@ -42,9 +44,9 @@ public class Text extends Node {
   /**
    * The character data of this text node.
    */
-  public final native String getData() /*-{
-    return this.data;
-  }-*/;
+  public final String getData() {
+	  return this.data;
+  }
 
   /**
    * The number of characters available through the data property.
@@ -70,9 +72,9 @@ public class Text extends Node {
   /**
    * The character data of this text node.
    */
-  public final native void setData(String data) /*-{
-    this.data = data;
-  }-*/;
+  public final void setData(String data) {
+	this.data = data;
+  }
 
   /**
    * Splits the data in this node into two separate text nodes. The text

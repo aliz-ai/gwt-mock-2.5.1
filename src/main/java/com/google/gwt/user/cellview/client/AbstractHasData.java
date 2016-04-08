@@ -15,6 +15,11 @@
  */
 package com.google.gwt.user.cellview.client;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.google.gwt.cell.client.Cell;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.BrowserEvents;
@@ -47,11 +52,6 @@ import com.google.gwt.view.client.Range;
 import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.gwt.view.client.RowCountChangeEvent;
 import com.google.gwt.view.client.SelectionModel;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * An abstract {@link Widget} that implements {@link HasData}.
@@ -1210,7 +1210,10 @@ public abstract class AbstractHasData<T> extends Composite implements HasData<T>
    * 
    * @param child the child to adopt
    */
-  native void adopt(Widget child) /*-{
+  void adopt(Widget child) {
+	  child.setParent(this);
+  }
+  /*-{
     child.@com.google.gwt.user.client.ui.Widget::setParent(Lcom/google/gwt/user/client/ui/Widget;)(this);
   }-*/;
 

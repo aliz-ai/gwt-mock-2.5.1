@@ -15,7 +15,7 @@
  */
 package com.google.gwt.dom.client;
 
-import com.google.gwt.core.client.GWT;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * A Document is the root of the HTML hierarchy and holds the entire content.
@@ -28,7 +28,7 @@ public class Document extends Node {
    * We cache Document.nativeGet() in DevMode, because crossing the JSNI
    * boundary thousands of times just to read a constant value is slow. 
    */
-  private static Document doc;
+  //private static Document doc;
   
   /**
    * Gets the default document. This is the document in which the module is
@@ -37,15 +37,16 @@ public class Document extends Node {
    * @return the default document
    */
   public static Document get() {
-    if (GWT.isScript()) {
-      return nativeGet();
-    }
-    
-    // No need to be MT-safe. Single-threaded JS code.
-    if (doc == null) {
-      doc = nativeGet();
-    }
-    return doc;
+//    if (GWT.isScript()) {
+//      return nativeGet();
+//    }
+//    
+//    // No need to be MT-safe. Single-threaded JS code.
+//    if (doc == null) {
+//      doc = nativeGet();
+//    }
+//    return doc;
+	  return com.doctusoft.gwtmock.Document.Instance;
   }
 
   private static Document nativeGet() {
@@ -1148,9 +1149,11 @@ public class Document extends Node {
    * @param data the text node's initial text
    * @return the newly created element
    */
-  public final native Text createTextNode(String data) /*-{
-    return this.createTextNode(data);
-  }-*/;
+  public final Text createTextNode(String data) {
+	  Text text = new Text();
+	  text.setData(data);
+	return text;
+  }
 
   /**
    * Creates a &lt;tfoot&gt; element.
@@ -1217,7 +1220,11 @@ public class Document extends Node {
    * 
    * @return a unique identifier
    */
-  public final native String createUniqueId() /*-{
+  private static final AtomicInteger GwtId = new AtomicInteger(0);
+  public final String createUniqueId() {
+	  return "gwt-uid-" + GwtId.incrementAndGet();
+  }
+  /*-{
     // In order to force uid's to be document-unique across multiple modules,
     // we hang a counter from the document.
     if (!this.gwt_uid) {
@@ -1323,7 +1330,10 @@ public class Document extends Node {
    * 
    * @return one of "BackCompat" or "CSS1Compat"
    */
-  public final native String getCompatMode() /*-{
+  public final String getCompatMode() {
+	  return "CSS1Compat";
+  }
+  /*-{
     return this.compatMode;
   }-*/;
 
@@ -1332,10 +1342,9 @@ public class Document extends Node {
    * 
    * @return the document element
    */
-  public final native Element getDocumentElement() /*-{
-    return this.documentElement;
-  }-*/;
-
+  public final Element getDocumentElement() {
+	  return com.doctusoft.gwtmock.Document.Instance.documentElement;
+  }
   /**
    * The domain name of the server that served the document, or null if the
    * server cannot be identified by a domain name.

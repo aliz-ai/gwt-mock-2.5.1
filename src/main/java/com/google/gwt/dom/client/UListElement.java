@@ -34,6 +34,6 @@ public class UListElement extends Element {
     return (UListElement) elem;
   }
 
-  protected UListElement() {
+  public UListElement() {
   }
 }

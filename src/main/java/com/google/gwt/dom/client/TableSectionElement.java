@@ -40,7 +40,8 @@ public class TableSectionElement extends Element {
     return (TableSectionElement) elem;
   }
 
-  protected TableSectionElement() {
+  public TableSectionElement(String tagName) {
+	  this.tagName = tagName;
   }
 
   /**
@@ -83,9 +84,9 @@ public class TableSectionElement extends Element {
   /**
    * The collection of rows in this table section.
    */
-  public final native NodeList<TableRowElement> getRows() /*-{
-    return this.rows;
-  }-*/;
+  public final NodeList<TableRowElement> getRows() {
+	  return (NodeList) getChildNodes();
+  }
 
   /**
    * Vertical alignment of data in cells. See the valign attribute for

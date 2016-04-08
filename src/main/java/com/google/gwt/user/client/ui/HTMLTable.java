@@ -15,7 +15,15 @@
  */
 package com.google.gwt.user.client.ui;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+import com.google.common.collect.Lists;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.TableCellElement;
 import com.google.gwt.dom.client.TableRowElement;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -27,9 +35,9 @@ import com.google.gwt.event.dom.client.DragEndHandler;
 import com.google.gwt.event.dom.client.DragEnterEvent;
 import com.google.gwt.event.dom.client.DragEnterHandler;
 import com.google.gwt.event.dom.client.DragEvent;
+import com.google.gwt.event.dom.client.DragHandler;
 import com.google.gwt.event.dom.client.DragLeaveEvent;
 import com.google.gwt.event.dom.client.DragLeaveHandler;
-import com.google.gwt.event.dom.client.DragHandler;
 import com.google.gwt.event.dom.client.DragOverEvent;
 import com.google.gwt.event.dom.client.DragOverHandler;
 import com.google.gwt.event.dom.client.DragStartEvent;
@@ -42,15 +50,10 @@ import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.impl.ElementMapperImpl;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
 import com.google.gwt.user.client.ui.HasVerticalAlignment.VerticalAlignmentConstant;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * HTMLTable contains the common table algorithms for
@@ -63,6 +66,8 @@ import java.util.NoSuchElementException;
 @SuppressWarnings("deprecation")
 public abstract class HTMLTable extends Panel implements SourcesTableEvents,
     HasAllDragAndDropHandlers, HasClickHandlers, HasDoubleClickHandlers {
+	
+	protected List<TableRowElement> rows = Lists.newArrayList();
 
   /**
    * Return value for {@link HTMLTable#getCellForEvent}.
@@ -379,7 +384,10 @@ public abstract class HTMLTable extends Panel implements SourcesTableEvents,
      * @param col the column of the cell
      * @return the element
      */
-    private native Element getCellElement(Element table, int row, int col) /*-{
+    private Element getCellElement(Element table, int row, int col) {
+    	return (Element) table.getChild(row).getChild(col);
+    }
+    /*-{
       return table.rows[row].cells[col];
     }-*/;
 
@@ -1227,7 +1235,11 @@ public abstract class HTMLTable extends Panel implements SourcesTableEvents,
    * @param row the row
    * @return number of columns in the row
    */
-  protected native int getDOMCellCount(Element tableBody, int row) /*-{
+  protected int getDOMCellCount(Element tableBody, int row) {
+	  Node tr = tableBody.getChildNodes().getItem(row);
+	  return tr.getChildCount();
+  }
+  /*-{
     return tableBody.rows[row].cells.length;
   }-*/;
 
@@ -1250,9 +1262,9 @@ public abstract class HTMLTable extends Panel implements SourcesTableEvents,
     return getDOMRowCount(bodyElem);
   }
 
-  protected native int getDOMRowCount(Element elem) /*-{
-    return elem.rows.length;
-  }-*/;
+  protected int getDOMRowCount(Element elem) {
+	  return rows.size();
+  }
 
   /**
    * Determines the TD associated with the specified event.
@@ -1324,6 +1336,7 @@ public abstract class HTMLTable extends Panel implements SourcesTableEvents,
       checkRowBounds(beforeRow);
     }
     Element tr = DOM.createTR();
+    rows.add((TableRowElement) tr);
     DOM.insertChild(bodyElem, tr, beforeRow);
     return beforeRow;
   }
@@ -1440,6 +1453,7 @@ public abstract class HTMLTable extends Panel implements SourcesTableEvents,
     for (int column = 0; column < columnCount; ++column) {
       cleanCell(row, column, false);
     }
+    rows.remove(row);
     DOM.removeChild(bodyElem, rowFormatter.getRow(bodyElem, row));
   }
 

@@ -15,6 +15,8 @@
  */
 package com.google.gwt.core.client;
 
+import com.google.common.base.Joiner;
+
 /**
  * A simple wrapper around a homogeneous native array of integer values.
  * 
@@ -27,9 +29,9 @@ package com.google.gwt.core.client;
  * }-* /;
  * </code>
  */
-public class JsArrayInteger extends JavaScriptObject {
+public class JsArrayInteger extends JsArrayBase<Integer> {
 
-  protected JsArrayInteger() {
+  public JsArrayInteger() {
   }
 
   /**
@@ -44,9 +46,9 @@ public class JsArrayInteger extends JavaScriptObject {
    * @param index the index to be retrieved
    * @return the value at the given index
    */
-  public final native int get(int index) /*-{
-    return this[index];
-  }-*/;
+  public final int get(int index) {
+	  return list.get(index);
+  }
 
   /**
    * Convert each element of the array to a String and join them with a comma
@@ -63,26 +65,26 @@ public class JsArrayInteger extends JavaScriptObject {
    * separator. The value returned from this method may vary between browsers
    * based on how JavaScript values are converted into strings.
    */
-  public final native String join(String separator) /*-{
-    return this.join(separator);
-  }-*/;
+  public final String join(String separator) {
+	  return Joiner.on(separator).join(list);
+  }
 
   /**
    * Gets the length of the array.
    * 
    * @return the array length
    */
-  public final native int length() /*-{
-    return this.length;
-  }-*/;
+  public final int length() {
+	  return list.size();
+  }
 
   /**
    * Pushes the given integer onto the end of the array.
    */
-  public final native void push(int value) /*-{
-    this[this.length] = value;
-  }-*/;
-
+  public final void push(int value) {
+	  list.add(value);
+  }
+  
   /**
    * Sets the value value at a given index.
    * 
@@ -92,18 +94,18 @@ public class JsArrayInteger extends JavaScriptObject {
    * @param index the index to be set
    * @param value the value to be stored
    */
-  public final native void set(int index, int value) /*-{
-    this[index] = value;
-  }-*/;
+  public final void set(int index, int value) {
+	  list.add(index, value);
+  }
 
   /**
    * Reset the length of the array.
    * 
    * @param newLength the new length of the array
    */
-  public final native void setLength(int newLength) /*-{
-    this.length = newLength;
-  }-*/;
+  public final void setLength(int newLength) {
+	  // do nothing
+  }
 
   /**
    * Shifts the first value off the array.
@@ -122,4 +124,5 @@ public class JsArrayInteger extends JavaScriptObject {
   public final native void unshift(int value) /*-{
     this.unshift(value);
   }-*/;
+  
 }

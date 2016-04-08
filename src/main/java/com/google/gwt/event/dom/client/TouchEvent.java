@@ -32,7 +32,7 @@ public abstract class TouchEvent<H extends EventHandler>
   /**
    * Dectector for browser support for touch events.
    */
-  private static class TouchSupportDetector {
+  public static class TouchSupportDetector {
 
     private final boolean isSupported = detectTouchSupport();
 
@@ -40,7 +40,10 @@ public abstract class TouchEvent<H extends EventHandler>
       return isSupported;
     }
 
-    private native boolean detectTouchSupport() /*-{
+    private boolean detectTouchSupport() {
+    	return false;
+    }
+    /*-{
       var elem = document.createElement('div');
       elem.setAttribute('ontouchstart', 'return;');
       return (typeof elem.ontouchstart) == "function";

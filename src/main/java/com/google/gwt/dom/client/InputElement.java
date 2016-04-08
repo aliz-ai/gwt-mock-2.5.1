@@ -39,6 +39,8 @@ public class InputElement extends Element {
     return (InputElement) elem;
   }
 
+private boolean checked;
+
   public InputElement() {
   }
 
@@ -157,7 +159,10 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-INPUT">W3C HTML Specification</a>
    */
-  public final native String getValue() /*-{
+  public final String getValue() {
+	  return getAttribute("value");
+  }
+  /*-{
     return this.value;
   }-*/;
 
@@ -176,9 +181,9 @@ public class InputElement extends Element {
    * the value of this property during the handling of click events is
    * implementation dependent.
    */
-  public final native boolean isChecked() /*-{
-    return !!this.checked;
-  }-*/;
+  public final boolean isChecked() {
+	  return checked;
+  }
 
   /**
    * When type has the value "radio" or "checkbox", this represents the HTML
@@ -263,9 +268,9 @@ public class InputElement extends Element {
    * the value of this property during the handling of click events is
    * implementation dependent.
    */
-  public final native void setChecked(boolean checked) /*-{
-    this.checked = checked;
-  }-*/;
+  public final void setChecked(boolean checked) {
+	  this.checked = checked;
+  }
 
   /**
    * When type has the value "radio" or "checkbox", this represents the HTML
@@ -275,9 +280,9 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-checked">W3C HTML Specification</a>
    */
-  public final native void setDefaultChecked(boolean defaultChecked) /*-{
-    this.defaultChecked = defaultChecked;
-  }-*/;
+  public final void setDefaultChecked(boolean defaultChecked) {
+	  setAttribute("defaultChecked", Boolean.toString(defaultChecked));
+  }
 
   /**
    * When the type attribute of the element has the value "text", "file" or
@@ -315,9 +320,9 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-name-INPUT">W3C HTML Specification</a>
    */
-  public final native void setName(String name) /*-{
-    this.name = name;
-  }-*/;
+  public final void setName(String name) {
+	  setAttribute("name", name);
+  }
 
   /**
    * This control is read-only. Relevant only when type has the value "text" or
@@ -368,7 +373,10 @@ public class InputElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-INPUT">W3C HTML Specification</a>
    */
-  public final native void setValue(String value) /*-{
+  public final void setValue(String value) {
+	  setAttribute("value", value);
+  }
+  /*-{
     this.value = value;
   }-*/;
 

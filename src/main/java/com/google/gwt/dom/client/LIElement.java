@@ -34,6 +34,6 @@ public class LIElement extends Element {
     return (LIElement) elem;
   }
 
-  protected LIElement() {
+  public LIElement() {
   }
 }

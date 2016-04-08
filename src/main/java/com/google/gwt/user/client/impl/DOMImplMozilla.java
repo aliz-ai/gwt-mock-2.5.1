@@ -20,7 +20,7 @@ import com.google.gwt.dom.client.Element;
 /**
  * Mozilla implementation of StandardBrowser.
  */
-class DOMImplMozilla extends DOMImplStandard {
+public class DOMImplMozilla extends DOMImplStandard {
 
 //  @Override
 //  public void sinkEvents(Element elem, int bits) {

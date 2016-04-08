@@ -15,22 +15,24 @@
  */
 package com.google.gwt.json.client;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsonUtils;
-
-import java.util.AbstractSet;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Represents a JSON object. A JSON object consists of a set of properties.
  */
 public class JSONObject extends JSONValue {
+	
+	private Map<String, JSONValue> properties = Maps.newHashMap();
 
   /**
    * Called from {@link #getUnwrapper()}. 
@@ -114,23 +116,25 @@ public class JSONObject extends JSONValue {
    * is immutable.
    */
   public Set<String> keySet() {
-    final String[] keys = computeKeys();
-    return new AbstractSet<String>() {
-      @Override
-      public boolean contains(Object o) {
-        return (o instanceof String) && containsKey((String) o);
-      }
-
-      @Override
-      public Iterator<String> iterator() {
-        return Arrays.asList(keys).iterator();
-      }
-
-      @Override
-      public int size() {
-        return keys.length;
-      }
-    };
+	  // TODO implement this actually
+	  return Sets.newHashSet();
+//    final String[] keys = computeKeys();
+//    return new AbstractSet<String>() {
+//      @Override
+//      public boolean contains(Object o) {
+//        return (o instanceof String) && containsKey((String) o);
+//      }
+//
+//      @Override
+//      public Iterator<String> iterator() {
+//        return Arrays.asList(keys).iterator();
+//      }
+//
+//      @Override
+//      public int size() {
+//        return keys.length;
+//      }
+//    };
   }
 
   /**
@@ -191,7 +195,10 @@ public class JSONObject extends JSONValue {
     return @com.google.gwt.json.client.JSONObject::unwrap(Lcom/google/gwt/json/client/JSONObject;);
   }-*/;
 
-  private native void addAllKeys(Collection<String> s) /*-{
+  private void addAllKeys(Collection<String> s) {
+	  s.addAll(properties.keySet());
+  }
+  /*-{
     var jsObject = this.@com.google.gwt.json.client.JSONObject::jsObject;
     for (var key in jsObject) {
       if (jsObject.hasOwnProperty(key)) {
@@ -232,7 +239,11 @@ public class JSONObject extends JSONValue {
     return size;
   }-*/;
 
-  private native JSONValue get0(String key) /*-{
+  private JSONValue get0(String key) {
+	  return properties.get(key);
+	  
+  }
+  /*-{
     var jsObject = this.@com.google.gwt.json.client.JSONObject::jsObject;
     var v;
     // In Firefox, jsObject.hasOwnProperty(key) requires a primitive string
@@ -245,7 +256,14 @@ public class JSONObject extends JSONValue {
     return ret;
   }-*/;
 
-  private native void put0(String key, JSONValue value) /*-{
+  private void put0(String key, JSONValue value) {
+	  if (value == null) {
+		  properties.remove(key);
+	  } else {
+		  properties.put(key, value);
+	  }
+  }
+  /*-{
     if (value) {
       var func = value.@com.google.gwt.json.client.JSONValue::getUnwrapper()();
       this.@com.google.gwt.json.client.JSONObject::jsObject[key] = func(value);

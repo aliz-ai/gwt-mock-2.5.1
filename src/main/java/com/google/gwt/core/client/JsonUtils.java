@@ -37,7 +37,11 @@ public class JsonUtils {
   /**
    * Returns a quoted, escaped JSON String.
    */
-  public static native String escapeValue(String toEscape) /*-{
+  public static String escapeValue(String toEscape) {
+	  // TODO no escaping yet
+	  return toEscape;
+  }
+  /*-{
     var s = toEscape.replace(/[\x00-\x1f\xad\u0600-\u0603\u06dd\u070f\u17b4\u17b5\u200b-\u200f\u2028-\u202e\u2060-\u2064\u206a-\u206f\ufeff\ufff9-\ufffb"\\]/g, function(x) {
       return @com.google.gwt.core.client.JsonUtils::escapeChar(Ljava/lang/String;)(x);
     });
@@ -126,11 +130,18 @@ public class JsonUtils {
   /**
    * Returns true if the JSON.parse function is present, false otherwise.
    */
-  private static native boolean hasJsonParse() /*-{
+  private static boolean hasJsonParse() {
+	  return false;
+  }
+  /*-{
     return typeof JSON == "object" && typeof JSON.parse == "function";
   }-*/;
 
-  private static native JavaScriptObject initEscapeTable() /*-{
+  private static JavaScriptObject initEscapeTable() {
+	  // TODO
+	  return null;
+  }
+  /*-{
     var out = [
       "\\u0000", "\\u0001", "\\u0002", "\\u0003", "\\u0004", "\\u0005",
       "\\u0006", "\\u0007", "\\b", "\\t", "\\n", "\\u000B",

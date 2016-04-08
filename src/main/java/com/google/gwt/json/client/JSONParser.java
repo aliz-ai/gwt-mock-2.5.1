@@ -84,7 +84,9 @@ public class JSONParser {
    * @throws IllegalArgumentException if <code>jsonString</code> is empty
    */
   public static JSONValue parseStrict(String jsonString) {
-    return parse(jsonString, true);
+	  // TODO do the actual parsing
+	  return new JSONObject();
+    //return parse(jsonString, true);
   }
   
   static void throwJSONException(String message) {
@@ -191,7 +193,10 @@ public class JSONParser {
     return func ? func(v) : @com.google.gwt.json.client.JSONParser::throwUnknownTypeException(Ljava/lang/String;)(typeof v);
   }-*/;
 
-  private static native JavaScriptObject initTypeMap() /*-{
+  private static JavaScriptObject initTypeMap() {
+	  return null;
+  }
+  /*-{
     return {
       "boolean": @com.google.gwt.json.client.JSONParser::createBoolean(Z),
       "number": @com.google.gwt.json.client.JSONParser::createNumber(D),

@@ -15,8 +15,10 @@
  */
 package com.google.gwt.user.client.ui;
 
-import com.google.gwt.user.client.DOM;
+import com.doctusoft.gwtmock.Document;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Node;
+import com.google.gwt.user.client.DOM;
 
 /**
  * A flexible table that creates cells on demand. It can be jagged (that is,
@@ -92,7 +94,14 @@ public class FlexTable extends HTMLTable {
     }
   }
 
-  private static native void addCells(Element table, int row, int num)/*-{
+  private static void addCells(Element tableBody, int row, int num) {
+	  Node tr = tableBody.getChild(row);
+	  for (int i = 0; i < num; i ++) {
+		  Node cell = Document.Instance.createTDElement();
+		  tr.appendChild(cell);
+	  }
+  }
+  /*-{
     var rowElem = table.rows[row];
     for(var i = 0; i < num; i++){
       var cell = $doc.createElement("td");

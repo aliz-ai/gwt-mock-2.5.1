@@ -15,7 +15,13 @@
  */
 package com.google.gwt.user.cellview.client;
 
-import com.google.gwt.core.client.JavaScriptObject;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import com.google.gwt.core.client.JsArrayInteger;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
@@ -34,13 +40,6 @@ import com.google.gwt.view.client.RangeChangeEvent;
 import com.google.gwt.view.client.RowCountChangeEvent;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SelectionModel;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 /**
  * <p>
@@ -400,12 +399,9 @@ class HasDataPresenter<T> implements HasData<T>, HasKeyProvider<T>, HasKeyboardP
    * 
    * @param array the array to sort
    */
-  private static native void sortJsArrayInteger(JsArrayInteger array) /*-{
-    // sort() sorts lexicographically by default.
-    array.sort(function(x, y) {
-      return x - y;
-    });
-  }-*/;
+  private static void sortJsArrayInteger(JsArrayInteger array) {
+	  Collections.sort(array.getList());
+  }
 
   private final HasData<T> display;
 
@@ -1109,7 +1105,7 @@ class HasDataPresenter<T> implements HasData<T>, HasKeyProvider<T>, HasKeyboardP
      * Collections.
      */
     if (modifiedRows == null) {
-      modifiedRows = JavaScriptObject.createArray().cast();
+      modifiedRows = new JsArrayInteger();
     }
 
     // Get the values used for calculations.

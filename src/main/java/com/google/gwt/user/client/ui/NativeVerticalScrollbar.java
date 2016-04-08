@@ -15,6 +15,7 @@
  */
 package com.google.gwt.user.client.ui;
 
+import com.doctusoft.gwtmock.Document;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
@@ -101,13 +102,13 @@ public class NativeVerticalScrollbar extends AbstractNativeScrollbar implements 
    * The div inside the scrollable div that forces scrollbars to appear.
    */
   @UiField
-  Element contentDiv;
+  Element contentDiv = Document.Instance.createDivElement();
 
   /**
    * The scrollable div used to create a scrollbar.
    */
   @UiField
-  Element scrollable;
+  Element scrollable = Document.Instance.createDivElement();
 
   /**
    * Construct a new {@link NativeVerticalScrollbar}.
@@ -122,7 +123,7 @@ public class NativeVerticalScrollbar extends AbstractNativeScrollbar implements 
    * @param resources the resources used by this widget
    */
   public NativeVerticalScrollbar(Resources resources) {
-    setElement(uiBinder.createAndBindUi(this));
+    setElement(Document.Instance.createDivElement());
     getElement().addClassName(CommonResources.getInlineBlockStyle());
     setWidth(getNativeWidth() + "px");
 

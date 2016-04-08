@@ -37,7 +37,9 @@ public class SelectElement extends Element {
     return (SelectElement) elem;
   }
 
-  protected SelectElement() {
+private int selectedIndex;
+
+  public SelectElement() {
   }
 
   /**
@@ -118,7 +120,10 @@ public class SelectElement extends Element {
    * returned if no element is selected. If multiple options are selected, the
    * index of the first selected option is returned.
    */
-  public final native int getSelectedIndex() /*-{
+  public final int getSelectedIndex() {
+	  return selectedIndex;
+  }
+  /*-{
     return this.selectedIndex;
   }-*/;
 
@@ -217,7 +222,10 @@ public class SelectElement extends Element {
    * returned if no element is selected. If multiple options are selected, the
    * index of the first selected option is returned.
    */
-  public final native void setSelectedIndex(int index) /*-{
+  public final void setSelectedIndex(int index) {
+	  this.selectedIndex = index;
+  }
+  /*-{
     this.selectedIndex = index;
   }-*/;
 

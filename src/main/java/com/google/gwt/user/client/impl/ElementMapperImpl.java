@@ -16,11 +16,11 @@
 
 package com.google.gwt.user.client.impl;
 
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.ui.UIObject;
-
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.user.client.ui.UIObject;
 
 /**
  * Creates a mapping from elements to their associated ui objects.
@@ -43,12 +43,20 @@ public class ElementMapperImpl<T extends UIObject> {
     elem["__uiObjectID"] = null;
   }-*/;
 
-  private static native int getIndex(Element elem) /*-{
+  private static  int getIndex(Element elem) {
+	  String index = elem.getAttribute("__uiObjectID");
+	return (index == null) ? -1 : Integer.parseInt(index);
+  }
+	  /*-{
+  }
     var index = elem["__uiObjectID"];
     return (index == null) ? -1 : index;
   }-*/;
 
-  private static native void setIndex(Element elem, int index) /*-{
+  private static void setIndex(Element elem, int index) {
+	  elem.setAttribute("__uiObjectID", Integer.toString(index));
+  }
+  /*-{
     elem["__uiObjectID"] = index;
   }-*/;
 

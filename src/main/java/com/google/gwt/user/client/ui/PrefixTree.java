@@ -16,14 +16,18 @@
 
 package com.google.gwt.user.client.ui;
 
-import com.google.gwt.core.client.JavaScriptObject;
-
 import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Set;
+
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
+import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * A prefix tree (aka trie).
@@ -199,17 +203,6 @@ class PrefixTree extends AbstractCollection<String> {
   }
 
   /**
-   *  Ensure that a String can be safely used as a key to an associative-array
-   *  JavaScript object by prepending a prefix.
-   *  
-   *  @param s The String to make safe
-   *  @return A safe version of <code>s</code>
-   */
-  private static String safe(String s) {
-    return ':' + s;
-  }
-
-  /**
    *  Undo the operation performed by safe().
    *  
    *  @param s A String returned from safe()
@@ -227,12 +220,12 @@ class PrefixTree extends AbstractCollection<String> {
   /**
    * Field to store terminal nodes in.
    */
-  protected JavaScriptObject suffixes;
+  protected Set<String> suffixes;
 
   /**
    * Field to store subtrees in.
    */
-  protected JavaScriptObject subtrees;
+  protected Map<String, PrefixTree> subtrees;
 
   /**
    * Store the number of elements contained by this PrefixTree and its
@@ -290,65 +283,58 @@ class PrefixTree extends AbstractCollection<String> {
    *         otherwise
    */
   @Override
-  public native boolean add(String s) /*-{
-    var suffixes =
-        this.@com.google.gwt.user.client.ui.PrefixTree::suffixes;
-    var subtrees =
-        this.@com.google.gwt.user.client.ui.PrefixTree::subtrees;
-    var prefixLength =
-        this.@com.google.gwt.user.client.ui.PrefixTree::prefixLength;
-
+  public boolean add(String s) {
     // This would indicate a mis-use of the code.
-    if ((s == null) || (s.length == 0)) {
+    if ((s == null) || (s.length() == 0)) {
       return false;
     }
 
     // Use <= so that strings that are exactly prefixLength long don't
     // require some kind of null token.
-    if (s.length <= prefixLength) {
-      var safeKey = @com.google.gwt.user.client.ui.PrefixTree::safe(Ljava/lang/String;)(s);
-      if (suffixes.hasOwnProperty(safeKey)) {
+    if (s.length() <= prefixLength) {
+      String safeKey = s;
+      if (suffixes.contains(safeKey)) {
         return false;
       } else {
         // Each tree keeps a count of how large it and its children are.
-        this.@com.google.gwt.user.client.ui.PrefixTree::size++;
+        size++;
 
-        suffixes[safeKey] = true;
+        suffixes.add(safeKey);
         return true;
       }
 
     // Add the string to the appropriate PrefixTree.
     } else {
-      var prefix = @com.google.gwt.user.client.ui.PrefixTree::safe(Ljava/lang/String;)(s.slice(0, prefixLength));
-      var theTree;
+      String prefix = s.substring(0, prefixLength);
+      PrefixTree theTree;
 
-      if (subtrees.hasOwnProperty(prefix)) {
-        theTree = subtrees[prefix];
+      if (subtrees.containsKey(prefix)) {
+        theTree = subtrees.get(prefix);
       } else {
-        theTree = @com.google.gwt.user.client.ui.PrefixTree::createPrefixTree(I)(prefixLength << 1);
-        subtrees[prefix] = theTree;
+        theTree = createPrefixTree(prefixLength << 1);
+        subtrees.put(prefix, theTree);
       }
 
-      var slice = s.slice(prefixLength);
-      if (theTree.@com.google.gwt.user.client.ui.PrefixTree::add(Ljava/lang/String;)(slice)) {
+      String slice = s.substring(prefixLength);
+      if (theTree.add(slice)) {
         // The size of the subtree increased, so we need to update the local count.
-        this.@com.google.gwt.user.client.ui.PrefixTree::size++;
+        size++;
         return true;
       } else {
         return false;
       }
     }
-  }-*/;
+  }
 
   /**
    * Initialize native state.
    */
   @Override
-  public native void clear() /*-{
-    this.@com.google.gwt.user.client.ui.PrefixTree::size = 0;
-    this.@com.google.gwt.user.client.ui.PrefixTree::subtrees = {};
-    this.@com.google.gwt.user.client.ui.PrefixTree::suffixes = {};
-  }-*/;
+  public void clear() {
+    size = 0;
+    subtrees = Maps.newHashMap();
+    suffixes = Sets.newHashSet();
+  }
 
   @Override
   public boolean contains(Object o) {
@@ -398,82 +384,75 @@ class PrefixTree extends AbstractCollection<String> {
     return size;
   }
 
-  protected native void suggestImpl(String search, String prefix,
-      Collection<String> output, int limit) /*-{
-    var suffixes =
-        this.@com.google.gwt.user.client.ui.PrefixTree::suffixes;
-    var subtrees =
-        this.@com.google.gwt.user.client.ui.PrefixTree::subtrees;
-    var prefixLength =
-        this.@com.google.gwt.user.client.ui.PrefixTree::prefixLength;
-
+  protected void suggestImpl(String search, String prefix,
+      Collection<String> output, int limit) {
     // Search is too big to be found in current tree, just recurse.
-    if (search.length > prefix.length + prefixLength) {
-      var key = @com.google.gwt.user.client.ui.PrefixTree::safe(Ljava/lang/String;)(search.slice(prefix.length, prefix.length + prefixLength));
+    if (search.length() > prefix.length() + prefixLength) {
+      String key = search.substring(prefix.length(), prefix.length() + prefixLength);
 
       // Just pick the correct subtree, if it exists, and call suggestImpl.
-      if (subtrees.hasOwnProperty(key)) {
-        var subtree = subtrees[key];
-        var target = prefix + @com.google.gwt.user.client.ui.PrefixTree::unsafe(Ljava/lang/String;)(key);
-        subtree.@com.google.gwt.user.client.ui.PrefixTree::suggestImpl(Ljava/lang/String;Ljava/lang/String;Ljava/util/Collection;I)(search, target, output, limit);
+      if (subtrees.containsKey(key)) {
+        PrefixTree subtree = subtrees.get(key);
+        String target = prefix + key;
+        subtree.suggestImpl(search, target, output, limit);
       }
 
     // The answer can only exist in this tree's suffixes or subtree keys.
     } else {
      // Check local suffixes.
-     for (var suffix in suffixes) {
+     for (String suffix : suffixes) {
        if (suffix.indexOf(':') != 0) {
          continue;
        }
-       var target = prefix + @com.google.gwt.user.client.ui.PrefixTree::unsafe(Ljava/lang/String;)(suffix);
+       String target = prefix + suffix;
        if (target.indexOf(search) == 0) {
-         output.@java.util.Collection::add(Ljava/lang/Object;)(target);
+         output.add(target);
        }
 
-       if (output.@java.util.Collection::size()() >= limit) {
+       if (output.size() >= limit) {
          return;
        }
      }
 
      // Check the subtree keys.  If the key matches, that implies that all
      // elements of the subtree would match.
-     for (var key in subtrees) {
+     for (String key : subtrees.keySet()) {
        if (key.indexOf(':') != 0) {
          continue;
        }
-       var target = prefix + @com.google.gwt.user.client.ui.PrefixTree::unsafe(Ljava/lang/String;)(key);
-       var subtree = subtrees[key];
+       String target = prefix + key;
+       PrefixTree subtree = subtrees.get(key);
 
        // See if the prefix gives us a match.
        if (target.indexOf(search) == 0) {
 
          // Provide as many suggestions as will fit into the remaining limit.
          // If there is only one suggestion, include it.
-         if ((subtree.@com.google.gwt.user.client.ui.PrefixTree::size <= limit - output.@java.util.Collection::size()()) ||
-             (subtree.@com.google.gwt.user.client.ui.PrefixTree::size == 1)) {
-           subtree.@com.google.gwt.user.client.ui.PrefixTree::dump(Ljava/util/Collection;Ljava/lang/String;)(output, target);
+         if ((subtree.size <= limit - output.size()) ||
+             (subtree.size == 1)) {
+           subtree.dump(output, target);
 
          // Otherwise, include as many answers as we can by truncating the suffix
          } else {
 
            // Always fully-specify suffixes.
-           for (var suffix in subtree.@com.google.gwt.user.client.ui.PrefixTree::suffixes) {
+           for (String suffix : subtree.suffixes) {
              if (suffix.indexOf(':') == 0) {
-               output.@java.util.Collection::add(Ljava/lang/Object;)(target + @com.google.gwt.user.client.ui.PrefixTree::unsafe(Ljava/lang/String;)(suffix));
+               output.add(target + suffix);
              }
            }
 
            // Give the keys of the subtree.
-           for (var subkey in subtree.@com.google.gwt.user.client.ui.PrefixTree::subtrees) {
+           for (String subkey : subtree.subtrees.keySet()) {
              if (subkey.indexOf(':') == 0) {
-               output.@java.util.Collection::add(Ljava/lang/Object;)(target + @com.google.gwt.user.client.ui.PrefixTree::unsafe(Ljava/lang/String;)(subkey) + "...");
+               output.add(target + subkey + "...");
              }
            }
          }
        }
      }
    }
-  }-*/;
+  }
 
   /**
    * Put all contents of the PrefixTree into a Collection.

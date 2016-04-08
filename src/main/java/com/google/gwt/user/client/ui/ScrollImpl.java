@@ -23,7 +23,7 @@ import com.google.gwt.dom.client.Element;
 /**
  * Implementation of scrolling behavior.
  */
-class ScrollImpl {
+public class ScrollImpl {
 
   /**
    * IE does not fire a scroll event when the scrollable element or the
@@ -148,7 +148,10 @@ class ScrollImpl {
    * @param scrollable the scrollable element
    * @return true if the direction is RTL, false if LTR
    */
-  public native boolean isRtl(Element scrollable) /*-{
+  public boolean isRtl(Element scrollable) {
+	  return false;
+  }
+  /*-{
     var computedStyle = $doc.defaultView.getComputedStyle(scrollable, null);
     return computedStyle.getPropertyValue('direction') == 'rtl';
   }-*/;

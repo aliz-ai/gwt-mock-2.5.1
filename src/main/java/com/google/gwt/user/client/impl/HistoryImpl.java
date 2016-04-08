@@ -21,6 +21,7 @@ import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.Window;
 
 /**
  * Native implementation associated with
@@ -34,10 +35,8 @@ import com.google.gwt.event.shared.HandlerRegistration;
  */
 public class HistoryImpl implements HasValueChangeHandlers<String> {
 
-  private static String token = "";
-
   public static String getToken() {
-    return (token == null) ? "" : token;
+    return Window.Location.getHash();
   }
 
   /**
@@ -55,7 +54,7 @@ public class HistoryImpl implements HasValueChangeHandlers<String> {
   }
 
   protected static void setToken(String token) {
-    HistoryImpl.token = token;
+    Window.Location.setHash(token);
   }
 
   private HandlerManager handlers = new HandlerManager(null);
@@ -126,7 +125,7 @@ public class HistoryImpl implements HasValueChangeHandlers<String> {
     historyToken = (historyToken == null) ? "" : historyToken;
     if (!historyToken.equals(getToken())) {
       setToken(historyToken);
-      nativeUpdate(historyToken);
+      //nativeUpdate(historyToken);
       if (issueEvent) {
         fireHistoryChangedImpl(historyToken);
       }

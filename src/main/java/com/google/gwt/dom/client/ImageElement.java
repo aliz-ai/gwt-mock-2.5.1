@@ -34,7 +34,7 @@ public class ImageElement extends Element {
     return (ImageElement) elem;
   }
 
-  protected ImageElement() {
+  public ImageElement() {
   }
 
   /**
@@ -70,7 +70,10 @@ public class ImageElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-width-IMG">W3C HTML Specification</a>
    */
-  public final native int getWidth() /*-{
+  public final int getWidth() {
+	  return 1;
+  }
+  /*-{
     return this.width;
   }-*/;
 

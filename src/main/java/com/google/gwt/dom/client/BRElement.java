@@ -22,18 +22,18 @@ package com.google.gwt.dom.client;
  */
 @TagName(BRElement.TAG)
 public class BRElement extends Element {
-
-  public static final String TAG = "br";
-
-  /**
-   * Assert that the given {@link Element} is compatible with this class and
-   * automatically typecast it.
-   */
-  public static BRElement as(Element elem) {
-    assert elem.getTagName().equalsIgnoreCase(TAG);
-    return (BRElement) elem;
-  }
-
-  protected BRElement() {
-  }
+	
+	public static final String TAG = "br";
+	
+	/**
+	 * Assert that the given {@link Element} is compatible with this class and
+	 * automatically typecast it.
+	 */
+	public static BRElement as(Element elem) {
+		assert elem.getTagName().equalsIgnoreCase(TAG);
+		return (BRElement) elem;
+	}
+	
+	public BRElement() {
+	}
 }

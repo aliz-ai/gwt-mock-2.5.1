@@ -45,10 +45,9 @@ public final class Random {
    * <code>int</code> in this range. The underlying browser's random
    * implementation is used.
    */
-  public static native int nextInt() /*-{
-    // "~~" forces the value to a 32 bit integer.
-    return ~~(Math.floor(Math.random() * 4294967296) - 2147483648);
-  }-*/;
+  public static int nextInt() {
+    return (int) (Math.floor(Math.random() * 4294967296l) - 2147483648l);
+  };
 
   /**
    * Returns a random <code>int</code> between 0 (inclusive) and

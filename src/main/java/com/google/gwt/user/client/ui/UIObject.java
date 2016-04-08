@@ -16,10 +16,13 @@
 package com.google.gwt.user.client.ui;
 
 import com.google.common.base.Joiner;
+import com.google.common.base.MoreObjects;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.debug.client.DebugInfo;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Node;
+import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.user.client.DOM;
 
 /**
@@ -232,7 +235,10 @@ public abstract class UIObject implements HasVisibility {
    * accurately reflect whether the element is actually visible in the browser.
    * </p>
    */
-  public static native boolean isVisible(Element elem) /*-{
+  public static boolean isVisible(Element elem) {
+	  return !"none".equals(elem.getStyle().getDisplay()); 
+  }
+  /*-{
     return (elem.style.display != 'none');
   }-*/;
 
@@ -247,7 +253,10 @@ public abstract class UIObject implements HasVisibility {
    * {@code setVisible(elem, true)}.
    * </p>
    */
-  public static native void setVisible(Element elem, boolean visible) /*-{
+  public static void setVisible(Element elem, boolean visible) {
+	  elem.getStyle().setDisplay(visible ? null : Display.NONE);
+	  elem.setAttribute("aria-hidden", Boolean.toString(!visible));
+  }/*-{
     elem.style.display = visible ? '' : 'none';
     elem.setAttribute('aria-hidden', String(!visible));
   }-*/;
@@ -272,7 +281,7 @@ public abstract class UIObject implements HasVisibility {
    * @return the objects's space-separated style names
    */
   protected static String getStyleName(Element elem) {
-    return DOM.getElementProperty(elem, "className");
+    return MoreObjects.firstNonNull(DOM.getElementProperty(elem, "className"), "");
   }
 
   /**
@@ -945,7 +954,14 @@ public abstract class UIObject implements HasVisibility {
     }
   }-*/;
 
-  private native void replaceNode(Element node, Element newNode) /*-{
+  private void replaceNode(Element node, Element newNode) {
+	  Node p = node.getParentNode();
+	  if (p == null)
+		  return;
+	  p.insertBefore(newNode, node);
+	  p.removeChild(node);
+  }
+  /*-{
     var p = node.parentNode;
     if (!p) {
       return;

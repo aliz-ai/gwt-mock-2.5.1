@@ -15,6 +15,8 @@
  */
 package com.google.gwt.http.client;
 
+import java.net.URLDecoder;
+
 /**
  * Utility class for the encoding and decoding URLs in their entirety or by
  * their individual components.
@@ -325,7 +327,10 @@ public final class URL {
     return encodeQueryStringImpl(decodedURLComponent);
   }
 
-  private static native String decodeImpl(String encodedURL) /*-{
+  private static String decodeImpl(String encodedURL) {
+	  return URLDecoder.decode(encodedURL);
+  }
+  /*-{
     return decodeURI(encodedURL);
   }-*/;
 

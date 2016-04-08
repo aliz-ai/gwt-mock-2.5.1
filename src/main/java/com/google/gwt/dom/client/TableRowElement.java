@@ -34,7 +34,7 @@ public class TableRowElement extends Element {
     return (TableRowElement) elem;
   }
 
-  protected TableRowElement() {
+  public TableRowElement() {
   }
 
   /**
@@ -58,7 +58,10 @@ public class TableRowElement extends Element {
   /**
    * The collection of cells in this row.
    */
-  public final native NodeList<TableCellElement> getCells() /*-{
+  public final NodeList<TableCellElement> getCells() {
+	  return new NodeList(getChildNodesWithTagName("td"));
+  }
+  /*-{
     return this.cells;
   }-*/;
 

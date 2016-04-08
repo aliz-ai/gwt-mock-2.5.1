@@ -91,7 +91,10 @@ public final class Impl {
     return o.$H || (o.$H = @com.google.gwt.core.client.impl.Impl::getNextHashId()());
   }-*/;
 
-  public static native String getHostPageBaseURL() /*-{
+  public static String getHostPageBaseURL() {
+	  return "http://localhost/";
+  }
+  /*-{
     var s = $doc.location.href;
 
     // Pull off any hash.
@@ -121,9 +124,9 @@ public final class Impl {
     return $moduleBase;
   }-*/;
 
-  public static native String getModuleName() /*-{
-    return $moduleName;
-  }-*/;
+  public static String getModuleName() {
+	  return "moduleName";
+  }
 
   /**
    * Returns the obfuscated name of members in the compiled output. This is a

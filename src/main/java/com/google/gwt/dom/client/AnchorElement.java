@@ -34,7 +34,7 @@ public class AnchorElement extends Element {
     return (AnchorElement) elem;
   }
 
-  protected AnchorElement() {
+  public AnchorElement() {
   }
 
   /**
@@ -114,9 +114,9 @@ public class AnchorElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/links.html#adef-href">W3C HTML Specification</a>
    */
-  public final native void setHref(String href) /*-{
-    this.href = href;
-  }-*/;
+  public final void setHref(String href) {
+	  setAttribute("href", href);
+  }
 
   /**
    * Language code of the linked resource.
@@ -150,9 +150,9 @@ public class AnchorElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-target">W3C HTML Specification</a>
    */
-  public final native void setTarget(String target) /*-{
-    this.target = target;
-  }-*/;
+  public final void setTarget(String target) {
+	  setAttribute("target", target);
+  }
 
   /**
    * Advisory content type.

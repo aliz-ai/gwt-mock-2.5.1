@@ -452,7 +452,7 @@ public class Widget extends UIObject implements EventListener, HasAttachHandlers
    * @throws IllegalStateException if <code>parent</code> is non-null and the
    *           widget already has a parent
    */
-  void setParent(Widget parent) {
+  public void setParent(Widget parent) {
     Widget oldParent = this.parent;
     if (parent == null) {
       try {

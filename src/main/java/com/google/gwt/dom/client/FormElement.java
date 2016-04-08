@@ -36,7 +36,7 @@ public class FormElement extends Element {
     return (FormElement) elem;
   }
 
-  protected FormElement() {
+  public FormElement() {
   }
 
   /**
@@ -164,9 +164,9 @@ public class FormElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/present/frames.html#adef-target">W3C HTML Specification</a>
    */
-  public final native void setTarget(String target) /*-{
-    this.target = target;
-  }-*/;
+  public final void setTarget(String target) {
+	  setAttribute("target", target);
+  }
 
   /**
    * Submits the form. It performs the same action as a submit button.

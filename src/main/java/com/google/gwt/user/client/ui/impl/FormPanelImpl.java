@@ -60,8 +60,11 @@ public class FormPanelImpl {
    * @param form the form whose onSubmit event is to be hooked
    * @param listener the listener to receive notification
    */
-  public native void hookEvents(Element iframe, Element form,
-      FormPanelImplHost listener) /*-{
+  public void hookEvents(Element iframe, Element form,
+      FormPanelImplHost listener) {
+    	  
+      }
+  /*-{
     if (iframe) {
       iframe.onload = $entry(function() {
         // If there is no __formAction yet, this is a spurious onload

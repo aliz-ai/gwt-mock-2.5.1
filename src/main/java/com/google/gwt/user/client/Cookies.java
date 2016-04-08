@@ -20,12 +20,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.collect.Maps;
+
 /**
  * Provides access to browser cookies stored on the client. Because of browser
  * restrictions, you will only be able to access cookies associated with the
  * current page's domain.
  */
 public class Cookies {
+	
+	static Map<String, String> windowCookies = Maps.newHashMap();
 
   /**
    * Cached copy of cookies.
@@ -184,7 +188,10 @@ public class Cookies {
     }
   }
 
-  static native void loadCookies(HashMap<String, String> m) /*-{
+  static void loadCookies(HashMap<String, String> m) {
+	  m.putAll(windowCookies);
+  }
+  /*-{
     var docCookie = $doc.cookie;
     if (docCookie && docCookie != '') {
       var crumbs = docCookie.split('; ');
@@ -259,7 +266,10 @@ public class Cookies {
     }
   }
 
-  private static native boolean needsRefresh() /*-{
+  private static boolean needsRefresh() {
+	  return true;
+  }
+  /*-{
     var docCookie = $doc.cookie;
         
     // Check to see if cached cookies need to be invalidated.

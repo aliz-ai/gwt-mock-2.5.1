@@ -19,6 +19,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.EventTarget;
 import com.google.gwt.dom.client.Style.Overflow;
 import com.google.gwt.dom.client.Style.Position;
@@ -31,7 +32,6 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.layout.client.Layout;
 import com.google.gwt.layout.client.Layout.Layer;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.ui.ResizeLayoutPanel.Impl.Delegate;
@@ -47,7 +47,7 @@ public class ResizeLayoutPanel extends SimplePanel implements ProvidesResize,
   /**
    * Implementation of resize event.
    */
-  abstract static class Impl {
+  public abstract static class Impl {
     /**
      * Delegate event handler.
      */
@@ -100,7 +100,7 @@ public class ResizeLayoutPanel extends SimplePanel implements ProvidesResize,
   /**
    * Implementation of resize event.
    */
-  static class ImplStandard extends Impl implements EventListener {
+  public static class ImplStandard extends Impl implements EventListener {
     /**
      * Chrome does not fire an onresize event if the dimensions are too small to
      * render a scrollbar.

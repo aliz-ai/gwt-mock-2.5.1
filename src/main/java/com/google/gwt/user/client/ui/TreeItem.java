@@ -15,18 +15,18 @@
  */
 package com.google.gwt.user.client.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gwt.animation.client.Animation;
 import com.google.gwt.aria.client.Roles;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.safehtml.client.HasSafeHtml;
 import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.dom.client.Element;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * An item that can be contained within a
@@ -81,7 +81,7 @@ public class TreeItem extends UIObject implements IsTreeItem, HasTreeItems,
      * Setup clonable elements.
      */
     void initializeClonableElements() {
-      if (GWT.isClient()) {
+//      if (GWT.isClient()) {
         // Create the base table element that will be cloned.
         BASE_INTERNAL_ELEM = DOM.createTable();
         Element contentElem = DOM.createDiv();
@@ -105,7 +105,7 @@ public class TreeItem extends UIObject implements IsTreeItem, HasTreeItems,
         DOM.setStyleAttribute(BASE_BARE_ELEM, "padding", "3px");
         DOM.appendChild(BASE_BARE_ELEM, contentElem);
         Roles.getTreeitemRole().set(contentElem);
-      }
+//      }
     }
   }
 

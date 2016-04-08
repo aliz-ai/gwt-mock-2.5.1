@@ -36,7 +36,8 @@ public class TableColElement extends Element {
     return (TableColElement) elem;
   }
 
-  protected TableColElement() {
+  public TableColElement(String tagName) {
+	  this.tagName = tagName;
   }
 
   /**

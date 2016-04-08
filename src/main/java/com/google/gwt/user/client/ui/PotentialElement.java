@@ -93,7 +93,10 @@ public class PotentialElement extends Element {
    * @param o the {@link JavaScriptObject} to be tested
    * @return true if the given object is a PotentialElement instance
    */
-  public static native boolean isPotential(JavaScriptObject o) /*-{
+  public static boolean isPotential(JavaScriptObject o) {
+	  return false;
+  }
+  /*-{
     try {
       return (!!o) &&  (!!o.__gwt_resolve);
     } catch (e) {

@@ -15,6 +15,9 @@
  */
 package com.google.gwt.user.cellview.client;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Element;
@@ -23,9 +26,6 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.ui.Widget;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Standard implementation used by most cell based widgets.
@@ -123,7 +123,10 @@ class CellBasedWidgetImplStandard extends CellBasedWidgetImpl {
   /**
    * Initialize the event system.
    */
-  private native void initEventSystem() /*-{
+  private void initEventSystem() {
+	  // nothing
+  }
+  /*-{
     @com.google.gwt.user.cellview.client.CellBasedWidgetImplStandard::dispatchNonBubblingEvent = $entry(function(evt) {
       @com.google.gwt.user.cellview.client.CellBasedWidgetImplStandard::handleNonBubblingEvent(Lcom/google/gwt/user/client/Event;)(evt);
     });
@@ -135,7 +138,10 @@ class CellBasedWidgetImplStandard extends CellBasedWidgetImpl {
    * @param elem the element to sink the event on
    * @param typeName the name of the event to sink
    */
-  private native void sinkEventImpl(Element elem, String typeName) /*-{
+  private void sinkEventImpl(Element elem, String typeName) {
+	  // nothing
+  }
+  /*-{
     elem.addEventListener(typeName, @com.google.gwt.user.cellview.client.CellBasedWidgetImplStandard::dispatchNonBubblingEvent, true);
   }-*/;
 }

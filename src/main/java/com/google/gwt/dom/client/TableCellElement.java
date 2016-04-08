@@ -36,7 +36,8 @@ public class TableCellElement extends Element {
     return (TableCellElement) elem;
   }
 
-  protected TableCellElement() {
+  public TableCellElement(String tagName) {
+	  this.tagName = tagName;
   }
 
   /**
@@ -117,9 +118,9 @@ public class TableCellElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-align-TD">W3C HTML Specification</a>
    */
-  public final native void setAlign(String align) /*-{
-     this.align = align;
-   }-*/;
+  public final void setAlign(String align) {
+	  setAttribute("align", align);
+  }
 
   /**
    * Alignment character for cells in a column.
@@ -144,9 +145,9 @@ public class TableCellElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/tables.html#adef-colspan">W3C HTML Specification</a>
    */
-  public final native void setColSpan(int colSpan) /*-{
-     this.colSpan = colSpan;
-   }-*/;
+  public final void setColSpan(int colSpan) {
+	  setAttribute("colspan", Integer.toString(colSpan));
+  }
 
   /**
    * List of id attribute values for header cells.

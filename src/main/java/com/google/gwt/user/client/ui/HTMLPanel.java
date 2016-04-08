@@ -22,6 +22,7 @@ import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.safehtml.shared.SafeHtml;
+import com.google.gwt.user.client.DOM;
 
 /**
  * A panel that contains HTML, and which can attach child widgets to identified
@@ -117,15 +118,18 @@ public class HTMLPanel extends ComplexPanel {
      * div, IE will swallow it gladly. So that's what we do here in the name of
      * IE robustification.
      */
-    StringBuilder b = new StringBuilder();
-    b.append('<').append(tag).append('>').append(html);
-    b.append("</").append(tag).append('>');
+//    StringBuilder b = new StringBuilder();
+//    b.append('<').append(tag).append('>').append(html);
+//    b.append("</").append(tag).append('>');
 
     // We could use the static hiddenDiv, but that thing is attached
     // to the document. The caller might not want that.
 
     DivElement scratchDiv = Document.get().createDivElement();
-    scratchDiv.setInnerHTML(b.toString());
+//    scratchDiv.setInnerHTML(b.toString());
+    Element contentElement = DOM.createElement(tag);
+    contentElement.setInnerHTML(html);
+    scratchDiv.appendChild(contentElement);
     setElement(scratchDiv.getFirstChildElement());
     getElement().removeFromParent();
   }

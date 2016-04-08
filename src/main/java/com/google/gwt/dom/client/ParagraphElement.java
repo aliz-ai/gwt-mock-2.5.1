@@ -22,18 +22,18 @@ package com.google.gwt.dom.client;
  */
 @TagName(ParagraphElement.TAG)
 public class ParagraphElement extends Element {
-
-  public static final String TAG = "p";
-
-  /**
-   * Assert that the given {@link Element} is compatible with this class and
-   * automatically typecast it.
-   */
-  public static ParagraphElement as(Element elem) {
-    assert elem.getTagName().equalsIgnoreCase(TAG);
-    return (ParagraphElement) elem;
-  }
-
-  protected ParagraphElement() {
-  }
+	
+	public static final String TAG = "p";
+	
+	/**
+	 * Assert that the given {@link Element} is compatible with this class and
+	 * automatically typecast it.
+	 */
+	public static ParagraphElement as(Element elem) {
+		assert elem.getTagName().equalsIgnoreCase(TAG);
+		return (ParagraphElement) elem;
+	}
+	
+	public ParagraphElement() {
+	}
 }

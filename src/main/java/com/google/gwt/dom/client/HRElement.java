@@ -22,18 +22,18 @@ package com.google.gwt.dom.client;
  */
 @TagName(HRElement.TAG)
 public class HRElement extends Element {
-
-  public static final String TAG = "hr";
-
-  /**
-   * Assert that the given {@link Element} is compatible with this class and
-   * automatically typecast it.
-   */
-  public static HRElement as(Element elem) {
-    assert elem.getTagName().equalsIgnoreCase(TAG);
-    return (HRElement) elem;
-  }
-
-  protected HRElement() {
-  }
+	
+	public static final String TAG = "hr";
+	
+	/**
+	 * Assert that the given {@link Element} is compatible with this class and
+	 * automatically typecast it.
+	 */
+	public static HRElement as(Element elem) {
+		assert elem.getTagName().equalsIgnoreCase(TAG);
+		return (HRElement) elem;
+	}
+	
+	public HRElement() {
+	}
 }

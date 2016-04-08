@@ -34,7 +34,7 @@ public class OptionElement extends Element {
     return (OptionElement) elem;
   }
 
-  protected OptionElement() {
+  public OptionElement() {
   }
 
   /**
@@ -64,7 +64,10 @@ public class OptionElement extends Element {
   /**
    * The text contained within the option element.
    */
-  public final native String getText() /*-{
+  public final String getText() {
+	  return getInnerText();
+  }
+  /*-{
     return this.text;
   }-*/;
 
@@ -73,9 +76,9 @@ public class OptionElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-OPTION">W3C HTML Specification</a>
    */
-  public final native String getValue() /*-{
-    return this.value;
-  }-*/;
+  public final String getValue() {
+	 return getPropertyString("value");
+  };
 
   /**
    * Represents the value of the HTML selected attribute. The value of this
@@ -149,7 +152,10 @@ public class OptionElement extends Element {
   /**
    * The text contained within the option element.
    */
-  public final native void setText(String text) /*-{
+  public final void setText(String text) {
+	  setInnerText(text);
+  }
+  /*-{
     this.text = text;
   }-*/;
 
@@ -158,7 +164,10 @@ public class OptionElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-value-OPTION">W3C HTML Specification</a>
    */
-  public final native void setValue(String value) /*-{
+  public final void setValue(String value) {
+	  setAttribute("value", value);
+  }
+  /*-{
     this.value = value;
   }-*/;
 }

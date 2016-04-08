@@ -15,6 +15,8 @@
  */
 package com.google.gwt.user.client.ui;
 
+import java.util.HashMap;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
@@ -83,10 +85,9 @@ import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.safehtml.shared.SafeUri;
 import com.google.gwt.safehtml.shared.UriUtils;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.impl.ClippedImageImpl;
-
-import java.util.HashMap;
 
 /**
  * A widget that displays the image at a given URL. The image can be in
@@ -419,12 +420,12 @@ public class Image extends Widget implements SourcesLoadEvents, HasLoadHandlers,
     @Override
     public void setUrlAndVisibleRect(Image image, SafeUri url, int left, int top, int width,
         int height) {
-      image.changeState(new ClippedState(image, url, left, top, width, height));
+      //image.changeState(new ClippedState(image, url, left, top, width, height));
     }
 
     @Override
     public void setVisibleRect(Image image, int left, int top, int width, int height) {
-      image.changeState(new ClippedState(image, getUrl(image), left, top, width, height));
+      //image.changeState(new ClippedState(image, getUrl(image), left, top, width, height));
     }
 
     // This method is used only by unit tests.
@@ -565,7 +566,10 @@ public class Image extends Widget implements SourcesLoadEvents, HasLoadHandlers,
    * @param height the height of the visibility rectangle
    */
   public Image(SafeUri url, int left, int top, int width, int height) {
-    changeState(new ClippedState(this, url, left, top, width, height));
+	  // we don't really need image clipping
+	  setElement(DOM.createImg());
+//    changeState(new ClippedState(this, url, left, top, width, height));
+      changeState(new UnclippedState(this));
     setStyleName("gwt-Image");
   }
 
