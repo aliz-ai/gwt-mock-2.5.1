@@ -102,9 +102,28 @@
 	</build>
 
 	<scm>
-		<url>https://github.com/Doctusoft/gwt-mock-2.5.1</url>
+ 		<connection>scm:git:git@github.com:Doctusoft/gwt-mock-2.5.1.git</connection>
+  		<developerConnection>scm:git:git@github.com:Doctusoft/gwt-mock-2.5.1.git</developerConnection>
+  		<url>https://github.com/Doctusoft/gwt-mock-2.5.1</url>
 	</scm>
 
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Gabor Farkas</name>
+			<email>gabor.farkas@doctusoft.com</email>
+			<organization>Doctusoft Ltd.</organization>
+			<organizationUrl>http://www.doctusoft.com</organizationUrl>
+		</developer>
+	</developers>
+	
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
