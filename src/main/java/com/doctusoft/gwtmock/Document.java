@@ -46,7 +46,7 @@ public class Document extends com.google.gwt.dom.client.Document {
 	
 	protected BodyElement body;
 	
-	private final ImmutableList<String> DummyTagNames = ImmutableList.of("i", "b", "h3", "small", "h5", "svg", "circle");
+	private final ImmutableList<String> DummyTagNames = ImmutableList.of("i", "b", "h3", "small", "h5", "svg", "circle", "footer");
 	
 	public Element createMockElement(String tag) {
 		Element element = null;
@@ -175,9 +175,10 @@ public class Document extends com.google.gwt.dom.client.Document {
 			printFormatted((Element) node, indent, pw);
 		}
 		if (node instanceof Text) {
-			pw.print(((Text)node).getData());
+			pw.print(((Text) node).getData());
 		}
 	}
+	
 	public void printFormatted(Element element, String indent, PrintWriter pw) {
 		String tagName = element.getTagName();
 		pw.print(indent + "<" + tagName);
