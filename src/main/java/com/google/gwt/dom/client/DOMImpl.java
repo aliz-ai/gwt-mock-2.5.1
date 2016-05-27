@@ -124,7 +124,7 @@ public class DOMImpl {
 	public void dispatchEvent(Element target, NativeEvent evt) {
 	}
 	
-	public native boolean eventGetAltKey(NativeEvent evt) /*-{
+	public boolean eventGetAltKey(NativeEvent evt) {return false;}/*-{
 																			return !!evt.altKey;
 																			}-*/;
 	
@@ -144,7 +144,7 @@ public class DOMImpl {
 																		return evt.clientY || 0;
 																		}-*/;
 	
-	public native boolean eventGetCtrlKey(NativeEvent evt) /*-{
+	public boolean eventGetCtrlKey(NativeEvent evt) {return false;}/*-{
 																				return !!evt.ctrlKey;
 																				}-*/;
 	
@@ -184,7 +184,7 @@ public class DOMImpl {
 																		return evt.screenY || 0;
 																		}-*/;
 	
-	public native boolean eventGetShiftKey(NativeEvent evt) /*-{
+	public boolean eventGetShiftKey(NativeEvent evt) {return false;}/*-{
 																				return !!evt.shiftKey;
 																				}-*/;
 	

@@ -22,6 +22,7 @@ import java.lang.reflect.Proxy;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.google.gwt.debug.client.DebugInfo;
 import com.google.gwt.event.dom.client.TouchEvent.TouchSupportDetector;
 import com.google.gwt.i18n.client.CurrencyList;
 import com.google.gwt.i18n.client.constants.NumberConstantsImpl;
@@ -43,6 +44,8 @@ import com.google.gwt.user.client.ui.FileUpload.FileUploadImpl;
 import com.google.gwt.user.client.ui.ResizeLayoutPanel;
 import com.google.gwt.user.client.ui.ScrollImpl;
 import com.google.gwt.user.client.ui.TreeItem.TreeItemImpl;
+import com.google.gwt.user.client.ui.UIObject;
+import com.google.gwt.user.client.ui.UIObject.DebugIdImpl;
 import com.google.gwt.user.client.ui.impl.PopupImpl;
 import com.google.web.bindery.event.shared.SimpleEventBus;
 
@@ -163,7 +166,13 @@ public final class GWT {
 		if (DOMImpl.class.equals(classLiteral)) {
 			return (T) new DOMImplMozilla();
 		}
-		if ((classLiteral.getModifiers() | Modifier.ABSTRACT) == 0) {
+		if (DebugIdImpl.class.equals(classLiteral)) {
+		    return (T) new UIObject.DebugIdImplEnabled();
+		}
+		if (DebugInfo.DebugInfoImpl.class.equals(classLiteral)) {
+            return (T) new DebugInfo.DebugInfoImplEnabled();
+        }
+		if (!Modifier.isAbstract(classLiteral.getModifiers())) {
 			try {
 				return (T) classLiteral.getConstructor().newInstance();
 			} catch (Exception e) {
