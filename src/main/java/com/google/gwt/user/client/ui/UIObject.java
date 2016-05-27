@@ -935,7 +935,13 @@ public abstract class UIObject implements HasVisibility {
    * @return The leading numeric portion of <code>s</code>, or 0 if "auto" or
    *         "inherit" are passed in.
    */
-  private native double extractLengthValue(String s) /*-{
+  private  double extractLengthValue(String s) {
+      if (s == "auto" || s == "inherit" || s == "") {
+          return 0;
+        } else {
+            return Double.parseDouble(s.replaceAll("[^-?0-9]+", ""));
+        }
+  } /*-{
     if (s == "auto" || s == "inherit" || s == "") {
       return 0;
     } else {

@@ -21,11 +21,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import com.google.gwt.resources.ext.DefaultExtensions;
 import com.google.gwt.safehtml.shared.SafeUri;
 
 /**
  * Provides access to image resources at runtime.
  */
+@DefaultExtensions(value = {".png", ".jpg", ".gif", ".bmp"})
 public interface ImageResource extends ResourcePrototype {
 
   /**

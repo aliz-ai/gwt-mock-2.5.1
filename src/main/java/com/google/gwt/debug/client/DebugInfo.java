@@ -27,7 +27,7 @@ public class DebugInfo {
   /**
    * Implementation class for {@link DebugInfo}.
    */
-  private static class DebugInfoImpl {
+  public static class DebugInfoImpl {
     private String debugIdPrefix = DEFAULT_DEBUG_ID_PREFIX;
     private String debugIdAttribute = "id";
     private boolean debugIdAsProperty = true;
@@ -62,7 +62,7 @@ public class DebugInfo {
    * Implementation class for {@link DebugInfo} used when debug IDs are enabled.
    */
   @SuppressWarnings("unused")
-  private static class DebugInfoImplEnabled extends DebugInfoImpl {
+  public static class DebugInfoImplEnabled extends DebugInfoImpl {
     @Override
     public boolean isDebugIdEnabled() {
       return true;
