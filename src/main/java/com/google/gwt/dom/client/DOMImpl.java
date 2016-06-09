@@ -19,15 +19,42 @@ import java.util.List;
 
 import com.google.common.base.MoreObjects;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.FocusEvent;
 
 public class DOMImpl {
 	
 	static final DOMImpl impl = new DOMImpl();
 	
-	public void buttonClick(ButtonElement button) {
-		button.fireEvent(ClickEvent.getType());
-	}
+	// Element In Focus (some browsers actually have working implementation document.activeElement)
+	private Element activeElement;
+	
+    private void switchFocusTo(Element element) {
+        if (activeElement == element) {
+            return;
+        } else {
+            if (activeElement != null) {
+                activeElement.fireEvent(BlurEvent.getType());
+            }
+            element.fireEvent(FocusEvent.getType());
+            activeElement = element;
+        }
+    }
+	
+    public void buttonClick(ButtonElement button) {
+        switchFocusTo(button);
+        button.fireEvent(ClickEvent.getType());
+    }
+
+    public void elementClick(Element element) {
+        switchFocusTo(element);
+        element.fireEvent(ClickEvent.getType());
+    }
+    
+    public void focus(Element element) {
+        switchFocusTo(element);
+    }
 	
 	public ButtonElement createButtonElement(Document doc, String type) {
 		return (ButtonElement) ((com.doctusoft.gwtmock.Document) doc).createMockElement(ButtonElement.TAG);

@@ -173,7 +173,7 @@ public class Element extends Node {
 	 * Gives keyboard focus to this element.
 	 */
 	public final void focus() {
-		// TODO focus?
+	    DOMImpl.impl.focus(this);
 	}
 	
 	/**

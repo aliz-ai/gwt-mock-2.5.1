@@ -48,7 +48,10 @@ private boolean checked;
    * Simulate a mouse-click. For INPUT elements whose type attribute has one of
    * the following values: "button", "checkbox", "radio", "reset", or "submit".
    */
-  public final native void click() /*-{
+  public final void click() {
+      DOMImpl.impl.elementClick(this);
+  }
+  /*-{
     this.click();
   }-*/;
 
