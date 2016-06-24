@@ -384,6 +384,19 @@ private boolean checked;
   }-*/;
 
   /**
+   * @Mock
+   * 
+   * Set value in native element (like Selenium 'sendKeys').
+   * The new value will be available in calls to getValue().
+   * N.B. Will not trigger ValueChange events until focus lost.
+   */
+  public final void setNewValue(String value) {
+      focus();
+      setAttribute("mock.Value.new", value);
+      setValue(value);
+  }
+  
+  /**
    * Use client-side image map.
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-usemap">W3C HTML Specification</a>

@@ -20,8 +20,10 @@ import java.util.List;
 import com.google.common.base.MoreObjects;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.dom.client.BlurEvent;
+import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.user.client.DOM;
 
 public class DOMImpl {
 	
@@ -34,7 +36,10 @@ public class DOMImpl {
         if (activeElement == element) {
             return;
         } else {
-            if (activeElement != null) {
+            if (activeElement != null && isAtached(activeElement)) {
+                if (activeElement instanceof InputElement) {
+                    fireValueChangeIfAny((InputElement)activeElement);
+                }
                 activeElement.fireEvent(BlurEvent.getType());
             }
             element.fireEvent(FocusEvent.getType());
@@ -42,6 +47,18 @@ public class DOMImpl {
         }
     }
 	
+    private boolean isAtached(Element elem) {
+        return DOM.getEventListener(elem) != null;
+    }
+
+    private void fireValueChangeIfAny(InputElement element) {
+        String newValue =  element.getAttribute("mock.Value.new");
+        if (newValue != null) {
+            element.removeAttribute("mock.Value.new");
+            activeElement.fireEvent(ChangeEvent.getType());
+        }
+    }
+
     public void buttonClick(ButtonElement button) {
         switchFocusTo(button);
         button.fireEvent(ClickEvent.getType());

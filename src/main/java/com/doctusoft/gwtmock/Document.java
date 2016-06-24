@@ -145,6 +145,15 @@ public class Document extends com.google.gwt.dom.client.Document {
 		return element;
 	}
 	
+	/**
+	 * Clear all elements between tests.
+	 * 
+	 * TODO the RootPanel.get().clear() should be sufficient. But here all elements will remain.
+	 */
+	public static void reset() {
+	    Instance.elements.clear();
+	}
+	
 	@Override
 	public Element getElementById(String elementId) {
 		Preconditions.checkNotNull(elementId);
