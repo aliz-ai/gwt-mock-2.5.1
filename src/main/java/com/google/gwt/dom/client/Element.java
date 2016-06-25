@@ -17,12 +17,16 @@ package com.google.gwt.dom.client;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import net.htmlparser.jericho.Attribute;
+import net.htmlparser.jericho.EndTag;
 import net.htmlparser.jericho.Segment;
 import net.htmlparser.jericho.Source;
+import net.htmlparser.jericho.StartTag;
+import net.htmlparser.jericho.Tag;
 
 import com.doctusoft.gwtmock.Document;
 import com.google.common.base.MoreObjects;
@@ -52,6 +56,9 @@ public class Element extends Node {
 		}
 	}
 	
+	/**
+	 * @deprecated TODO Why do we keep this? and why not just get the text from html when needed
+	 */
 	public String innerText = "";
 	
 	protected String tagName = null;
@@ -339,7 +346,7 @@ public class Element extends Node {
 	public final String getInnerText() {
 		return innerText;
 	}
-	
+
 	/**
 	 * Language code defined in RFC 1766.
 	 */
@@ -813,6 +820,7 @@ public class Element extends Node {
 		removeAllChildren();
 		Source source = new Source(html);
 		addParsedElements(this, source, source.getChildElements());
+		innerText = source.getTextExtractor().toString();
 	}
 	
 	/**
@@ -826,6 +834,11 @@ public class Element extends Node {
 	 * The text between the start and end tags of the object.
 	 */
 	public final void setInnerText(String text) {
+	    this.removeAllChildren();
+	    // Add a new text node.
+	    if (text != null) {
+	       this.appendChild(document.createTextNode(text));
+	    }
 		innerText = text;
 	}
 	

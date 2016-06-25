@@ -15,6 +15,8 @@
  */
 package com.google.gwt.core.client;
 
+import com.doctusoft.gwtmock.Document;
+
 /**
  * An opaque handle to a native JavaScript object. A
  * <code>JavaScriptObject</code> cannot be created directly.
@@ -144,7 +146,11 @@ public class JavaScriptObject {
    */
   @Override
   public final String toString() {
-    return JavaScriptObject.class.desiredAssertionStatus() ?
-        toStringVerbose(this) : toStringSimple(this);
-  }
+      if (true) {
+          return Document.Instance.toStringVerbose(this);
+      } else {
+          return JavaScriptObject.class.desiredAssertionStatus() ?
+                  toStringVerbose(this) : toStringSimple(this);
+      }
+   }
 }
