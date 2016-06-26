@@ -31,6 +31,7 @@ import com.google.gwt.i18n.client.impl.LocaleInfoImpl;
 import com.google.gwt.i18n.client.impl.cldr.DateTimeFormatInfoImpl;
 import com.google.gwt.i18n.client.impl.cldr.DateTimeFormatInfoImpl_en;
 import com.google.gwt.layout.client.LayoutImpl;
+import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.safehtml.client.SafeHtmlTemplates;
 import com.google.gwt.safehtml.client.SafeHtmlTemplates.Template;
 import com.google.gwt.safehtml.shared.SafeHtml;
@@ -157,6 +158,9 @@ public final class GWT {
 		if (SafeHtmlTemplates.class.isAssignableFrom(classLiteral)) {
 			return (T) createSafeHtmlTemplates(classLiteral);
 		}
+		if (ClientBundle.class.isAssignableFrom(classLiteral)) {
+            return (T) ClientBundleMock.createClientBundle(classLiteral);
+        }
 		if (HistoryImpl.class.equals(classLiteral)) {
 			return (T) new HistoryImpl();
 		}
