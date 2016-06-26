@@ -15,6 +15,7 @@
  */
 package com.google.gwt.user.client.ui;
 
+import com.doctusoft.gwtmock.ElementDelegate;
 import com.google.common.base.Joiner;
 import com.google.common.base.MoreObjects;
 import com.google.gwt.core.client.GWT;
@@ -558,9 +559,9 @@ public abstract class UIObject implements HasVisibility {
    * 
    * @return the object's browser element
    */
-  public Element getElement() {
+  public com.google.gwt.user.client.Element getElement() {
     assert (element != null) : MISSING_ELEMENT_ERROR;
-    return element;
+    return ElementDelegate.create(element);
   }
 
   /**

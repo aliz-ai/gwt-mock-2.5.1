@@ -124,7 +124,7 @@ public class Element extends Node {
 	 * @return <code>true</code> if this element did not already have the specified class name
 	 * @see #setClassName(String)
 	 */
-	public final boolean addClassName(String className) {
+	public boolean addClassName(String className) {
 		assert (className != null) : "Unexpectedly null class name";
 		
 		className = className.trim();
@@ -149,7 +149,7 @@ public class Element extends Node {
 	/**
 	 * Removes keyboard focus from this element.
 	 */
-	public final void blur() {
+	public void blur() {
 		// TODO blur?
 	}
 	
@@ -165,14 +165,14 @@ public class Element extends Node {
 	 * @param evt
 	 *           the event to be dispatched
 	 */
-	public final void dispatchEvent(NativeEvent evt) {
+	public void dispatchEvent(NativeEvent evt) {
 		DOMImpl.impl.dispatchEvent(this, evt);
 	}
 	
 	/**
 	 * Gives keyboard focus to this element.
 	 */
-	public final void focus() {
+	public void focus() {
 		// TODO focus?
 	}
 	
@@ -180,7 +180,7 @@ public class Element extends Node {
 	 * Gets an element's absolute bottom coordinate in the document's coordinate
 	 * system.
 	 */
-	public final int getAbsoluteBottom() {
+	public int getAbsoluteBottom() {
 		return getAbsoluteTop() + getOffsetHeight();
 	}
 	
@@ -188,7 +188,7 @@ public class Element extends Node {
 	 * Gets an element's absolute left coordinate in the document's coordinate
 	 * system.
 	 */
-	public final int getAbsoluteLeft() {
+	public int getAbsoluteLeft() {
 		// TODO no emulated layouting yet
 		return 0;
 	}
@@ -197,7 +197,7 @@ public class Element extends Node {
 	 * Gets an element's absolute right coordinate in the document's coordinate
 	 * system.
 	 */
-	public final int getAbsoluteRight() {
+	public int getAbsoluteRight() {
 		return getAbsoluteLeft() + getOffsetWidth();
 	}
 	
@@ -205,7 +205,7 @@ public class Element extends Node {
 	 * Gets an element's absolute top coordinate in the document's coordinate
 	 * system.
 	 */
-	public final int getAbsoluteTop() {
+	public int getAbsoluteTop() {
 		// TODO no emulated layouting yet
 		return 0;
 	}
@@ -220,7 +220,7 @@ public class Element extends Node {
 	 * @return The Attr value as a string, or the empty string if that attribute
 	 *         does not have a specified or default value
 	 */
-	public final String getAttribute(String name) {
+	public String getAttribute(String name) {
 		return attributes.get(name);
 	}
 	
@@ -230,7 +230,7 @@ public class Element extends Node {
 	 * 
 	 * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-class">W3C HTML Specification</a>
 	 */
-	public final String getClassName() {
+	public String getClassName() {
 		return MoreObjects.firstNonNull(attributes.get("class"), "");
 	}
 	
@@ -240,7 +240,7 @@ public class Element extends Node {
 	 * 
 	 * @return the element's client height
 	 */
-	public final int getClientHeight() {
+	public int getClientHeight() {
 		// TODO no layouting yet
 		return 0;
 	}
@@ -251,7 +251,7 @@ public class Element extends Node {
 	 * 
 	 * @return the element's client width
 	 */
-	public final int getClientWidth() {
+	public int getClientWidth() {
 		// TODO no layouting yet
 		return 0;
 	}
@@ -260,7 +260,7 @@ public class Element extends Node {
 	 * Specifies the base direction of directionally neutral text and the
 	 * directionality of tables.
 	 */
-	public final String getDir() {
+	public String getDir() {
 		return attributes.get("dir");
 	}
 	
@@ -269,7 +269,7 @@ public class Element extends Node {
 	 * 
 	 * @return one of {@link #DRAGGABLE_AUTO}, {@link #DRAGGABLE_FALSE}, or {@link #DRAGGABLE_TRUE}
 	 */
-	public final String getDraggable() {
+	public String getDraggable() {
 		return attributes.get("draggable");
 	}
 	
@@ -283,7 +283,7 @@ public class Element extends Node {
 	 *           all tags
 	 * @return A list of matching Element nodes
 	 */
-	public final NodeList<Element> getElementsByTagName(String name) {
+	public NodeList<Element> getElementsByTagName(String name) {
 		List<Element> result = Lists.newArrayList();
 		for (Node node : getChildNodes()) {
 			if (node instanceof Element) {
@@ -303,7 +303,7 @@ public class Element extends Node {
 	 * The first child of element this element. If there is no such element, this
 	 * returns null.
 	 */
-	public final Element getFirstChildElement() {
+	public Element getFirstChildElement() {
 		for (Node node : getChildNodes()) {
 			if (node instanceof Element) {
 				return (Element) node;
@@ -317,14 +317,14 @@ public class Element extends Node {
 	 * 
 	 * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-id">W3C HTML Specification</a>
 	 */
-	public final String getId() {
+	public String getId() {
 		return getAttribute("id");
 	}
 	
 	/**
 	 * All of the markup and content within a given element.
 	 */
-	public final String getInnerHTML() {
+	public String getInnerHTML() {
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
 		for (Node node : getChildNodes().getList()) {
@@ -336,14 +336,14 @@ public class Element extends Node {
 	/**
 	 * The text between the start and end tags of the object.
 	 */
-	public final String getInnerText() {
+	public String getInnerText() {
 		return innerText;
 	}
 	
 	/**
 	 * Language code defined in RFC 1766.
 	 */
-	public final String getLang() {
+	public String getLang() {
 		return attributes.get("lang");
 	}
 	
@@ -351,14 +351,14 @@ public class Element extends Node {
 	 * The element immediately following this element. If there is no such
 	 * element, this returns null.
 	 */
-	public final Element getNextSiblingElement() {
+	public Element getNextSiblingElement() {
 		return DOMImpl.impl.getNextSiblingElement(this);
 	}
 	
 	/**
 	 * The height of an element relative to the layout.
 	 */
-	public final int getOffsetHeight() {
+	public int getOffsetHeight() {
 		// TODO no layouting yet
 		return 0;
 	}
@@ -367,7 +367,7 @@ public class Element extends Node {
 	 * The number of pixels that the upper left corner of the current element is
 	 * offset to the left within the offsetParent node.
 	 */
-	public final int getOffsetLeft() {
+	public int getOffsetLeft() {
 		// TODO no layouting yet
 		return 0;
 	}
@@ -376,7 +376,7 @@ public class Element extends Node {
 	 * Returns a reference to the object which is the closest (nearest in the
 	 * containment hierarchy) positioned containing element.
 	 */
-	public final Element getOffsetParent() {
+	public Element getOffsetParent() {
 		return getParentElement();
 	}
 	
@@ -384,7 +384,7 @@ public class Element extends Node {
 	 * The number of pixels that the upper top corner of the current element is
 	 * offset to the top within the offsetParent node.
 	 */
-	public final int getOffsetTop() {
+	public int getOffsetTop() {
 		// TODO no layouting yet
 		return 0;
 	}
@@ -392,7 +392,7 @@ public class Element extends Node {
 	/**
 	 * The width of an element relative to the layout.
 	 */
-	public final int getOffsetWidth() {
+	public int getOffsetWidth() {
 		// TODO no layouting yet
 		return 0;
 	}
@@ -401,7 +401,7 @@ public class Element extends Node {
 	 * The element immediately preceeding this element. If there is no such
 	 * element, this returns null.
 	 */
-	public final Element getPreviousSiblingElement() {
+	public Element getPreviousSiblingElement() {
 		return DOMImpl.impl.getPreviousSiblingElement(this);
 	}
 	
@@ -412,7 +412,7 @@ public class Element extends Node {
 	 *           the name of the property to be retrieved
 	 * @return the property value
 	 */
-	public final boolean getPropertyBoolean(String name) {
+	public boolean getPropertyBoolean(String name) {
 		return "true".equalsIgnoreCase(getPropertyString(name));
 	}
 	
@@ -423,7 +423,7 @@ public class Element extends Node {
 	 *           the name of the property to be retrieved
 	 * @return the property value
 	 */
-	public final double getPropertyDouble(String name) {
+	public double getPropertyDouble(String name) {
 		String value = getPropertyString(name);
 		if (value == null) {
 			return 0.0;
@@ -438,7 +438,7 @@ public class Element extends Node {
 	 *           the name of the property to be retrieved
 	 * @return the property value
 	 */
-	public final int getPropertyInt(String name) {
+	public int getPropertyInt(String name) {
 		String value = getPropertyString(name);
 		if (value == null) {
 			return 0;
@@ -453,7 +453,7 @@ public class Element extends Node {
 	 *           the name of the property to be retrieved
 	 * @return the property value
 	 */
-	public final native JavaScriptObject getPropertyJSO(String name) /*-{
+	public native JavaScriptObject getPropertyJSO(String name) /*-{
 																							return this[name] || null;
 																							}-*/;
 	
@@ -464,7 +464,7 @@ public class Element extends Node {
 	 *           the name of the property to be retrieved
 	 * @return the property value
 	 */
-	public final native Object getPropertyObject(String name) /*-{
+	public native Object getPropertyObject(String name) /*-{
 																					return this[name] || null;
 																					}-*/;
 	
@@ -475,7 +475,7 @@ public class Element extends Node {
 	 *           the name of the property to be retrieved
 	 * @return the property value
 	 */
-	public final String getPropertyString(String name) {
+	public String getPropertyString(String name) {
 		String attributeValue = attributes.get(name);
 		// TODO implement getproperty for special properties
 		if ("value".equals(name)) {
@@ -487,7 +487,7 @@ public class Element extends Node {
 	/**
 	 * The height of the scroll view of an element.
 	 */
-	public final int getScrollHeight() {
+	public int getScrollHeight() {
 		// TODO no layouting yet
 		return 0;
 	}
@@ -499,7 +499,7 @@ public class Element extends Node {
 	 * If the element is in RTL mode, this method will return a negative value of the number of pixels scrolled from the right.
 	 * </p>
 	 */
-	public final int getScrollLeft() {
+	public int getScrollLeft() {
 		// TODO no layouting yet
 		return 0;
 	}
@@ -507,7 +507,7 @@ public class Element extends Node {
 	/**
 	 * The number of pixels that an element's content is scrolled from the top.
 	 */
-	public final int getScrollTop() {
+	public int getScrollTop() {
 		// TODO no layouting yet
 		return 0;
 	}
@@ -515,7 +515,7 @@ public class Element extends Node {
 	/**
 	 * The width of the scroll view of an element.
 	 */
-	public final int getScrollWidth() {
+	public int getScrollWidth() {
 		// TODO no layouting yet
 		return 0;
 	}
@@ -527,7 +527,7 @@ public class Element extends Node {
 	 * 
 	 * @return the string representation of this element
 	 */
-	public final String getString() {
+	public String getString() {
 		String tagName = getTagName();
 		return "<" + tagName + ">" + getInnerText() + "</" + tagName + ">";
 	}
@@ -535,7 +535,7 @@ public class Element extends Node {
 	/**
 	 * Gets this element's {@link Style} object.
 	 */
-	public final Style getStyle() {
+	public Style getStyle() {
 		return style;
 	}
 	
@@ -544,7 +544,7 @@ public class Element extends Node {
 	 * 
 	 * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-tabindex">W3C HTML Specification</a>
 	 */
-	public final int getTabIndex() {
+	public int getTabIndex() {
 		return 0;
 	}
 	
@@ -554,7 +554,7 @@ public class Element extends Node {
 	 * 
 	 * @return the element's tag name
 	 */
-	public final String getTagName() {
+	public String getTagName() {
 		if (tagName != null) {
 			return tagName;
 		}
@@ -568,7 +568,7 @@ public class Element extends Node {
 	/**
 	 * The element's advisory title.
 	 */
-	public final native String getTitle() /*-{
+	public native String getTitle() /*-{
 														return this.title;
 														}-*/;
 	
@@ -583,7 +583,7 @@ public class Element extends Node {
 	 *           the name of the attribute
 	 * @return <code>true</code> if this element has the specified attribute
 	 */
-	public final boolean hasAttribute(String name) {
+	public boolean hasAttribute(String name) {
 		return DOMImpl.impl.hasAttribute(this, name);
 	}
 	
@@ -594,7 +594,7 @@ public class Element extends Node {
 	 *           the tag name, including namespace-prefix (if present)
 	 * @return <code>true</code> if the element has the given tag name
 	 */
-	public final boolean hasTagName(String tagName) {
+	public boolean hasTagName(String tagName) {
 		assert tagName != null : "tagName must not be null";
 		return tagName.equals(getTagName());
 	}
@@ -602,7 +602,7 @@ public class Element extends Node {
 	/**
 	 * Removes an attribute by name.
 	 */
-	public final void removeAttribute(String name) {
+	public void removeAttribute(String name) {
 		attributes.remove(name);
 	}
 	/*-{
@@ -618,7 +618,7 @@ public class Element extends Node {
 	 * @return <code>true</code> if this element had the specified class name
 	 * @see #setClassName(String)
 	 */
-	public final boolean removeClassName(String className) {
+	public boolean removeClassName(String className) {
 		assert (className != null) : "Unexpectedly null class name";
 		
 		className = className.trim();
@@ -686,7 +686,7 @@ public class Element extends Node {
 	 * @param newClassName
 	 *           the class name to replace it
 	 */
-	public final void replaceClassName(String oldClassName, String newClassName) {
+	public void replaceClassName(String oldClassName, String newClassName) {
 		removeClassName(oldClassName);
 		addClassName(newClassName);
 	}
@@ -698,7 +698,7 @@ public class Element extends Node {
 	 * This method crawls up the DOM hierarchy, adjusting the scrollLeft and scrollTop properties of each scrollable element to ensure that the specified element is completely in view. It adjusts each scroll position by the minimum amount necessary.
 	 * </p>
 	 */
-	public final void scrollIntoView() {
+	public void scrollIntoView() {
 		DOMImpl.impl.scrollIntoView(this);
 	}
 	
@@ -711,7 +711,7 @@ public class Element extends Node {
 	 * @param value
 	 *           Value to set in string form
 	 */
-	public final void setAttribute(String name, String value) {
+	public void setAttribute(String name, String value) {
 		attributes.put(name, value);
 	}
 	
@@ -721,7 +721,7 @@ public class Element extends Node {
 	 * 
 	 * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-class">W3C HTML Specification</a>
 	 */
-	public final void setClassName(String className) {
+	public void setClassName(String className) {
 		attributes.put("class", className);
 	}
 	
@@ -729,7 +729,7 @@ public class Element extends Node {
 	 * Specifies the base direction of directionally neutral text and the
 	 * directionality of tables.
 	 */
-	public final native void setDir(String dir) /*-{
+	public native void setDir(String dir) /*-{
 																this.dir = dir;
 																}-*/;
 	
@@ -739,7 +739,7 @@ public class Element extends Node {
 	 * @param draggable
 	 *           a String constants
 	 */
-	public final void setDraggable(String draggable) {
+	public void setDraggable(String draggable) {
 		DOMImpl.impl.setDraggable(this, draggable);
 	}
 	
@@ -748,7 +748,7 @@ public class Element extends Node {
 	 * 
 	 * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/global.html#adef-id">W3C HTML Specification</a>
 	 */
-	public final void setId(String id) {
+	public void setId(String id) {
 		setAttribute("id", id);
 	}
 	
@@ -808,7 +808,7 @@ public class Element extends Node {
 	/**
 	 * All of the markup and content within a given element.
 	 */
-	public final void setInnerHTML(String html) {
+	public void setInnerHTML(String html) {
 		this.innerHtml = html;
 		removeAllChildren();
 		Source source = new Source(html);
@@ -818,21 +818,21 @@ public class Element extends Node {
 	/**
 	 * All of the markup and content within a given element.
 	 */
-	public final void setInnerSafeHtml(SafeHtml html) {
+	public void setInnerSafeHtml(SafeHtml html) {
 		setInnerHTML(html.asString());
 	}
 	
 	/**
 	 * The text between the start and end tags of the object.
 	 */
-	public final void setInnerText(String text) {
+	public void setInnerText(String text) {
 		innerText = text;
 	}
 	
 	/**
 	 * Language code defined in RFC 1766.
 	 */
-	public final native void setLang(String lang) /*-{
+	public native void setLang(String lang) /*-{
 																	this.lang = lang;
 																	}-*/;
 	
@@ -844,7 +844,7 @@ public class Element extends Node {
 	 * @param value
 	 *           the new property value
 	 */
-	public final void setPropertyBoolean(String name, boolean value) {
+	public void setPropertyBoolean(String name, boolean value) {
 		// TODO handle special stuff
 		setAttribute(name, Boolean.toString(value));
 	}
@@ -860,7 +860,7 @@ public class Element extends Node {
 	 * @param value
 	 *           the new property value
 	 */
-	public final native void setPropertyDouble(String name, double value) /*-{
+	public native void setPropertyDouble(String name, double value) /*-{
 																									this[name] = value;
 																									}-*/;
 	
@@ -872,7 +872,7 @@ public class Element extends Node {
 	 * @param value
 	 *           the new property value
 	 */
-	public final void setPropertyInt(String name, int value) {
+	public void setPropertyInt(String name, int value) {
 		attributes.put(name, Integer.toString(value));
 	};
 	
@@ -884,7 +884,7 @@ public class Element extends Node {
 	 * @param value
 	 *           the new property value
 	 */
-	public final native void setPropertyJSO(String name, JavaScriptObject value) /*-{
+	public native void setPropertyJSO(String name, JavaScriptObject value) /*-{
 																											this[name] = value;
 																											}-*/;
 	
@@ -896,7 +896,7 @@ public class Element extends Node {
 	 * @param value
 	 *           the new property value
 	 */
-	public final native void setPropertyObject(String name, Object value) /*-{
+	public native void setPropertyObject(String name, Object value) /*-{
 																									this[name] = value;
 																									}-*/;
 	
@@ -908,21 +908,21 @@ public class Element extends Node {
 	 * @param value
 	 *           the new property value
 	 */
-	public final void setPropertyString(String name, String value) {
+	public void setPropertyString(String name, String value) {
 		attributes.put(name, value);
 	}
 	
 	/**
 	 * The number of pixels that an element's content is scrolled to the left.
 	 */
-	public final void setScrollLeft(int scrollLeft) {
+	public void setScrollLeft(int scrollLeft) {
 		DOMImpl.impl.setScrollLeft(this, scrollLeft);
 	}
 	
 	/**
 	 * The number of pixels that an element's content is scrolled to the top.
 	 */
-	public final void setScrollTop(int scrollTop) {
+	public void setScrollTop(int scrollTop) {
 		// nothing
 	}
 	/*-{
@@ -934,7 +934,7 @@ public class Element extends Node {
 	 * 
 	 * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-tabindex">W3C HTML Specification</a>
 	 */
-	public final void setTabIndex(int tabIndex) {
+	public void setTabIndex(int tabIndex) {
 		setAttribute("tabindex", Integer.toString(tabIndex));
 	}
 	/*-{
@@ -944,7 +944,7 @@ public class Element extends Node {
 	/**
 	 * The element's advisory title.
 	 */
-	public final native void setTitle(String title) /*-{
+	public native void setTitle(String title) /*-{
 																	// Setting the title to null results in the string "null" being displayed
 																	// on some browsers.
 																	this.title = title || '';
