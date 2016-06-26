@@ -45,12 +45,7 @@ public class TestElement {
                 "  <div className=\"gwt-Label\">two  </div></div>", Document.get().getBody().getInnerHTML().replaceAll("\\R", ""));
     }
 	
-	/**
-	 * TODO I just noticed that this actually doesn't work as expected. Though I doesn't cause a problem in the application tests,
-	 * I will still need to fix this
-	 */
 	@Test
-	@Ignore
 	public void testInnerHTMLWithInnerElement() {
 		Label label = new Label("hello world");
 		Element element = label.getElement();
@@ -61,6 +56,17 @@ public class TestElement {
 		Assert.assertEquals("fragments converted to child nodes", 3, element.getChildCount()); // verified in GWT
 		Assert.assertEquals("changed <div>inner</div> html", element.getInnerHTML().replaceAll("\\R", ""));
 	}
+	
+	@Test
+    public void testInnerHTMLWithComplexInnerElements() {
+        Label label = new Label();
+        Element element = label.getElement();
+        RootPanel.get().add(label);
+        element.setInnerHTML("L1.1<div>L2.1<div>L3.1</div>L2.2<div>L3.2</div>L2.3</div>L1.2");
+        Assert.assertEquals("fragments converted to child nodes", 3, element.getChildCount()); 
+        Assert.assertEquals("fragments converted to child nodes", 5, element.getChild(1).getChildCount()); 
+        Assert.assertEquals("L1.1<div>L2.1  <div>L3.1  </div>L2.2  <div>L3.2  </div>L2.3</div>L1.2", element.getInnerHTML().replaceAll("\\R", ""));
+    }
 	
     @Test
     public void testToString() {
