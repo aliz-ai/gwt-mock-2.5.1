@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.htmlparser.jericho.Attribute;
+import net.htmlparser.jericho.CharacterReference;
 import net.htmlparser.jericho.EndTag;
 import net.htmlparser.jericho.Segment;
 import net.htmlparser.jericho.Source;
@@ -779,31 +780,40 @@ public class Element extends Node {
 		return result;
 	}
 	
-	private static void addParsedElements(Element target, Segment container, List<net.htmlparser.jericho.Element> elements) {
-		int index = container.getBegin();
-		final int begin = index;
-		for (net.htmlparser.jericho.Element element : elements) {
-			int elementStart = element.getBegin();
-			if (elementStart > index) {
-				// insert text node
-				Text text = new Text();
-				text.setData(container.subSequence(index - begin, elementStart - begin).toString());
-				target.appendChild(text);
-			}
-			Element mockElement = Document.Instance.createMockElement(element.getName());
-			target.appendChild(mockElement);
-			for (Attribute attribute : element.getAttributes()) {
-				mockElement.setAttribute(attribute.getName(), attribute.getValue());
-			}
-			addParsedElements(mockElement, element, element.getChildElements());
-			index = element.getEnd();
-		}
-		if (container.getEnd() > index) {
-			Text text = new Text();
-			text.setData(container.subSequence(index - begin, container.getEnd() - begin).toString());
-			target.appendChild(text);
-		}
-	}
+    private static void addParsedElements(Element target, Segment container) {
+        final Iterator<Segment> it = container.getNodeIterator();
+        int skipParsedElementPos = 0;
+        while (it.hasNext()) {
+            Segment segment = it.next();
+            if (segment.getBegin() >= container.getEnd()) {
+                break;
+            }
+            if (segment.getBegin() < skipParsedElementPos) {
+                continue;
+            }
+            if (segment instanceof Tag) {
+                if (segment instanceof StartTag) {
+                    net.htmlparser.jericho.Element element = ((StartTag) segment).getElement();
+                    if (element == container) {
+                        // skip start of currently parsed element
+                        continue;
+                    }
+                    skipParsedElementPos = element.getEnd();
+                    Element mockElement = Document.Instance.createMockElement(element.getName());
+                    target.appendChild(mockElement);
+                    for (Attribute attribute : element.getAttributes()) {
+                        mockElement.setAttribute(attribute.getName(), attribute.getValue());
+                    }
+                    addParsedElements(mockElement, element);
+                }
+            } else {
+                // Found plain text; insert text node
+                Text text = new Text();
+                text.setData(segment.toString());
+                target.appendChild(text);
+            }
+        }
+    }
 	
 	private void removeAllChildren() {
 		for (Node node : getChildNodes().getList()) {
@@ -819,7 +829,7 @@ public class Element extends Node {
 		this.innerHtml = html;
 		removeAllChildren();
 		Source source = new Source(html);
-		addParsedElements(this, source, source.getChildElements());
+		addParsedElements(this, source);
 		innerText = source.getTextExtractor().toString();
 	}
 	
