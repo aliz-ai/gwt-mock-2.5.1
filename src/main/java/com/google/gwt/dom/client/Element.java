@@ -825,13 +825,15 @@ public class Element extends Node {
 	/**
 	 * All of the markup and content within a given element.
 	 */
-	public final void setInnerHTML(String html) {
-		this.innerHtml = html;
-		removeAllChildren();
-		Source source = new Source(html);
-		addParsedElements(this, source);
-		innerText = source.getTextExtractor().toString();
-	}
+    public final void setInnerHTML(String html) {
+        this.innerHtml = html;
+        removeAllChildren();
+        if (html != null) {
+            Source source = new Source(html);
+            addParsedElements(this, source);
+            innerText = source.getTextExtractor().toString();
+        }
+    }
 	
 	/**
 	 * All of the markup and content within a given element.
