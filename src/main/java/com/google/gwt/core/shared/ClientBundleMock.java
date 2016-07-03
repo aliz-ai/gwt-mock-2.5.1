@@ -41,6 +41,8 @@ public class ClientBundleMock {
                     }
 
                     return image;
+                } else if (ClientBundle.class.isAssignableFrom(method.getReturnType()))  {
+                    return createClientBundle(method.getReturnType());
                 }
                 return method.invoke(this, args);
             }
