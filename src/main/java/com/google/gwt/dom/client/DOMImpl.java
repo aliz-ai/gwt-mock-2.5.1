@@ -23,7 +23,10 @@ import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.DomEvent.Type;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.EventListener;
 
 public class DOMImpl {
 	
@@ -72,6 +75,52 @@ public class DOMImpl {
     public void focus(Element element) {
         switchFocusTo(element);
     }
+    
+    /**
+     * @Mock
+     * 
+     * The event will be fired to the nearest {@link EventListener} specified on any of the
+     * element's parents. See Widget.addDomHandler and sinkEvents.
+     * 
+     * @param starting element.
+     * @param eventType
+     */
+    public static void fireEventBubbling(Element element, Type<?> eventType) {
+        Event event = new Event(eventType.getName());
+        Element eventTarget = element;
+        while (!event.isPropagationStopped()) {
+            Element currentEventTarget = getFirstAncestorWithListener(eventType, eventTarget);
+            if (currentEventTarget == null) {
+                return;
+            }
+
+            getEventListener(eventType, currentEventTarget).onBrowserEvent(event);
+            //  continue if event.stopPropagation() was not called.
+            if (currentEventTarget.getParentNode() != null) {
+                eventTarget = currentEventTarget.getParentNode().cast();
+            }
+        }
+    }
+
+    private static Element getFirstAncestorWithListener(Type<?> eventType, Element curElem) {
+        while (curElem != null && getEventListener(eventType, curElem) == null) {
+            if (curElem.getParentNode() != null) {
+                curElem = curElem.getParentNode().cast();
+            } else {
+                return null;
+            }
+        }
+        return curElem;
+    }
+
+    private static EventListener getEventListener(Type<?> eventType, Element elem) {
+        if ((elem.__eventBits & Event.getTypeInt(eventType.getName())) != 0) {
+            return elem.__listener;
+        } else {
+            return null;
+        }
+    }
+    // end EventBubbling Fragment
 	
 	public ButtonElement createButtonElement(Document doc, String type) {
 		return (ButtonElement) ((com.doctusoft.gwtmock.Document) doc).createMockElement(ButtonElement.TAG);
@@ -247,7 +296,8 @@ public class DOMImpl {
 																						evt.keyCode = key;
 																						}-*/;
 	
-	public native void eventStopPropagation(NativeEvent evt) /*-{
+	public void eventStopPropagation(NativeEvent evt) { evt.__propagationStopped = true; }
+	/*-{
 																				evt.stopPropagation();
 																				}-*/;
 	
