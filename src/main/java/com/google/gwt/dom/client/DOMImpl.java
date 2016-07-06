@@ -39,7 +39,7 @@ public class DOMImpl {
         if (activeElement == element) {
             return;
         } else {
-            if (activeElement != null && isAtached(activeElement)) {
+            if (activeElement != null && isAttached(activeElement)) {
                 if (activeElement instanceof InputElement) {
                     fireValueChangeIfAny((InputElement)activeElement);
                 }
@@ -49,8 +49,8 @@ public class DOMImpl {
             activeElement = element;
         }
     }
-	
-    private boolean isAtached(Element elem) {
+
+    private boolean isAttached(Element elem) {
         return DOM.getEventListener(elem) != null;
     }
 
