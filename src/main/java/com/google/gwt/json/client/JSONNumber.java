@@ -81,7 +81,10 @@ public class JSONNumber extends JSONValue {
    * Returns the JSON representation of this number.
    */
   @Override
-  public native String toString() /*-{
+  public String toString() {
+	  return Double.toString(value);
+  }
+  /*-{
     // Use JavaScript conversion so that integral values print as integers.
     return this.@com.google.gwt.json.client.JSONNumber::value + "";
   }-*/;
