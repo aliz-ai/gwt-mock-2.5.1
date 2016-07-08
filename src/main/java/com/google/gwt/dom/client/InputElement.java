@@ -15,6 +15,8 @@
  */
 package com.google.gwt.dom.client;
 
+import com.google.gwt.event.dom.client.ChangeEvent;
+
 /**
  * Form control.
  * 
@@ -29,6 +31,8 @@ package com.google.gwt.dom.client;
 public class InputElement extends Element {
 
   public static final String TAG = "input";
+  
+  public static final String MOCK_TYPED_VALUE = "mock.Value.new";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
@@ -39,7 +43,7 @@ public class InputElement extends Element {
     return (InputElement) elem;
   }
 
-private boolean checked;
+  private boolean checked;
 
   public InputElement() {
   }
@@ -384,16 +388,16 @@ private boolean checked;
   }-*/;
 
   /**
-   * @Mock
-   * 
-   * Set value in native element (like Selenium 'sendKeys').
-   * The new value will be available in calls to getValue().
-   * N.B. Will not trigger ValueChange events until focus lost.
+   *  @Mock
+   *  
+   *  Fire ValueChange events if value was typed.
    */
-  public final void setNewValue(String value) {
-      focus();
-      setAttribute("mock.Value.new", value);
-      setValue(value);
+  protected void mockOnBeforeBlur() {
+      String newValue =  this.getAttribute(InputElement.MOCK_TYPED_VALUE);
+      if (newValue != null) {
+          this.removeAttribute(InputElement.MOCK_TYPED_VALUE);
+          this.fireEvent(ChangeEvent.getType());
+      }
   }
   
   /**

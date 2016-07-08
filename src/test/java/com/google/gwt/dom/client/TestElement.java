@@ -2,10 +2,10 @@ package com.google.gwt.dom.client;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.doctusoft.gwtmock.Document;
+import com.doctusoft.gwtmock.GWTMock;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -14,8 +14,7 @@ public class TestElement {
     
     @Before
     public void setup() {
-        RootPanel.get().clear();
-        com.doctusoft.gwtmock.Document.reset();
+        GWTMock.reset();
     }
     
 	@Test

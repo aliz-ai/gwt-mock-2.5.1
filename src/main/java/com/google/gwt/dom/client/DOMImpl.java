@@ -20,7 +20,6 @@ import java.util.List;
 import com.google.common.base.MoreObjects;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.FocusEvent;
 import com.google.gwt.event.dom.client.DomEvent.Type;
@@ -32,6 +31,11 @@ public class DOMImpl {
 	
 	static final DOMImpl impl = new DOMImpl();
 	
+	// internal mock function.
+	public static void mockReset() {
+	    impl.activeElement = null;
+	}
+	
 	// Element In Focus (some browsers actually have working implementation document.activeElement)
 	private Element activeElement;
 	
@@ -41,7 +45,7 @@ public class DOMImpl {
         } else {
             if (activeElement != null && isAttached(activeElement)) {
                 if (activeElement instanceof InputElement) {
-                    fireValueChangeIfAny((InputElement)activeElement);
+                    ((InputElement)activeElement).mockOnBeforeBlur();
                 }
                 activeElement.fireEvent(BlurEvent.getType());
             }
@@ -52,14 +56,6 @@ public class DOMImpl {
 
     private boolean isAttached(Element elem) {
         return DOM.getEventListener(elem) != null;
-    }
-
-    private void fireValueChangeIfAny(InputElement element) {
-        String newValue =  element.getAttribute("mock.Value.new");
-        if (newValue != null) {
-            element.removeAttribute("mock.Value.new");
-            activeElement.fireEvent(ChangeEvent.getType());
-        }
     }
 
     public void buttonClick(ButtonElement button) {

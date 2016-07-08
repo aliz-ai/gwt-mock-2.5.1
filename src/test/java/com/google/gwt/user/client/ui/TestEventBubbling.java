@@ -24,19 +24,16 @@ import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
+import com.doctusoft.gwtmock.GWTMock;
 import com.google.gwt.dom.client.DOMImpl;
-import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.logical.shared.ValueChangeEvent;
 
 public class TestEventBubbling {
 
-
     @Before
     public void setup() {
-        RootPanel.get().clear();
-        com.doctusoft.gwtmock.Document.reset();
+        GWTMock.reset();
     }
     
     @Test

@@ -9,6 +9,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
+import com.doctusoft.gwtmock.GWTMock;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.event.dom.client.BlurEvent;
@@ -22,8 +23,7 @@ public class TestTextBoxEvents {
 
     @Before
     public void setup() {
-        //RootPanel.get().clear();
-        com.doctusoft.gwtmock.Document.reset();
+        GWTMock.reset();
     }
     
     @Test
@@ -117,7 +117,7 @@ public class TestTextBoxEvents {
             field1.addBlurHandler(blurHandler1);
 
             
-            i1.setNewValue("v4");
+            GWTMock.type(i1, "v4");
             Assert.assertEquals("v4", field1.getValue());
             Mockito.verify(valueChangeHandler, never()).onValueChange(Mockito.isA(ValueChangeEvent.class));
             Mockito.verify(focusHandler1).onFocus(Mockito.isA(FocusEvent.class));
