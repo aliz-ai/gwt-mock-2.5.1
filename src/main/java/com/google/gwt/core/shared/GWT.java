@@ -68,7 +68,7 @@ public final class GWT {
 		public Object create(Class<?> classLiteral);
 	}
 
-    private static class SimplifiedGWTCreateSupplier implements CustomGWTCreateSupplier {
+    private static class ClassToInstanceGWTCreateSupplier implements CustomGWTCreateSupplier {
 
         private  Map<Class<?>, Class<?>> implementations = new HashMap<>();
 
@@ -93,30 +93,30 @@ public final class GWT {
 	    
 	private static List<CustomGWTCreateSupplier> customSuppliers = Lists.newArrayList();
 	
-	private static SimplifiedGWTCreateSupplier simplifiedGWTCreateCustomSupplier;
+	private static ClassToInstanceGWTCreateSupplier customSupplierClassToInstance;
 	
-	private static SimplifiedGWTCreateSupplier mockSupplier = createDefaultGWTCreateSupplier();
+	private static ClassToInstanceGWTCreateSupplier mockSupplier = createDefaultGWTCreateSupplier();
 	
 	public static void addCustomSupplier(CustomGWTCreateSupplier customSupplier) {
 		customSuppliers.add(customSupplier);
-		simplifiedGWTCreateCustomSupplier = null;
 	}
 
     public static void registerGWTCreateImplementation(Class<?> classLiteral, Class<?> classLiteralImplementation) {
-        if (simplifiedGWTCreateCustomSupplier == null) {
-            simplifiedGWTCreateCustomSupplier = new SimplifiedGWTCreateSupplier();
-            addCustomSupplier(simplifiedGWTCreateCustomSupplier);
+        if (customSupplierClassToInstance == null) {
+            customSupplierClassToInstance = new ClassToInstanceGWTCreateSupplier();
+            addCustomSupplier(customSupplierClassToInstance);
         }
-        simplifiedGWTCreateCustomSupplier.register(classLiteral, classLiteralImplementation);
+        customSupplierClassToInstance.register(classLiteral, classLiteralImplementation);
     }
 	
 	public static void cleanCustomSuppliers() {
 		customSuppliers.clear();
+		customSupplierClassToInstance = null;
 	}
 	
 	
-    private static SimplifiedGWTCreateSupplier createDefaultGWTCreateSupplier() {
-        SimplifiedGWTCreateSupplier supplier = new SimplifiedGWTCreateSupplier();
+    private static ClassToInstanceGWTCreateSupplier createDefaultGWTCreateSupplier() {
+        ClassToInstanceGWTCreateSupplier supplier = new ClassToInstanceGWTCreateSupplier();
         
         supplier.register(LocaleInfoImpl.class, LocaleInfoImpl.class);
         supplier.register(CldrImpl.class, CldrImpl.class);
