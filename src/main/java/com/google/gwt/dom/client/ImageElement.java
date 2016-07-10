@@ -52,7 +52,7 @@ public class ImageElement extends Element {
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/struct/objects.html#adef-height-IMG">W3C HTML Specification</a>
    */
-  public final native int getHeight() /*-{
+  public final int getHeight() { return 1; }/*-{
     return this.height;
   }-*/;
 

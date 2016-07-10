@@ -24,6 +24,9 @@ import com.google.gwt.core.client.JsArray;
 public class NativeEvent extends JavaScriptObject {
 	
 	public String type;
+	
+	// @Mock
+	public boolean __propagationStopped;
 
   /**
    * The left mouse button.
@@ -282,5 +285,11 @@ public class NativeEvent extends JavaScriptObject {
    */
   public final void stopPropagation() {
     DOMImpl.impl.eventStopPropagation(this);
-  }
+   }
+  
+    //@Mock
+    public boolean isPropagationStopped() {
+        return __propagationStopped;
+    }
+
 }

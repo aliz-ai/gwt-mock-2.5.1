@@ -19,9 +19,13 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.common.collect.Lists;
+import com.google.gwt.core.client.impl.SchedulerImpl;
+import com.google.gwt.core.shared.GWT.CustomGWTCreateSupplier;
 import com.google.gwt.debug.client.DebugInfo;
 import com.google.gwt.event.dom.client.TouchEvent.TouchSupportDetector;
 import com.google.gwt.i18n.client.CurrencyList;
@@ -31,6 +35,7 @@ import com.google.gwt.i18n.client.impl.LocaleInfoImpl;
 import com.google.gwt.i18n.client.impl.cldr.DateTimeFormatInfoImpl;
 import com.google.gwt.i18n.client.impl.cldr.DateTimeFormatInfoImpl_en;
 import com.google.gwt.layout.client.LayoutImpl;
+import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.safehtml.client.SafeHtmlTemplates;
 import com.google.gwt.safehtml.client.SafeHtmlTemplates.Template;
 import com.google.gwt.safehtml.shared.SafeHtml;
@@ -62,17 +67,82 @@ public final class GWT {
 		 */
 		public Object create(Class<?> classLiteral);
 	}
-	
+
+    private static class ClassToInstanceGWTCreateSupplier implements CustomGWTCreateSupplier {
+
+        private  Map<Class<?>, Class<?>> implementations = new HashMap<>();
+
+        @Override
+        public Object create(Class<?> classLiteral) {
+            Class<?> implClass = implementations.get(classLiteral);
+            if (implClass != null) {
+                try {
+                    return implClass.newInstance();
+                } catch (InstantiationException | IllegalAccessException e) {
+                    throw new Error(e);
+                }
+            } else {
+                return null;
+            }
+        }
+        
+        public void register(Class<?> classLiteral, Class<?> classLiteralImplementation) {
+            implementations.put(classLiteral, classLiteralImplementation);
+        }
+    }
+	    
 	private static List<CustomGWTCreateSupplier> customSuppliers = Lists.newArrayList();
+	
+	private static ClassToInstanceGWTCreateSupplier customSupplierClassToInstance;
+	
+	private static ClassToInstanceGWTCreateSupplier mockSupplier = createDefaultGWTCreateSupplier();
 	
 	public static void addCustomSupplier(CustomGWTCreateSupplier customSupplier) {
 		customSuppliers.add(customSupplier);
 	}
+
+    public static void registerGWTCreateImplementation(Class<?> classLiteral, Class<?> classLiteralImplementation) {
+        if (customSupplierClassToInstance == null) {
+            customSupplierClassToInstance = new ClassToInstanceGWTCreateSupplier();
+            addCustomSupplier(customSupplierClassToInstance);
+        }
+        customSupplierClassToInstance.register(classLiteral, classLiteralImplementation);
+    }
 	
 	public static void cleanCustomSuppliers() {
 		customSuppliers.clear();
+		customSupplierClassToInstance = null;
 	}
 	
+	
+    private static ClassToInstanceGWTCreateSupplier createDefaultGWTCreateSupplier() {
+        ClassToInstanceGWTCreateSupplier supplier = new ClassToInstanceGWTCreateSupplier();
+        
+        supplier.register(LocaleInfoImpl.class, LocaleInfoImpl.class);
+        supplier.register(CldrImpl.class, CldrImpl.class);
+        supplier.register(DateTimeFormatInfoImpl.class, DateTimeFormatInfoImpl_en.class);
+
+        supplier.register(CellBasedWidgetImpl.class, CellBasedWidgetImplStandardBase.class);
+        supplier.register(SimpleEventBus.class, SimpleEventBus.class);
+        supplier.register(com.google.gwt.user.cellview.client.AbstractCellTable.Impl.class, com.google.gwt.user.cellview.client.AbstractCellTable.Impl.class);
+        supplier.register(CurrencyList.class, CurrencyList.class);
+        supplier.register(NumberConstantsImpl.class, NumberConstants.class);
+        supplier.register(PopupImpl.class, PopupImpl.class);
+        supplier.register(ResizeLayoutPanel.Impl.class, ResizeLayoutPanel.ImplStandard.class);
+        supplier.register(TouchSupportDetector.class, TouchSupportDetector.class);
+        supplier.register(ScrollImpl.class, ScrollImpl.class);
+        supplier.register(LayoutImpl.class, LayoutImpl.class);
+        supplier.register(TreeItemImpl.class, TreeItemImpl.class);
+
+        supplier.register(HistoryImpl.class, HistoryImpl.class);
+        supplier.register(FileUploadImpl.class, FileUploadImpl.class);
+        supplier.register(DOMImpl.class, DOMImplMozilla.class);
+        supplier.register(DebugIdImpl.class, UIObject.DebugIdImplEnabled.class);
+        supplier.register(DebugInfo.DebugInfoImpl.class, DebugInfo.DebugInfoImplEnabled.class);
+        
+        return supplier;
+    }
+
 	/**
 	 * Always <code>null</code> in Production Mode; in Development Mode provides
 	 * the implementation for certain methods.
@@ -112,66 +182,19 @@ public final class GWT {
 				return (T) result;
 			}
 		}
-		if (LocaleInfoImpl.class.equals(classLiteral)) {
-			return (T) new LocaleInfoImpl();
-		}
-		if (CldrImpl.class.equals(classLiteral)) {
-			return (T) new CldrImpl();
-		}
-		if (DateTimeFormatInfoImpl.class.equals(classLiteral)) {
-			return (T) new DateTimeFormatInfoImpl_en();
-		}
-		if (CellBasedWidgetImpl.class.equals(classLiteral)) {
-			return (T) new CellBasedWidgetImplStandardBase();
-		}
-		if (SimpleEventBus.class.equals(classLiteral)) {
-			return (T) new SimpleEventBus();
-		}
-		if (com.google.gwt.user.cellview.client.AbstractCellTable.Impl.class.equals(classLiteral)) {
-			return (T) new com.google.gwt.user.cellview.client.AbstractCellTable.Impl();
-		}
-		if (CurrencyList.class.equals(classLiteral)) {
-			return (T) new CurrencyList();
-		}
-		if (NumberConstantsImpl.class.equals(classLiteral)) {
-			return (T) new NumberConstants();
-		}
-		if (PopupImpl.class.equals(classLiteral)) {
-			return (T) new PopupImpl();
-		}
-		if (ResizeLayoutPanel.Impl.class.equals(classLiteral)) {
-			return (T) new ResizeLayoutPanel.ImplStandard();
-		}
-		if (TouchSupportDetector.class.equals(classLiteral)) {
-			return (T) new TouchSupportDetector();
-		}
-		if (ScrollImpl.class.equals(classLiteral)) {
-			return (T) new ScrollImpl();
-		}
-		if (LayoutImpl.class.equals(classLiteral)) {
-			return (T) new LayoutImpl();
-		}
-		if (TreeItemImpl.class.equals(classLiteral)) {
-			return (T) new TreeItemImpl();
-		}
+		
+		result = mockSupplier.create(classLiteral);
+		if (result != null) {
+            return (T) result;
+        }
+
 		if (SafeHtmlTemplates.class.isAssignableFrom(classLiteral)) {
 			return (T) createSafeHtmlTemplates(classLiteral);
 		}
-		if (HistoryImpl.class.equals(classLiteral)) {
-			return (T) new HistoryImpl();
-		}
-		if (FileUploadImpl.class.equals(classLiteral)) {
-			return (T) new FileUploadImpl();
-		}
-		if (DOMImpl.class.equals(classLiteral)) {
-			return (T) new DOMImplMozilla();
-		}
-		if (DebugIdImpl.class.equals(classLiteral)) {
-		    return (T) new UIObject.DebugIdImplEnabled();
-		}
-		if (DebugInfo.DebugInfoImpl.class.equals(classLiteral)) {
-            return (T) new DebugInfo.DebugInfoImplEnabled();
+		if (ClientBundle.class.isAssignableFrom(classLiteral)) {
+            return (T) ClientBundleMock.createClientBundle(classLiteral);
         }
+
 		if (!Modifier.isAbstract(classLiteral.getModifiers())) {
 			try {
 				return (T) classLiteral.getConstructor().newInstance();

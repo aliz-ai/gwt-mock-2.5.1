@@ -19,15 +19,104 @@ import java.util.List;
 
 import com.google.common.base.MoreObjects;
 import com.google.gwt.core.client.JsArray;
+import com.google.gwt.event.dom.client.BlurEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.FocusEvent;
+import com.google.gwt.event.dom.client.DomEvent.Type;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.EventListener;
 
 public class DOMImpl {
 	
 	static final DOMImpl impl = new DOMImpl();
 	
-	public void buttonClick(ButtonElement button) {
-		button.fireEvent(ClickEvent.getType());
+	// internal mock function.
+	public static void mockReset() {
+	    impl.activeElement = null;
 	}
+	
+	// Element In Focus (some browsers actually have working implementation document.activeElement)
+	private Element activeElement;
+	
+    private void switchFocusTo(Element element) {
+        if (activeElement == element) {
+            return;
+        } else {
+            if (activeElement != null && isAttached(activeElement)) {
+                if (activeElement instanceof InputElement) {
+                    ((InputElement)activeElement).mockOnBeforeBlur();
+                }
+                activeElement.fireEvent(BlurEvent.getType());
+            }
+            element.fireEvent(FocusEvent.getType());
+            activeElement = element;
+        }
+    }
+
+    private boolean isAttached(Element elem) {
+        return DOM.getEventListener(elem) != null;
+    }
+
+    public void buttonClick(ButtonElement button) {
+        switchFocusTo(button);
+        button.fireEvent(ClickEvent.getType());
+    }
+
+    public void elementClick(Element element) {
+        switchFocusTo(element);
+        element.fireEvent(ClickEvent.getType());
+    }
+    
+    public void focus(Element element) {
+        switchFocusTo(element);
+    }
+    
+    /**
+     * @Mock
+     * 
+     * The event will be fired to the nearest {@link EventListener} specified on any of the
+     * element's parents. See Widget.addDomHandler and sinkEvents.
+     * 
+     * @param starting element.
+     * @param eventType
+     */
+    public static void fireEventBubbling(Element element, Type<?> eventType) {
+        Event event = new Event(eventType.getName());
+        Element eventTarget = element;
+        while (!event.isPropagationStopped()) {
+            Element currentEventTarget = getFirstAncestorWithListener(eventType, eventTarget);
+            if (currentEventTarget == null) {
+                return;
+            }
+
+            getEventListener(eventType, currentEventTarget).onBrowserEvent(event);
+            //  continue if event.stopPropagation() was not called.
+            if (currentEventTarget.getParentNode() != null) {
+                eventTarget = currentEventTarget.getParentNode().cast();
+            }
+        }
+    }
+
+    private static Element getFirstAncestorWithListener(Type<?> eventType, Element curElem) {
+        while (curElem != null && getEventListener(eventType, curElem) == null) {
+            if (curElem.getParentNode() != null) {
+                curElem = curElem.getParentNode().cast();
+            } else {
+                return null;
+            }
+        }
+        return curElem;
+    }
+
+    private static EventListener getEventListener(Type<?> eventType, Element elem) {
+        if ((elem.__eventBits & Event.getTypeInt(eventType.getName())) != 0) {
+            return elem.__listener;
+        } else {
+            return null;
+        }
+    }
+    // end EventBubbling Fragment
 	
 	public ButtonElement createButtonElement(Document doc, String type) {
 		return (ButtonElement) ((com.doctusoft.gwtmock.Document) doc).createMockElement(ButtonElement.TAG);
@@ -203,7 +292,8 @@ public class DOMImpl {
 																						evt.keyCode = key;
 																						}-*/;
 	
-	public native void eventStopPropagation(NativeEvent evt) /*-{
+	public void eventStopPropagation(NativeEvent evt) { evt.__propagationStopped = true; }
+	/*-{
 																				evt.stopPropagation();
 																				}-*/;
 	

@@ -15,6 +15,8 @@
  */
 package com.google.gwt.dom.client;
 
+import com.google.gwt.event.dom.client.ChangeEvent;
+
 /**
  * Form control.
  * 
@@ -29,6 +31,8 @@ package com.google.gwt.dom.client;
 public class InputElement extends Element {
 
   public static final String TAG = "input";
+  
+  public static final String MOCK_TYPED_VALUE = "mock.Value.new";
 
   /**
    * Assert that the given {@link Element} is compatible with this class and
@@ -39,7 +43,7 @@ public class InputElement extends Element {
     return (InputElement) elem;
   }
 
-private boolean checked;
+  private boolean checked;
 
   public InputElement() {
   }
@@ -48,7 +52,10 @@ private boolean checked;
    * Simulate a mouse-click. For INPUT elements whose type attribute has one of
    * the following values: "button", "checkbox", "radio", "reset", or "submit".
    */
-  public final native void click() /*-{
+  public final void click() {
+      DOMImpl.impl.elementClick(this);
+  }
+  /*-{
     this.click();
   }-*/;
 
@@ -380,6 +387,19 @@ private boolean checked;
     this.value = value;
   }-*/;
 
+  /**
+   *  @Mock
+   *  
+   *  Fire ValueChange events if value was typed.
+   */
+  protected void mockOnBeforeBlur() {
+      String newValue =  this.getAttribute(InputElement.MOCK_TYPED_VALUE);
+      if (newValue != null) {
+          this.removeAttribute(InputElement.MOCK_TYPED_VALUE);
+          this.fireEvent(ChangeEvent.getType());
+      }
+  }
+  
   /**
    * Use client-side image map.
    * 
