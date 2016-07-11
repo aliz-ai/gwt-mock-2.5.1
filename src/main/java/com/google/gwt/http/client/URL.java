@@ -15,7 +15,9 @@
  */
 package com.google.gwt.http.client;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 /**
  * Utility class for the encoding and decoding URLs in their entirety or by
@@ -343,7 +345,14 @@ public final class URL {
     return decodeURIComponent(encodedURLComponent.replace(regexp, "%20"));
   }-*/;
 
-  private static native String encodeImpl(String decodedURL) /*-{
+  private static String encodeImpl(String decodedURL) {
+	  try {
+		return URLEncoder.encode(decodedURL, "UTF-8");
+	} catch (UnsupportedEncodingException e) {
+		throw new RuntimeException(e);
+	}
+  }
+  /*-{
     return encodeURI(decodedURL);
   }-*/;
 

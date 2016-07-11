@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.doctusoft</groupId>
 	<artifactId>gwt-mock-2.5.1</artifactId>
-	<version>0.1.1</version>
+	<version>0.1.2</version>
 	<name>gwt-mock-2.5.1</name>
 	<packaging>jar</packaging>
 
@@ -35,6 +35,11 @@
 			<artifactId>jericho-html</artifactId>
 			<version>3.4</version>
 			<!-- <scope>test</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160212</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -114,9 +119,9 @@
 	</build>
 
 	<scm>
- 		<connection>scm:git:git@github.com:Doctusoft/gwt-mock-2.5.1.git</connection>
-  		<developerConnection>scm:git:git@github.com:Doctusoft/gwt-mock-2.5.1.git</developerConnection>
-  		<url>https://github.com/Doctusoft/gwt-mock-2.5.1</url>
+		<connection>scm:git:git@github.com:Doctusoft/gwt-mock-2.5.1.git</connection>
+		<developerConnection>scm:git:git@github.com:Doctusoft/gwt-mock-2.5.1.git</developerConnection>
+		<url>https://github.com/Doctusoft/gwt-mock-2.5.1</url>
 	</scm>
 
 	<licenses>
@@ -135,7 +140,7 @@
 			<organizationUrl>http://www.doctusoft.com</organizationUrl>
 		</developer>
 	</developers>
-	
+
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
