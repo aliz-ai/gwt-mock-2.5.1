@@ -112,7 +112,6 @@ public class Node extends JavaScriptObject {
 		Element thisElement = (Element) this;
 		Element clone = com.doctusoft.gwtmock.Document.Instance.createElement(thisElement.getTagName());
 		clone.attributes = Maps.newHashMap(thisElement.attributes);
-		clone.innerText = thisElement.innerText;
 		if (deep) {
 			for (Node childNode : getChildNodes().getList()) {
 				clone.appendChild(childNode.cloneNode(true));

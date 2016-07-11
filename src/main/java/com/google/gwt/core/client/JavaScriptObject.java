@@ -146,11 +146,8 @@ public class JavaScriptObject {
    */
   @Override
   public final String toString() {
-      if (true) {
           return Document.Instance.toStringVerbose(this);
-      } else {
-          return JavaScriptObject.class.desiredAssertionStatus() ?
-                  toStringVerbose(this) : toStringSimple(this);
-      }
+//          return JavaScriptObject.class.desiredAssertionStatus() ?
+//                  toStringVerbose(this) : toStringSimple(this);
    }
 }
