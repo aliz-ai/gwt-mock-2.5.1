@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.doctusoft.gwtmock.GWTMock;
 import com.google.gwt.core.client.impl.SchedulerImpl;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
@@ -15,7 +16,7 @@ public class TestMenuBar {
 
     @Before
     public void setup() {
-       // GWTMock.reset();
+       GWTMock.reset();
     }
     
     @Test

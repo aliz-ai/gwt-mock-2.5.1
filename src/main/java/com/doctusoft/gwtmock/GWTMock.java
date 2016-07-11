@@ -36,7 +36,7 @@ public class GWTMock {
      */
     public static void reset() {
         // Implementation notes: There are no internal Mock events fired. All calls are made explicitly from this function.
-        RootPanel.get().clear();
+        RootPanel.detachWidgets();
         com.doctusoft.gwtmock.Document.reset();
         GWT.cleanCustomSuppliers();
     }

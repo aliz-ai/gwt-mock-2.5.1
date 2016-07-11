@@ -232,7 +232,7 @@ public class RootPanel extends AbsolutePanel {
   }
 
   // Package-protected for use by unit tests. Do not call this method directly.
-  static void detachWidgets() {
+  public static void detachWidgets() {
     // When the window is closing, detach all widgets that need to be
     // cleaned up. This will cause all of their event listeners
     // to be unhooked, which will avoid potential memory leaks.
