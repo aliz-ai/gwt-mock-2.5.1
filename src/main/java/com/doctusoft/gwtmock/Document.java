@@ -1,6 +1,7 @@
 package com.doctusoft.gwtmock;
 
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -8,6 +9,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.AnchorElement;
 import com.google.gwt.dom.client.BRElement;
 import com.google.gwt.dom.client.BodyElement;
@@ -186,12 +188,23 @@ public class Document extends com.google.gwt.dom.client.Document {
 			pw.print(" " + attribute.getKey() + "=\"" + attribute.getValue() + "\"");
 		}
 		pw.println(">");
-		if (!Strings.isNullOrEmpty(element.getInnerText())) {
-			pw.println(indent + element.getInnerText());
-		}
 		for (Node node : element.getChildNodes()) {
 			printFormatted(node, indent + "  ", pw);
 		}
 		pw.println(indent + "</" + tagName + ">");
 	}
+	
+	public String toStringVerbose(JavaScriptObject obj) {
+	    StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        if (obj instanceof Element) {
+            printFormatted((Element) obj, "", pw);
+        } else if (obj instanceof Node) {
+            printFormatted((Node)obj, "", pw);
+        } else {
+            pw.print( obj.getClass().getSimpleName());
+        }
+        return sw.getBuffer().toString();
+	}
+	
 }
