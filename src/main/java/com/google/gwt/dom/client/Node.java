@@ -252,7 +252,10 @@ public class Node extends JavaScriptObject {
 	/**
 	 * Returns whether this node has any children.
 	 */
-	public final native boolean hasChildNodes() /*-{
+	public final boolean hasChildNodes() {
+	    return !childNodes.isEmpty();
+	}
+	                                      /*-{
 																return this.hasChildNodes();
 																}-*/;
 	
@@ -267,7 +270,11 @@ public class Node extends JavaScriptObject {
 	
 	public final Node insertChild(Node newChild, int index) {
 		newChild.setParentNode(this);
-		childNodes.add(index, newChild);
+        if (index == -1) {
+            childNodes.add(newChild);
+        } else {
+            childNodes.add(index, newChild);
+        }
 		return newChild;
 	}
 	
@@ -305,7 +312,7 @@ public class Node extends JavaScriptObject {
 	 * @return The node being inserted
 	 */
 	public final Node insertBefore(Node newChild, Node refChild) {
-		int index = 0;
+		int index = -1;
 		if (refChild != null) {
 			List<Node> siblingList = getChildNodes().getList();
 			index = siblingList.indexOf(refChild);

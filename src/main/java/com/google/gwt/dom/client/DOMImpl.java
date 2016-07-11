@@ -376,9 +376,17 @@ public class DOMImpl {
 		img.setAttribute("src", src);
 	}
 	
-	public boolean isOrHasChild(Node parent, Node child) {
-		return false;
-	}
+    public boolean isOrHasChild(Node parent, Node child) {
+        if (parent.equals(child)) {
+            return true;
+        }
+        for (Node c : parent.getChildNodes()) {
+            if (isOrHasChild(c, child)) {
+                return true;
+            }
+        }
+        return false;
+    }
 	
 	public native void scrollIntoView(Element elem) /*-{
 																	var left = elem.offsetLeft, top = elem.offsetTop;
