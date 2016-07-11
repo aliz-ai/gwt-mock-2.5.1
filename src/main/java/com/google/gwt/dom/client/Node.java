@@ -253,7 +253,10 @@ public class Node extends JavaScriptObject {
 	/**
 	 * Returns whether this node has any children.
 	 */
-	public final native boolean hasChildNodes() /*-{
+	public final boolean hasChildNodes() {
+	    return !childNodes.isEmpty();
+	}
+	                                      /*-{
 																return this.hasChildNodes();
 																}-*/;
 	

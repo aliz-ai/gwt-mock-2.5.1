@@ -18,6 +18,7 @@ package com.google.gwt.user.client.impl;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.BrowserEvents;
 import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Node;
 import com.google.gwt.user.client.Event;
 
 /**
@@ -81,7 +82,18 @@ abstract class DOMImplStandard extends DOMImpl {
   }-*/;
 
   @Override
-  public native int getChildCount(Element elem) /*-{
+  public int getChildCount(Element elem) {
+      int count = 0;
+      Node child = elem.getFirstChild();
+      while (child != null) {
+        if (child.getNodeType() == 1) {
+          ++count;
+        }
+        child = child.getNextSibling();
+      }
+      return count;
+  }
+  /*-{
     var count = 0, child = elem.firstChild;
     while (child) {
       if (child.nodeType == 1)
