@@ -165,6 +165,17 @@ public class Document extends com.google.gwt.dom.client.Document {
 		return body;
 	}
 	
+	/**
+     * Clear all elements between tests.
+     * 
+     * TODO the RootPanel.get().clear() should be sufficient. But here all elements will remain.
+     */
+    static void reset() {
+        Instance.elements.clear();
+        Instance.body = null;
+        Instance.documentElement = new Element();
+    }
+    
 	public void printFormatted(PrintWriter pw) {
 		printFormatted(body, "", pw);
 		pw.flush();
