@@ -1,12 +1,19 @@
 package com.google.gwt.user.client.ui;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.doctusoft.gwtmock.Document;
+import com.doctusoft.gwtmock.GWTMock;
 
 public class TestLabel {
 	
+    @Before
+    public void setup() {
+       GWTMock.reset();
+    }
+    
 	@Test
 	public void testLabelPresent() {
 		RootPanel.get().add(new Label("hello world"));
