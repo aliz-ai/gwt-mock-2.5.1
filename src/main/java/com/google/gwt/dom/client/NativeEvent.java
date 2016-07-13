@@ -25,6 +25,12 @@ public class NativeEvent extends JavaScriptObject {
 	
 	public String type;
 
+	// GwtMock
+    public boolean __propagationStopped;
+    
+    // GwtMock
+    public EventTarget __eventTarget;
+    
   /**
    * The left mouse button.
    */

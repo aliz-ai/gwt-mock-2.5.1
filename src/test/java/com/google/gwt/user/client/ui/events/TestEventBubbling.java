@@ -22,7 +22,6 @@ public class TestEventBubbling {
     }
 
     @Test
-    @Ignore
     public void testClickEventBubbling() {
         Label field1 = new Label();
         field1.ensureDebugId("label1");

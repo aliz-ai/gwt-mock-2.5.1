@@ -1,5 +1,6 @@
 package com.doctusoft.gwtmock.driver;
 
+import com.doctusoft.gwtmock.MockEventTargetElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.event.dom.client.BlurEvent;
@@ -95,20 +96,20 @@ class DOMEventsMock {
      */
     public static void fireEventBubbling(Element element, Type<?> eventType) {
         Event event = new Event(eventType.getName());
-        // event.__eventTarget = new EventTarget.MockEventTargetElement(element);
+        event.__eventTarget = new MockEventTargetElement(element);
         Element eventTarget = element;
-        // while (!event.isPropagationStopped()) {
-        Element currentEventTarget = getFirstAncestorWithListener(eventType, eventTarget);
-        if (currentEventTarget == null) {
-            return;
-        }
+        while (!event.__propagationStopped) {
+            Element currentEventTarget = getFirstAncestorWithListener(eventType, eventTarget);
+            if (currentEventTarget == null) {
+                return;
+            }
 
-        getEventListener(eventType, currentEventTarget).onBrowserEvent(event);
-        //  continue if event.stopPropagation() was not called.
-        if (currentEventTarget.getParentNode() != null) {
-            eventTarget = currentEventTarget.getParentNode().cast();
+            getEventListener(eventType, currentEventTarget).onBrowserEvent(event);
+            //  will continue to parent while event.stopPropagation() was not called.
+            if (currentEventTarget.getParentNode() != null) {
+                eventTarget = currentEventTarget.getParentNode().cast();
+            }
         }
-        // }
     }
 
     private static Element getFirstAncestorWithListener(Type<?> eventType, Element curElem) {

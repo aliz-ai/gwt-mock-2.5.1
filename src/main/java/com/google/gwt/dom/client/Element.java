@@ -22,14 +22,13 @@ import java.util.List;
 import java.util.Map;
 
 import net.htmlparser.jericho.Attribute;
-import net.htmlparser.jericho.CharacterReference;
-import net.htmlparser.jericho.EndTag;
 import net.htmlparser.jericho.Segment;
 import net.htmlparser.jericho.Source;
 import net.htmlparser.jericho.StartTag;
 import net.htmlparser.jericho.Tag;
 
 import com.doctusoft.gwtmock.Document;
+import com.doctusoft.gwtmock.MockEventTargetElement;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -49,13 +48,17 @@ public class Element extends Node {
 	protected Document document;
 	
 	public EventListener __listener = null;
+	
 	public int __eventBits = 0;
 	
-	public void fireEvent(Type<?> eventType) {
-		if ((__eventBits & Event.getTypeInt(eventType.getName())) != 0) {
-			__listener.onBrowserEvent(new Event(eventType.getName()));
-		}
-	}
+	// GwtMock. This method is not part of original GWT implementation.
+    public void fireEvent(Type<?> eventType) {
+        if ((__eventBits & Event.getTypeInt(eventType.getName())) != 0) {
+            Event event = new Event(eventType.getName());
+            event.__eventTarget = new MockEventTargetElement(this);
+            __listener.onBrowserEvent(event);
+        }
+    }
 	
 	protected String tagName = null;
 	
