@@ -19,9 +19,14 @@ public class BrowserMock {
         DOMEventsMock.reset();
     }
 
-    public static void click(String paramString) {
-        Element element = GwtMockFinder.findElement(paramString);
-        assertFound(element, paramString);
+    /**
+     * @param elementLocator
+     *            Element Debug ID with (optional "gwt-debug-" prefix will be added)
+     *            or search criteria to find element in DOM. Example: "text=Action Two"
+     */
+    public static void click(String elementLocator) {
+        Element element = GwtMockFinder.findElement(elementLocator);
+        assertFound(element, elementLocator);
         click(element);
     }
 
@@ -38,9 +43,9 @@ public class BrowserMock {
         browserExit();
     }
 
-    public static void type(String paramString, String value) {
-        Element element = GwtMockFinder.findElement(paramString);
-        assertFound(element, paramString);
+    public static void type(String elementLocator, String value) {
+        Element element = GwtMockFinder.findElement(elementLocator);
+        assertFound(element, elementLocator);
         type(element, value);
     }
 
@@ -51,9 +56,9 @@ public class BrowserMock {
         browserExit();
     }
 
-    public static void setValue(String paramString, String value) {
-        Element element = GwtMockFinder.findElement(paramString);
-        assertFound(element, paramString);
+    public static void setValue(String elementLocator, String value) {
+        Element element = GwtMockFinder.findElement(elementLocator);
+        assertFound(element, elementLocator);
         setValue(element, value);
     }
 
@@ -84,8 +89,8 @@ public class BrowserMock {
     }
 
     // --- asserts
-    public static boolean isElementPresent(String paramString) {
-        Element element = GwtMockFinder.findElement(paramString);
+    public static boolean isElementPresent(String elementIdentifier) {
+        Element element = GwtMockFinder.findElement(elementIdentifier);
         return element != null;
     }
 
@@ -103,31 +108,31 @@ public class BrowserMock {
         }
     }
 
-    public static boolean isDisplayed(String paramString) {
-        return isDisplayed(GwtMockFinder.findElement(paramString));
+    public static boolean isDisplayed(String elementLocator) {
+        return isDisplayed(GwtMockFinder.findElement(elementLocator));
     }
 
-    public static void assertPresent(String locator) {
-        boolean present = isElementPresent(locator);
+    public static void assertPresent(String elementLocator) {
+        boolean present = isElementPresent(elementLocator);
         if (!present) {
             System.out.println(Document.get().getBody().getInnerHTML());
         }
-        Assert.assertTrue(locator + " should exists", present);
+        Assert.assertTrue(elementLocator + " should exists", present);
     }
 
-    public static void assertNotPresent(String locator) {
-        boolean present = isElementPresent(locator);
+    public static void assertNotPresent(String elementLocator) {
+        boolean present = isElementPresent(elementLocator);
         if (present) {
             System.out.println(Document.get().getBody().getInnerHTML());
         }
-        Assert.assertFalse(locator + " should not be present", present);
+        Assert.assertFalse(elementLocator + " should not be present", present);
     }
 
-    public static void assertVisible(String locator) {
-        Assert.assertTrue(locator + " should be visible", isDisplayed(locator));
+    public static void assertVisible(String elementLocator) {
+        Assert.assertTrue(elementLocator + " should be visible", isDisplayed(elementLocator));
     }
 
-    public static void assertNotVisible(String locator) {
-        Assert.assertFalse(locator + " should not be visible", isDisplayed(locator));
+    public static void assertNotVisible(String elementLocator) {
+        Assert.assertFalse(elementLocator + " should not be visible", isDisplayed(elementLocator));
     }
 }

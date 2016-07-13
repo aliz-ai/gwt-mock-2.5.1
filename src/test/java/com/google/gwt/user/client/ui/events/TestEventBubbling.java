@@ -1,7 +1,6 @@
 package com.google.gwt.user.client.ui.events;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;

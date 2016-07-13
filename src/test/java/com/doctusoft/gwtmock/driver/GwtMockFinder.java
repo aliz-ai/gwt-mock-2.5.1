@@ -29,12 +29,12 @@ public abstract class GwtMockFinder {
         }
     }
 
-    public static Element findElement(String paramString) {
+    public static Element findElement(String elementLocator) {
         Element element = null;
 
-        String[] prams = paramString.split("=");
+        String[] prams = elementLocator.split("=");
         if (prams.length > 1) {
-            final String text = paramString.substring(paramString.indexOf('=') + 1);
+            final String text = elementLocator.substring(elementLocator.indexOf('=') + 1);
             GwtMockFinder finder;
             if (prams[0].equals("text")) {
                 finder = new GwtMockFinder() {
@@ -67,7 +67,7 @@ public abstract class GwtMockFinder {
             }
             element = find(Document.get().getBody().getChildElements(), finder);
         } else {
-            element = Document.get().getElementById(by(paramString));
+            element = Document.get().getElementById(by(elementLocator));
         }
         return element;
     }
