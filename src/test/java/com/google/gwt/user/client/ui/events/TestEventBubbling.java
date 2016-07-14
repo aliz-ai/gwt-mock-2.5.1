@@ -1,7 +1,6 @@
 package com.google.gwt.user.client.ui.events;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
@@ -22,7 +21,6 @@ public class TestEventBubbling {
     }
 
     @Test
-    @Ignore
     public void testClickEventBubbling() {
         Label field1 = new Label();
         field1.ensureDebugId("label1");

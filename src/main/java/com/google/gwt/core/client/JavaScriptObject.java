@@ -116,7 +116,7 @@ public class JavaScriptObject {
    * @return this object as a different type
    */
   @SuppressWarnings("unchecked")
-  public final <T> T cast() {
+  public /*final*/ <T> T cast() {
     return (T) this;
   }
 

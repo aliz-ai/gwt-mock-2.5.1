@@ -5,18 +5,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.doctusoft.gwtmock.GWTMock;
-import com.google.gwt.core.client.impl.SchedulerImpl;
+import com.doctusoft.gwtmock.driver.BrowserMock;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.Command;
 
 public class TestMenuBar {
 
     @Before
     public void setup() {
-       GWTMock.reset();
+        BrowserMock.setUp();
     }
     
     @Test
@@ -32,10 +30,8 @@ public class TestMenuBar {
         Element element =  Document.get().getElementById("gwt-debug-menuItemOne");
         Assert.assertNotNull("Menu Item created", element);
     
-        //TODO Events tests will be added later once the decision will be made on where we have a driver class
-        //DOM fireEventBubbling(element, ClickEvent.getType());
-        //SchedulerImpl.INSTANCE.executeDeferredCommands();
-        //Mockito.verify(command).execute();
+        BrowserMock.click(element);
+        Mockito.verify(command).execute();
     }
     
 }

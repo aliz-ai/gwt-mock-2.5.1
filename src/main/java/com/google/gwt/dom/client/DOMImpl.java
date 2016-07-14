@@ -189,7 +189,7 @@ public class DOMImpl {
 																				}-*/;
 	
 	public EventTarget eventGetTarget(NativeEvent evt) {
-		return null;
+		return evt.__eventTarget;
 	}
 	
 	public final String eventGetType(NativeEvent evt) {
@@ -203,7 +203,10 @@ public class DOMImpl {
 																						evt.keyCode = key;
 																						}-*/;
 	
-	public native void eventStopPropagation(NativeEvent evt) /*-{
+	public void eventStopPropagation(NativeEvent evt) {
+	    evt.__propagationStopped = true;
+	}
+	                                                                         /*-{
 																				evt.stopPropagation();
 																				}-*/;
 	
