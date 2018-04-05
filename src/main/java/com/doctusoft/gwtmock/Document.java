@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.google.common.base.Preconditions;
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 import com.google.gwt.core.client.JavaScriptObject;
@@ -217,5 +216,8 @@ public class Document extends com.google.gwt.dom.client.Document {
         }
         return sw.getBuffer().toString();
 	}
-	
+
+	public Set<Element> getElements() {
+		return elements;
+	}
 }
