@@ -39,7 +39,8 @@ public class InputElement extends Element {
     return (InputElement) elem;
   }
 
-private boolean checked;
+  private boolean checked;
+  private boolean defaultChecked;
 
   public InputElement() {
   }
@@ -193,9 +194,9 @@ private boolean checked;
    * 
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-checked">W3C HTML Specification</a>
    */
-  public final native boolean isDefaultChecked() /*-{
-    return !!this.defaultChecked;
-  }-*/;
+  public final boolean isDefaultChecked() {
+    return this.defaultChecked;
+  }
 
   /**
    * The control is unavailable in this context.
@@ -281,7 +282,7 @@ private boolean checked;
    * @see <a href="http://www.w3.org/TR/1999/REC-html401-19991224/interact/forms.html#adef-checked">W3C HTML Specification</a>
    */
   public final void setDefaultChecked(boolean defaultChecked) {
-	  setAttribute("defaultChecked", Boolean.toString(defaultChecked));
+	  this.defaultChecked = defaultChecked;
   }
 
   /**
