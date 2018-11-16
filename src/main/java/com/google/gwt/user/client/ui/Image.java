@@ -839,7 +839,9 @@ public class Image extends Widget implements SourcesLoadEvents, HasLoadHandlers,
    * @param altText the alternate text to set to
    */
   public void setAltText(String altText) {
-    state.getImageElement(this).setAlt(altText);
+      //instead of calling setAlt for ImageElement just adding alt property
+      //state.getImageElement(this).setAlt(altText);
+      state.getImageElement(this).setPropertyString("alt", altText);
   }
 
   /**
