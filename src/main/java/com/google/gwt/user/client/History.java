@@ -217,6 +217,14 @@ public class History {
 		}
 	}
 	
+	public static void replaceItem(String historyToken) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public static void replaceItem(String historyToken, boolean issueEvent) {
+		throw new UnsupportedOperationException();
+	}
+	
 	/**
 	 * Call all history handlers with the specified token. Note that this does not
 	 * change the history system's idea of the current state and is only kept for
