@@ -117,9 +117,9 @@ public class DOMImpl {
 		return "cssFloat";
 	}
 	
-	public native void cssSetOpacity(Style style, double value) /*-{
-																					style.opacity = value;
-																					}-*/;
+	public void cssSetOpacity(Style style, double value) {
+		// not implemented
+	}
 	
 	public void dispatchEvent(Element target, NativeEvent evt) {
 	}
